@@ -1,22 +1,14 @@
 import * as React from 'react'
 import { Formik, Form, Field, ErrorMessage} from 'formik'
-import { HiSearch } from 'react-icons/hi';
 
 export default function Busqueda() {
   const buscar = (values) => {
-    window.location = '/busqueda';
-    }
-    const validar=(values) => {
-      const errors= {};
-      if(!values.buscar){
-        errors.buscar = 'Ingresa la información que deseas buscar'
-          }
-      return errors;
+    window.alert(values.buscar);
     }
 
   return (
     <>
-      <div class="md:flex md:p-5 p-3 flex-wrap">
+      <div className="md:flex md:p-5 p-3 flex-wrap">
         <div className="w-full font-black text-center md:text-3xl text-sm mb-3">Búsqueda Avanzada</div>
         <div className="w-full font-semibold text-center md:text-lg text-xs mb-3">Aquí podrás realizar búsquedas específicas</div>
         <div className="w-full font-semibold text-center md:text-lg text-xs mb-3">
@@ -25,7 +17,6 @@ export default function Busqueda() {
                 buscar:"",
                 }}
                 onSubmit={ buscar }
-                validate={ validar }
             >
             {( {values, handleSubmit, handleChange} ) => (
                   <div className='px-5 py-10 mt-10 text-center bg-white flex-col'>
@@ -37,17 +28,11 @@ export default function Busqueda() {
                         type="search" 
                         aria-label="Búsqueda de información" 
                         placeholder="Ingresa la información a buscar"
-                        class="block w-full appearance-none rounded-lg bg-transparent text-base text-slate-900 transition placeholder:text-slate-400 focus:outline-none sm:text-[0.8125rem] sm:leading-6 [&amp;::-webkit-search-cancel-button]:appearance-none [&amp;::-webkit-search-decoration]:appearance-none [&amp;::-webkit-search-results-button]:appearance-none [&amp;::-webkit-search-results-decoration]:appearance-none" 
+                        className="block w-full appearance-none rounded-lg bg-transparent text-base text-slate-900 transition placeholder:text-slate-400 focus:outline-none sm:text-[0.8125rem] sm:leading-6 [&amp;::-webkit-search-cancel-button]:appearance-none [&amp;::-webkit-search-decoration]:appearance-none [&amp;::-webkit-search-results-button]:appearance-none [&amp;::-webkit-search-results-decoration]:appearance-none" 
                         autoComplete="on"
                         value={values.buscar}
                       onChange={handleChange}
-                      InputProps={{
-                        endAdornment: (
-                          <HiSearch />
-                        ),
-                      }}
                       />
-                      <div className='text-red-600'><ErrorMessage name='buscar'/></div><br />
                       <Field 
                         as="select" 
                         name="categoria" 
@@ -103,88 +88,88 @@ export default function Busqueda() {
         </div>
         <div className="w-full font-semibold text-center md:text-lg text-xs mb-3">
           
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" className="px-6 py-3">
                         Asunto
                     </th>
-                    <th scope="col" class="px-6 py-3">
-                        <div class="flex items-center">
+                    <th scope="col" className="px-6 py-3">
+                        <div className="flex items-center">
                             Tipo
-                            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-1" aria-hidden="true" fill="currentColor" viewBox="0 0 320 512"><path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"/></svg></a>
+                            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3 ml-1" aria-hidden="true" fill="currentColor" viewBox="0 0 320 512"><path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"/></svg></a>
                         </div>
                     </th>
-                    <th scope="col" class="px-6 py-3">
-                        <div class="flex items-center">
+                    <th scope="col" className="px-6 py-3">
+                        <div className="flex items-center">
                             Estatus
-                            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-1" aria-hidden="true" fill="currentColor" viewBox="0 0 320 512"><path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"/></svg></a>
+                            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3 ml-1" aria-hidden="true" fill="currentColor" viewBox="0 0 320 512"><path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"/></svg></a>
                         </div>
                     </th>
-                    <th scope="col" class="px-6 py-3">
-                        <div class="flex items-center">
+                    <th scope="col" className="px-6 py-3">
+                        <div className="flex items-center">
                             Ejercicio
-                            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-1" aria-hidden="true" fill="currentColor" viewBox="0 0 320 512"><path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"/></svg></a>
+                            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3 ml-1" aria-hidden="true" fill="currentColor" viewBox="0 0 320 512"><path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"/></svg></a>
                         </div>
                     </th>
-                    <th scope="col" class="px-6 py-3">
-                      <div class="text-center">
+                    <th scope="col" className="px-6 py-3">
+                      <div className="text-center">
                         Detalle
                       </div>
                     </th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-green-400 hover:text-white">
-                    <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap dark:text-white">
+                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-green-400 hover:text-white">
+                    <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap dark:text-white">
                         Denuncia 1
                     </th>
-                    <td class="px-6 py-4">
+                    <td className="px-6 py-4">
                         Abuso de Funciones
                     </td>
-                    <td class="px-6 py-4">
+                    <td className="px-6 py-4">
                         Invetigación
                     </td>
-                    <td class="px-6 py-4">
+                    <td className="px-6 py-4">
                         2019
                     </td>
-                    <td class="px-6 py-4 text-center">
-                      <a href="#" class="p-3 bg-blue-800 hover:bg-blue-950 rounded-lg text-white"> Ver detalle</a>
+                    <td className="px-6 py-4 text-center">
+                      <a href="#" className="p-3 bg-blue-800 hover:bg-blue-950 rounded-lg text-white"> Ver detalle</a>
                     </td>
                 </tr>
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         Denuncia 2
                     </th>
-                    <td class="px-6 py-4">
+                    <td className="px-6 py-4">
                         Enriquecimiento ilícito
                     </td>
-                    <td class="px-6 py-4">
+                    <td className="px-6 py-4">
                         Invetigación
                     </td>
-                    <td class="px-6 py-4">
+                    <td className="px-6 py-4">
                         2020
                     </td>
-                    <td class="px-6 py-4 text-center">
-                      <a href="#" class="p-3 bg-blue-800 hover:bg-blue-950 rounded-lg text-white"> Ver detalle</a>
+                    <td className="px-6 py-4 text-center">
+                      <a href="#" className="p-3 bg-blue-800 hover:bg-blue-950 rounded-lg text-white"> Ver detalle</a>
                     </td>
                 </tr>
-                <tr class="bg-white dark:bg-gray-800">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <tr className="bg-white dark:bg-gray-800">
+                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         Denuncia 3
                     </th>
-                    <td class="px-6 py-4">
+                    <td className="px-6 py-4">
                         Cochecho
                     </td>
-                    <td class="px-6 py-4">
+                    <td className="px-6 py-4">
                         Invetigación
                     </td>
-                    <td class="px-6 py-4">
+                    <td className="px-6 py-4">
                         2021
                     </td>
-                    <td class="px-6 py-4 text-center">
-                      <a href="#" class="p-3 bg-blue-800 hover:bg-blue-950 rounded-lg text-white"> Ver detalle</a>
+                    <td className="px-6 py-4 text-center">
+                      <a href="#" className="p-3 bg-blue-800 hover:bg-blue-950 rounded-lg text-white"> Ver detalle</a>
                     </td>
                 </tr>
             </tbody>

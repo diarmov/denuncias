@@ -12,17 +12,6 @@ export default function Estadisticas() {
   const buscar = (values) => {
     window.location = '/estadisticas';
     }
-    const validar=(values) => {
-      const errors= {};
-      if (!values.periodo) {
-        errors.periodo = 'Selecciona el periodo para la búsqueda'
-      }
-      if(!values.entidad){
-        errors.entidad = 'Selecciona una entidad'
-          }
-      else if (values.entidad.length <5) errors.entidad = 'La contraseña debe ser mayor de 5 digitos'
-      return errors;
-    }
 
   return (
     <>
@@ -35,7 +24,6 @@ export default function Estadisticas() {
           entidad:""
           }}
           onSubmit={ buscar }
-          validate={ validar }
         >
           {( {values, handleSubmit, handleChange} ) => (
 

@@ -1,8 +1,13 @@
 import { Outlet} from 'react-router-dom'
 import NavbarHead from '../components/NavbarHead'
 import Sidebarmenu from '../components/Sidebarmenu'
+import useDenuncias from '../hooks/useDenuncias'
 
 const Inicio = () => {
+  
+//const { hola } = useDenuncias()
+//console.log(hola)
+
   return (
         <div className='text- sm:text-lg'>
             <NavbarHead />

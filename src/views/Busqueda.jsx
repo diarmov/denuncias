@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Formik, Form, Field, ErrorMessage} from 'formik'
+import { Formik, Form, Field} from 'formik'
 
 export default function Busqueda() {
   const buscar = (values) => {

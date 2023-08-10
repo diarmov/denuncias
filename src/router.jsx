@@ -8,6 +8,8 @@ import Tipo from './views/Tipo'
 import Estadisticas from './views/Estadisticas'
 import Listado from './views/usuarios/Listado'
 
+
+
 const router = createBrowserRouter([
     {
         path: '/',

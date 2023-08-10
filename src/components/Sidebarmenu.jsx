@@ -1,9 +1,12 @@
 'use client';
-
+import { useNavigate } from 'react-router-dom';
 import { Sidebar } from 'flowbite-react';
 import { HiInbox, HiUser, HiMenuAlt1, HiClipboardList, HiSearch, HiAnnotation, HiChartSquareBar } from 'react-icons/hi';
 
+
 export default function Sidebarmenu() {
+  const navigate = useNavigate('')
+
   return (
     <Sidebar className='bg-gray-500 h-screen'>
       <Sidebar.Items>
@@ -16,7 +19,8 @@ export default function Sidebarmenu() {
             </p>
           </Sidebar.Item>
           <Sidebar.Item
-            href="/inicio"
+            href="#"
+            onClick={() => navigate('inicio') }
             icon={HiInbox}
           >
             <p>
@@ -24,7 +28,8 @@ export default function Sidebarmenu() {
             </p>
           </Sidebar.Item>
           <Sidebar.Item
-            href="/busqueda"
+            href="#"
+            onClick={() => navigate('busqueda') }
             icon={HiSearch}
           >
             <p>
@@ -32,7 +37,8 @@ export default function Sidebarmenu() {
             </p>
           </Sidebar.Item>
           <Sidebar.Item
-            href="/tipo"
+            href="#"
+            onClick={() => navigate('tipo') }
             icon={HiAnnotation}
           >
             <p>
@@ -40,7 +46,8 @@ export default function Sidebarmenu() {
             </p>
           </Sidebar.Item>
           <Sidebar.Item
-            href="/estadisticas"
+            href="#"
+            onClick={() => navigate('estadisticas') }
             icon={HiChartSquareBar}
           >
             <p>
@@ -48,7 +55,8 @@ export default function Sidebarmenu() {
             </p>
           </Sidebar.Item>
           <Sidebar.Item
-            href="usuarios"
+            href="#"
+            onClick={() => navigate('usuarios') }
             icon={HiUser}
           >
             <p>

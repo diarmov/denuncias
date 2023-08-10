@@ -9,18 +9,18 @@ const DenunciasProvider = ({children}) => {
 const [usuarios, setUsuarios] = useState([]);
 
 
-const obtenerUsuarios = async () =>{
-    try {
-        const {data} = await clienteAxios('/api/listado')
-        setUsuarios(data.data)
-    } catch (error) {
-        console.log(error)
-    }
-}
+// const obtenerUsuarios = async () =>{
+//     try {
+//         const {data} = await clienteAxios('/api/listado')
+//         setUsuarios(data.data)
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
 
-useEffect(()=>{
-    obtenerUsuarios();
-},[])
+// useEffect(()=>{
+//     obtenerUsuarios();
+// },[])
 
 
     return (

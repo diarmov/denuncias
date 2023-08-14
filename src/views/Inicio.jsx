@@ -1,7 +1,6 @@
 import { Outlet} from 'react-router-dom'
 import NavbarHead from '../components/NavbarHead'
 import Sidebarmenu from '../components/Sidebarmenu'
-import useDenuncias from '../hooks/useDenuncias'
 
 const Inicio = () => {
   

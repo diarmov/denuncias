@@ -1,7 +1,7 @@
 import React, { createRef, useState } from "react";
 import { Formik, Form, Field, ErrorMessage} from 'formik';
 import * as yup from 'yup';
-import useDenuncias from "../hooks/useDenuncias";
+
 import { MagnifyingGlassIcon, ChevronUpDownIcon } from "@heroicons/react/24/solid";
 import { PencilIcon, UserPlusIcon, TrashIcon } from "@heroicons/react/24/solid";
 import axios from "axios";

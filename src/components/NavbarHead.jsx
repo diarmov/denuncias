@@ -2,8 +2,10 @@
 
 import { Dropdown, Navbar, Avatar } from 'flowbite-react';
 import { NavLink } from 'react-router-dom';
+import { useAuthStore } from '../hooks/useAuthStore';
 
 export default function NavbarHead() {
+  const { onLogout, active } = useAuthStore()
   return (
     <Navbar
       fluid
@@ -27,20 +29,20 @@ export default function NavbarHead() {
         >
           <Dropdown.Header>
             <span className="block text-sm">
-              Nombre de Usuario
+             { active.name }
             </span>
             <span className="block truncate text-sm font-medium">
-              correo@correo.com
+             { active.email }
             </span>
           </Dropdown.Header>
           <NavLink to="/inicio">
-            <Dropdown.Item >
+            <Dropdown.Item>
               Tablero
             </Dropdown.Item>
           </NavLink>
           <Dropdown.Divider />
           <NavLink to="/">
-            <Dropdown.Item>
+            <Dropdown.Item onClick={ onLogout }>
               Cerrar Sesión
             </Dropdown.Item>
           </NavLink>

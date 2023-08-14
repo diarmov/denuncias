@@ -1,7 +1,7 @@
 'use client';
 import { useNavigate } from 'react-router-dom';
 import { Sidebar } from 'flowbite-react';
-import { HiInbox, HiUser, HiMenuAlt1, HiClipboardList, HiSearch, HiAnnotation, HiChartSquareBar } from 'react-icons/hi';
+import { HiInbox, HiUser, HiMenuAlt1, HiClipboardList, HiSearch, HiAnnotation, HiChartSquareBar, HiFolderOpen } from 'react-icons/hi';
 
 
 export default function Sidebarmenu() {
@@ -53,6 +53,13 @@ export default function Sidebarmenu() {
             <p>
               Estadísticas
             </p>
+          </Sidebar.Item>
+          <Sidebar.Item
+            href="#"
+            onClick={() => navigate('denuncias') }
+            icon={HiFolderOpen}
+          >
+            <p>Denuncias</p>
           </Sidebar.Item>
           <Sidebar.Item
             href="#"

@@ -1,4 +1,6 @@
+import { lazy } from "react";
 import { Navigate, createBrowserRouter } from "react-router-dom";
+
 import Layout from '../Layouts/Layout'
 import Inicio from "../views/Inicio";
 import Loginform from '../components/Loginform'
@@ -7,6 +9,11 @@ import Busqueda from '../views/Busqueda'
 import Tipo from '../views/Tipo'
 import Estadisticas from '../views/Estadisticas'
 import Listado from '../views/usuarios/Listado'
+import Denuncias from "../views/Denuncias";
+
+
+
+// const Denuncias = lazy(() => import('../views/Denuncias'));
 
 export const RouterDenuncias = () => {
     const getRoutes = ( status ) => {
@@ -62,6 +69,16 @@ export const RouterDenuncias = () => {
                           element: <Estadisticas />
                         }
                     ]
+                },
+                {
+                    path: '/denuncias',
+                    element: <Inicio />,
+                    children: [
+                       {
+                          index: true,
+                          element: <Denuncias />
+                        }
+                     ]
                 },
                 {
                      path: '/usuarios',

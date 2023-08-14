@@ -2,21 +2,24 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 //import { useUiStore } from './';
-//import api from '../api/api';
+import api from '../config/api';
+
 import { 
          login, 
          logout, 
          onChecking,
+         resetAuth,
        } from '../store';
+
 
 
 export const useAuthStore = () => {
   const { users, active, status } = useSelector(state => state.auth)
   const dispatch = useDispatch();
 
-  const onLogin = async({email, password}) => {
-    
+  const onLogin = async({email, password}) => {    
     dispatch( onChecking() )
+
     try {
       const { data } = await api.post('/login', { email, password });
       const { token, user } = data
@@ -33,7 +36,7 @@ export const useAuthStore = () => {
   }
 
   const onLogout = async() => {
-       await api.post('/logout');
+        await api.post('/logout');
         localStorage.clear();
         dispatch( logout() );
         dispatch( resetAuth() );

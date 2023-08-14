@@ -29,7 +29,7 @@ var midata = {
     labels: meses,
     datasets: [
         {
-            label: 'Beneficios',
+            label: 'SFP',
             data: beneficios,
             tension: 0.5,
             fill: false,
@@ -41,7 +41,7 @@ var midata = {
 
         },
         {
-            label: 'Beneficios2',
+            label: 'OIC',
             data: beneficiosdos,
             tension: 0.5,
             fill: false,

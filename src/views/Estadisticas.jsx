@@ -5,7 +5,6 @@ import DenunciasxMesChart from '../components/DenunciasxMesChart';
 import OrigenDenunciasChart from '../components/OrigenDenunciasChart';
 import DenunciasRadicadasChart from '../components/DenunciasRadicadasChart';
 import DependenciasMasChart from '../components/DependenciasMasChart';
-import GeneroDenunciadoChart from '../components/GeneroDenunciadoChart';
 
 export default function Estadisticas() {
   
@@ -15,8 +14,8 @@ export default function Estadisticas() {
 
   return (
     <>
-    <div className="md:flex md:p-5 p-3 flex-wrap justify-center">
-      <div className="w-full font-black text-center md:text-3xl text-sm mb-3">Estadísticas</div>
+    <div className="flex-wrap justify-center p-3 md:flex md:p-5">
+      <div className="w-full mb-3 text-sm font-black text-center md:text-3xl">Estadísticas</div>
       <div className='w-full'>
         <Formik
         initialValues={{ 
@@ -28,7 +27,7 @@ export default function Estadisticas() {
           {( {values, handleSubmit, handleChange} ) => (
 
             
-            <div className='flex justify-center flex-row'>
+            <div className='flex flex-row justify-center'>
               <Form onSubmit={handleSubmit}>
                 <div className='w-full'>
                 <label htmlFor="periodo" className='font-bold'>Periodo  </label>
@@ -38,7 +37,7 @@ export default function Estadisticas() {
                     type="date" 
                     placeholder="Periodo desde"
                     aria-label="Búsqueda de por periodo" 
-                    className="rounded-lg m-2" 
+                    className="m-2 rounded-lg" 
                     value={values.periodo}
                     onChange={handleChange}
                   />
@@ -48,14 +47,14 @@ export default function Estadisticas() {
                         type="date" 
                         placeholder="Periodo hasta"
                         aria-label="Búsqueda de por periodo" 
-                        className="rounded-lg m-2" 
+                        className="m-2 rounded-lg" 
                         value={values.periodos}
                         onChange={handleChange}
                       />
                 <Field 
                     as="select" 
                     name="entidad" 
-                    className="rounded-lg m-2"
+                    className="m-2 rounded-lg"
                     aria-label="Categoría de la entidad"
                     value={values.entidad}
                     onChange={handleChange}>
@@ -67,11 +66,11 @@ export default function Estadisticas() {
                     <option value="denuncia5">Denuncia 5</option>
                   </Field>
                 </div>
-                <div className='text-red-600 flex w-full'>
+                <div className='flex w-full text-red-600'>
                   <div className='m-3'><ErrorMessage name='periodo'/></div>
                   <div className='m-3'><ErrorMessage name='entidad'/></div>
                  </div>
-                 <div className='justify-center text-center flex w-full'>
+                 <div className='flex justify-center w-full text-center'>
                  <button type='submit' className=' w-[50%] p-3 font-medium text-white bg-red-800 rounded-xl hover:bg-red-950 m-7'>Buscar</button>
                  </div>
               </Form>
@@ -79,7 +78,7 @@ export default function Estadisticas() {
             )}
         </Formik>
       </div>
-      <div className='md:flex w-full h-96 justify-center text-center'>
+      <div className='justify-center w-full text-center md:flex h-96'>
           <div className='w-[50%]  justify-center font-semibold text-center text-xs md:text-xl'>
               <PieChartEstadistica/>
           </div>
@@ -87,7 +86,7 @@ export default function Estadisticas() {
               <DenunciasxMesChart />
           </div>
       </div>
-      <div className='md:flex w-full h-96 justify-center text-center'>
+      <div className='justify-center w-full text-center md:flex h-96'>
           <div className='w-[50%]  justify-center font-semibold text-center text-xs md:text-xl'>
               <OrigenDenunciasChart />
           </div>
@@ -95,12 +94,9 @@ export default function Estadisticas() {
               <DenunciasRadicadasChart />
           </div>
       </div>
-      <div className='md:flex w-full h-96 justify-center text-center'>
+      <div className='justify-center w-full text-center md:flex h-96'>
           <div className='w-[50%]  justify-center font-semibold text-center text-xs md:text-xl'>
               <DependenciasMasChart />
-          </div>
-          <div className='w-[50%] justify-center font-semibold text-center text-xs md:text-xl'>
-              <GeneroDenunciadoChart />
           </div>
       </div>
     </div>

@@ -6,9 +6,11 @@ export const denunciaSlice = createSlice({
         denuncias: [],
         chart:[],
         proceso:[],
-        inprocedente:[],
+        improcedente:[],
         concluida:[],
-        atendidasSFP:[]
+        atendidasSFP:[],
+        etapas:[],
+        clasificacion:[]
     },
     reducers: {
         getDenuncias:  (state, { payload } ) => {
@@ -20,16 +22,22 @@ export const denunciaSlice = createSlice({
         getProceso:  (state, { payload } ) => {
             state.proceso = payload;
         },
-        getInprocedentes:  (state, { payload } ) => {
-            state.inprocedente = payload;
+        getImprocedentes:  (state, { payload } ) => {
+            state.improcedente = payload;
         },
         getConcluidas:  (state, { payload } ) => {
             state.concluida = payload;
         },
         getAtendidasSFP:  (state, { payload } ) => {
             state.atendidasSFP = payload;
-        }   
+        },
+        getEtapas:  (state, { payload } ) => {
+            state.etapas = payload;
+        },
+        getClasificacion:  (state, { payload } ) => {
+            state.clasificacion = payload;
+        } 
     }
 });
 
-export const { getDenuncias, getChart, getProceso, getInprocedentes, getConcluidas, getAtendidasSFP } = denunciaSlice.actions;
+export const { getDenuncias, getChart, getProceso, getImprocedentes, getConcluidas, getAtendidasSFP, getEtapas, getClasificacion } = denunciaSlice.actions;

@@ -16,10 +16,10 @@ export default function tablero() {
       if(proceso.length === 0) onGetDataProceso()
     },[])
 
-    const { inprocedente, onGetDataInprocedente } = useDenunciasStore()
-  //console.log(inprocedente);
+    const { improcedente, onGetDataImprocedente } = useDenunciasStore()
+  //console.log(improcedente);
     useEffect(() => {
-      if(inprocedente.length === 0) onGetDataInprocedente()
+      if(improcedente.length === 0) onGetDataImprocedente()
     },[])
 
     const { chart, onGetDataChart } = useDenunciasStore()
@@ -39,12 +39,19 @@ export default function tablero() {
       useEffect(() => {
           if(atendidasSFP.length === 0) onGetDataAtendidasSFP()
       },[])
+
+      const { etapas, onGetDataEtapa } = useDenunciasStore()
+      //console.log(etapas);
+        useEffect(() => {
+            if(etapas.length === 0) onGetDataEtapa()
+        },[])
     
 
   return (
     <>
       <div className="flex-wrap m-5 md:flex">
         <div className="h-min md:w-[25%]">
+          
             <a href="/denunciasrecibidas" className="h-min">
               <div className="p-3 m-2 transition duration-300 ease-in-out delay-150 rounded-lg shadow-lg shadow-gray-500 h-min bg-gray-50 hover:-translate-y-1 hover:scale-110 hover:bg-gray-200">
                 <div className="flex justify-center w-full text-lg font-bold">
@@ -92,7 +99,7 @@ export default function tablero() {
                   <svg className="w-10 h-10 p-2 text-red-800 bg-red-300 rounded-md shadow-sm" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20"><path fill="currentColor" d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-5 1v2H7V2h4Zm5 16H2V3h3v1a1 1 0 0 0 0 2h8a1 1 0 1 0 0-2V3h3v15Z"/><path fill="currentColor" d="M13 9H8a1 1 0 0 0 0 2h5a1 1 0 0 0 0-2Zm0 4H8a1 1 0 0 0 0 2h5a1 1 0 0 0 0-2Zm-8-2a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/></svg>
                   </div>
                   <div className="flex justify-center w-full">
-                    <p>{ inprocedente.length }</p>
+                    <p>{ improcedente.length }</p>
                   </div>
                 </div>
               </div>
@@ -164,18 +171,27 @@ export default function tablero() {
               </div>
             </div>
             <div className="flex-wrap m-5 md:w-[50%] shadow-md rounded-xl p-10">
-              <label className="text-2xl font-bold text-justify text-blue-800">Procesos</label>
+              <label className="text-2xl font-bold text-justify text-blue-800">Etapas</label>
               <div className="p-3 m-2 transition duration-300 ease-in-out delay-150 rounded-lg shadow-lg shadow-gray-500 h-min bg-gray-50 hover:-translate-y-1 hover:scale-110 hover:bg-gray-200">
                 <div className="flex flex-row w-full p-2">
                   <div className="font-semibold text-left w-[50%]">
                     Investigación
                   </div>
                   <div className="text-right w-[50%]">
-                    850
+                  {
+                    etapas.filter(item => item.idEtapa == '1')
+                    .map(item => (
+                      <div key={item.totaletapa}>{item.totaletapa}</div>))
+                  }
                   </div>
                 </div>
+                { etapas.filter(item => item.idEtapa == '1')
+                      .map(item => (
+                        ((item.totaletapa*100)/denuncias.length)+'%')) }
                 <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mb-3">
-                  <div className="bg-green-400 h-2.5 rounded-full" style={{ width: '65%' }}></div>
+                  <div className="bg-[#ff0000] h-2.5 rounded-full" style={{ width: etapas.filter(item => item.idEtapa == '1')
+                      .map(item => (
+                        ((item.totaletapa*100)/denuncias.length)+'%')) }}></div>
                 </div>
               </div>
               <div className="p-3 m-2 transition duration-300 ease-in-out delay-150 rounded-lg shadow-lg shadow-gray-500 h-min bg-gray-50 hover:-translate-y-1 hover:scale-110 hover:bg-gray-200">
@@ -184,11 +200,20 @@ export default function tablero() {
                     Sustanciación
                   </div>
                   <div className="text-right w-[50%]">
-                    620
+                  {
+                    etapas.filter(item => item.idEtapa == '2')
+                    .map(item => (
+                      <div key={item.totaletapa}>{item.totaletapa}</div>))
+                  }
                   </div>
                 </div>
+                { etapas.filter(item => item.idEtapa == '2')
+                      .map(item => (
+                        ((item.totaletapa*100)/denuncias.length)+'%')) }
                 <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mb-3">
-                  <div className="bg-red-600 h-2.5 rounded-full" style={{ width: '45%' }}></div>
+                  <div className="bg-[#ff00b6] h-2.5 rounded-full" style={{ width: etapas.filter(item => item.idEtapa == '2')
+                      .map(item => (
+                        ((item.totaletapa*100)/denuncias.length)+'%')) }}></div>
                 </div>
               </div>
               <div className="p-3 m-2 transition duration-300 ease-in-out delay-150 rounded-lg shadow-lg shadow-gray-500 h-min bg-gray-50 hover:-translate-y-1 hover:scale-110 hover:bg-gray-200">
@@ -197,37 +222,196 @@ export default function tablero() {
                     Resolución
                   </div>
                   <div className="text-right w-[50%]">
-                    50
+                  {
+                    etapas.filter(item => item.idEtapa == '3')
+                    .map(item => (
+                      <div key={item.totaletapa}>{item.totaletapa}</div>))
+                  }
                   </div>
                 </div>
+                { etapas.filter(item => item.idEtapa == '3')
+                      .map(item => (
+                        ((item.totaletapa*100)/denuncias.length)+'%')) }
                 <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mb-3">
-                  <div className="bg-orange-500 h-2.5 rounded-full" style={{ width: '10%' }}></div>
+                  <div className="bg-[#d400ff] h-2.5 rounded-full" style={{ width: etapas.filter(item => item.idEtapa == '3')
+                      .map(item => (
+                        ((item.totaletapa*100)/denuncias.length)+'%')) }}></div>
                 </div>
               </div>
               <div className="p-3 m-2 transition duration-300 ease-in-out delay-150 rounded-lg shadow-lg shadow-gray-500 h-min bg-gray-50 hover:-translate-y-1 hover:scale-110 hover:bg-gray-200">
                 <div className="flex flex-row w-full p-2">
                   <div className="font-semibold text-left w-[50%]">
-                    Firmes
+                  Con Resolución o Sentencia
                   </div>
                   <div className="text-right w-[50%]">
-                    120
+                  {
+                    etapas.filter(item => item.idEtapa == '4')
+                    .map(item => (
+                      <div key={item.totaletapa}>{item.totaletapa}</div>))
+                  }
                   </div>
                 </div>
+                { etapas.filter(item => item.idEtapa == '4')
+                      .map(item => (
+                        ((item.totaletapa*100)/denuncias.length)+'%')) }
                 <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mb-3">
-                  <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '30%' }}></div>
+                  <div className="bg-[#8700ff] h-2.5 rounded-full" style={{ width: etapas.filter(item => item.idEtapa == '4')
+                      .map(item => (
+                        ((item.totaletapa*100)/denuncias.length)+'%')) }}></div>
                 </div>
               </div>
               <div className="p-3 m-2 transition duration-300 ease-in-out delay-150 rounded-lg shadow-lg shadow-gray-500 h-min bg-gray-50 hover:-translate-y-1 hover:scale-110 hover:bg-gray-200">
                 <div className="flex flex-row w-full p-2">
                   <div className="font-semibold text-left w-[50%]">
-                    Improcedentes
+                  Impugnación
                   </div>
                   <div className="text-right w-[50%]">
-                    70
+                  {
+                    etapas.filter(item => item.idEtapa == '5')
+                    .map(item => (
+                      <div key={item.totaletapa}>{item.totaletapa}</div>))
+                  }
                   </div>
                 </div>
+                { etapas.filter(item => item.idEtapa == '5')
+                      .map(item => (
+                        ((item.totaletapa*100)/denuncias.length)+'%')) }
                 <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mb-3">
-                  <div className="bg-yellow-300 h-2.5 rounded-full" style={{ width: '18%' }}></div>
+                  <div className="bg-[#3300ff] h-2.5 rounded-full" style={{ width: etapas.filter(item => item.idEtapa == '5')
+                      .map(item => (
+                        ((item.totaletapa*100)/denuncias.length)+'%')) }}></div>
+                </div>
+              </div>
+              <div className="p-3 m-2 transition duration-300 ease-in-out delay-150 rounded-lg shadow-lg shadow-gray-500 h-min bg-gray-50 hover:-translate-y-1 hover:scale-110 hover:bg-gray-200">
+                <div className="flex flex-row w-full p-2">
+                  <div className="font-semibold text-left w-[50%]">
+                  Amparo
+                  </div>
+                  <div className="text-right w-[50%]">
+                  {
+                    etapas.filter(item => item.idEtapa == '6')
+                    .map(item => (
+                      <div key={item.totaletapa}>{item.totaletapa}</div>))
+                  }
+                  </div>
+                </div>
+                { etapas.filter(item => item.idEtapa == '6')
+                      .map(item => (
+                        ((item.totaletapa*100)/denuncias.length)+'%')) }
+                <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mb-3">
+                  <div className="bg-[#00a1ff] h-2.5 rounded-full" style={{ width: etapas.filter(item => item.idEtapa == '6')
+                      .map(item => (
+                        ((item.totaletapa*100)/denuncias.length)+'%')) }}></div>
+                </div>
+              </div>
+              <div className="p-3 m-2 transition duration-300 ease-in-out delay-150 rounded-lg shadow-lg shadow-gray-500 h-min bg-gray-50 hover:-translate-y-1 hover:scale-110 hover:bg-gray-200">
+                <div className="flex flex-row w-full p-2">
+                  <div className="font-semibold text-left w-[50%]">
+                  Firme
+                  </div>
+                  <div className="text-right w-[50%]">
+                  {
+                    etapas.filter(item => item.idEtapa == '7')
+                    .map(item => (
+                      <div key={item.totaletapa}>{item.totaletapa}</div>))
+                  }
+                  </div>
+                </div>
+                { etapas.filter(item => item.idEtapa == '7')
+                      .map(item => (
+                        ((item.totaletapa*100)/denuncias.length)+'%')) }
+                <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mb-3">
+                  <div className="bg-[#00ffd8] h-2.5 rounded-full" style={{ width: etapas.filter(item => item.idEtapa == '7')
+                      .map(item => (
+                        ((item.totaletapa*100)/denuncias.length)+'%')) }}></div>
+                </div>
+              </div>
+              <div className="p-3 m-2 transition duration-300 ease-in-out delay-150 rounded-lg shadow-lg shadow-gray-500 h-min bg-gray-50 hover:-translate-y-1 hover:scale-110 hover:bg-gray-200">
+                <div className="flex flex-row w-full p-2">
+                  <div className="font-semibold text-left w-[50%]">
+                  Conclusión y Archivo
+                  </div>
+                  <div className="text-right w-[50%]">
+                  {
+                    etapas.filter(item => item.idEtapa == '8')
+                    .map(item => (
+                      <div key={item.totaletapa}>{item.totaletapa}</div>))
+                  }
+                  </div>
+                </div>
+                { etapas.filter(item => item.idEtapa == '8')
+                      .map(item => (
+                        ((item.totaletapa*100)/denuncias.length)+'%')) }
+                <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mb-3">
+                  <div className="bg-[#10ff00] h-2.5 rounded-full" style={{ width: etapas.filter(item => item.idEtapa == '8')
+                      .map(item => (
+                        ((item.totaletapa*100)/denuncias.length)+'%')) }}></div>
+                </div>
+              </div>
+              <div className="p-3 m-2 transition duration-300 ease-in-out delay-150 rounded-lg shadow-lg shadow-gray-500 h-min bg-gray-50 hover:-translate-y-1 hover:scale-110 hover:bg-gray-200">
+                <div className="flex flex-row w-full p-2">
+                  <div className="font-semibold text-left w-[50%]">
+                  Improcedentes
+                  </div>
+                  <div className="text-right w-[50%]">
+                  {
+                    etapas.filter(item => item.idEtapa == '9')
+                    .map(item => (
+                      <div key={item.totaletapa}>{item.totaletapa}</div>))
+                  }
+                  </div>
+                </div>
+                { etapas.filter(item => item.idEtapa == '9')
+                      .map(item => (
+                        ((item.totaletapa*100)/denuncias.length)+'%')) }
+                <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mb-3">
+                  <div className="bg-[#e9ff00] h-2.5 rounded-full" style={{ width: etapas.filter(item => item.idEtapa == '9')
+                      .map(item => (
+                        ((item.totaletapa*100)/denuncias.length)+'%')) }}></div>
+                </div>
+              </div>
+              <div className="p-3 m-2 transition duration-300 ease-in-out delay-150 rounded-lg shadow-lg shadow-gray-500 h-min bg-gray-50 hover:-translate-y-1 hover:scale-110 hover:bg-gray-200">
+                <div className="flex flex-row w-full p-2">
+                  <div className="font-semibold text-left w-[50%]">
+                  Sobreseimiento
+                  </div>
+                  <div className="text-right w-[50%]">
+                  {
+                    etapas.filter(item => item.idEtapa == '10')
+                    .map(item => (
+                      <div key={item.totaletapa}>{item.totaletapa}</div>))
+                  }
+                  </div>
+                </div>
+                { etapas.filter(item => item.idEtapa == '10')
+                      .map(item => (
+                        ((item.totaletapa*100)/denuncias.length)+'%')) }
+                <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mb-3">
+                  <div className="bg-[#ff8c00] h-2.5 rounded-full" style={{ width: etapas.filter(item => item.idEtapa == '10')
+                      .map(item => (
+                        ((item.totaletapa*100)/denuncias.length)+'%')) }}></div>
+                </div>
+              </div>
+              <div className="p-3 m-2 transition duration-300 ease-in-out delay-150 rounded-lg shadow-lg shadow-gray-500 h-min bg-gray-50 hover:-translate-y-1 hover:scale-110 hover:bg-gray-200">
+                <div className="flex flex-row w-full p-2">
+                  <div className="font-semibold text-left w-[50%]">
+                  En Proceso
+                  </div>
+                  <div className="text-right w-[50%]">
+                  {
+                    etapas.filter(item => item.idEtapa == '11')
+                    .map(item => (
+                      <div key={item.totaletapa}>{item.totaletapa}</div>))
+                  }
+                  </div>
+                </div>
+                { etapas.filter(item => item.idEtapa == '11')
+                      .map(item => (
+                        ((item.totaletapa*100)/denuncias.length)+'%')) }
+                <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mb-3">
+                  <div className="bg-[#82e6ff] h-2.5 rounded-full" style={{ width: etapas.filter(item => item.idEtapa == '11')
+                      .map(item => (
+                        ((item.totaletapa*100)/denuncias.length)+'%')) }}></div>
                 </div>
               </div>
             </div>

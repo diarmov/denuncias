@@ -1,18 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
 import api from "../config/api";
-import { getChart, getDenuncias, getProceso, getInprocedentes, getConcluidas, getAtendidasSFP } from "../store";
+import { getChart, getDenuncias, getProceso, getImprocedentes, getConcluidas, getAtendidasSFP, getEtapas, getClasificacion } from "../store";
 
 export const useDenunciasStore = () => {
-    const { denuncias, chart, proceso, inprocedente, concluida, atendidasSFP } = useSelector(state => state.denuncias)
+    const { denuncias, chart, proceso, improcedente, concluida, atendidasSFP, etapas, clasificacion } = useSelector(state => state.denuncias)
     const dispatch = useDispatch();
 
     const onGetDenuncias = async() => {
         try {
-            const { data } = await api.get('/denuncias');
+            const { data } = await api.get('/denunciastotal');
             const { denuncias, success } = data
             //console.log(denuncias);
             if( success ){
-                dispatch( getDenuncias( denuncias.data ) )
+                dispatch( getDenuncias( denuncias ) )
             }
           
         } catch (error) {
@@ -50,14 +50,14 @@ export const useDenunciasStore = () => {
         }
     }
 
-    const onGetDataInprocedente = async() => {
+    const onGetDataImprocedente = async() => {
         try {
-            const { data } = await api.get('/denunciasinprocedentes');
+            const { data } = await api.get('/denunciasimprocedentes');
             const { denuncias, success } = data
             //console.log(denuncias);
             
             if( success ){
-                dispatch( getInprocedentes( denuncias ) )
+                dispatch( getImprocedentes( denuncias ) )
             }
           
         } catch (error) {
@@ -84,7 +84,7 @@ export const useDenunciasStore = () => {
         try {
             const { data } = await api.get('/denunciasatendidassfp');
             const { denuncias, success } = data
-            console.log(denuncias);
+            //console.log(denuncias);
             
             if( success ){
                 dispatch( getAtendidasSFP( denuncias ) )
@@ -95,20 +95,55 @@ export const useDenunciasStore = () => {
         }
     }
 
+                //console.log(denuncias);
+    const onGetDataEtapa = async() => {
+        try {
+            const { data } = await api.get('/denunciasetapa');
+            const { denuncias, success } = data
+            //console.log(denuncias);
+
+            if( success ){
+                dispatch( getEtapas( denuncias ) )
+            }
+        
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const onGetDataClasificacion = async() => {
+        try {
+            const { data } = await api.get('/denunciasclasificacion');
+            const { denuncias, success } = data
+            //console.log(denuncias);
+
+            if( success ){
+                dispatch( getClasificacion( denuncias ) )
+            }
+        
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     return {
         denuncias,
         chart,
         proceso,
-        inprocedente,
+        improcedente,
         concluida,
         atendidasSFP,
+        etapas,
+        clasificacion,
         onGetDenuncias,
         onGetDataChart,
         onGetDataProceso,
-        onGetDataInprocedente,
+        onGetDataImprocedente,
         onGetDataConcluida,
-        onGetDataAtendidasSFP
+        onGetDataAtendidasSFP,
+        onGetDataEtapa,
+        onGetDataClasificacion
 
     }
 }

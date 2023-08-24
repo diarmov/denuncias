@@ -2,7 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+    
+.custom-select input {
+    border: none  !important;
+    outline: none !important;
+    background-color: #fff;
+}
 
-    
-    
 

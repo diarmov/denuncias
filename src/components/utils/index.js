@@ -1,1 +1,0 @@
-export { CheckingAuth } from "./CheckingAuth";

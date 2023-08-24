@@ -28,11 +28,15 @@ const Loginform = () => {
       >
         {
           () => (
-            <div className='px-5 py-10 mt-10 text-center bg-white'>
+            <div className='px-5 py-10 mt-10 bg-white'>
               <Form>
+                <div className='mb-2'>
+                  <TextInput label="Email" name='email' placeholder='Email' type='email' icon={ <AlternateEmail /> } />
+                </div>
                 
-                <TextInput label="Email" name='email' placeholder='Email' type='email' icon={ <AlternateEmail /> } />
-                <TextInput label="Password" name='password' placeholder='Contraseña' type='password' icon={ <Key /> } />
+                <div className='mb-2'>
+                 <TextInput label="Password" name='password' placeholder='Contraseña' type='password' icon={ <Key /> } />
+                </div>               
                 
                 <div className='mt-4'>                
                   <button 

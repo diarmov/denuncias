@@ -29,10 +29,10 @@ export default function NavbarHead() {
         >
           <Dropdown.Header>
             <span className="block text-sm">
-             { active.name }
+             { active?.name }
             </span>
             <span className="block truncate text-sm font-medium">
-             { active.email }
+             { active?.email }
             </span>
           </Dropdown.Header>
           <NavLink to="/inicio">

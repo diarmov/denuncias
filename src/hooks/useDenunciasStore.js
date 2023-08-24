@@ -1,17 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
+import { getChart, getDenuncias, resetDenuncia, setDenuncia, setSearch, getProceso, getImprocedentes, getConcluidas, getAtendidasSFP, getEtapas, getClasificacion } from "../store";
 import api from "../config/api";
-
-import { getDenuncias, resetDenuncia, setDenuncia, setSearch } from "../store";
 import { useUiStore } from '../hooks/useUiStore';
 
+
 export const useDenunciasStore = () => {
-    const { denuncias, denuncia, search } = useSelector(state => state.denuncias)
+    const { denuncias, denuncia, search, chart, proceso, improcedente, concluida, atendidasSFP, etapas, clasificacion } = useSelector(state => state.denuncias)
     const { onLoading, onModal, onNotification } = useUiStore()
     const dispatch = useDispatch();
 
     const onGetDenuncias = async( page = 1 ) => {
         onLoading( true )
         try {
+
             const { data } = await api.get(`/denuncias?page=${page}`);
             const { denuncias, success } = data
    
@@ -124,17 +125,122 @@ export const useDenunciasStore = () => {
         dispatch( resetDenuncia() )
     }
 
+    const onGetDataProceso = async() => {
+        try {
+            const { data } = await api.get('/denunciasproceso');
+            const { denuncias, success } = data
+            //console.log(denuncias);
+            
+            if( success ){
+                dispatch( getProceso( denuncias ) )
+            }
+          
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const onGetDataImprocedente = async() => {
+        try {
+            const { data } = await api.get('/denunciasimprocedentes');
+            const { denuncias, success } = data
+            //console.log(denuncias);
+            
+            if( success ){
+                dispatch( getImprocedentes( denuncias ) )
+            }
+          
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const onGetDataConcluida = async() => {
+        try {
+            const { data } = await api.get('/denunciasconcluidas');
+            const { denuncias, success } = data
+            //console.log(denuncias);
+            
+            if( success ){
+                dispatch( getConcluidas( denuncias ) )
+            }
+          
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const onGetDataAtendidasSFP = async() => {
+        try {
+            const { data } = await api.get('/denunciasatendidassfp');
+            const { denuncias, success } = data
+            //console.log(denuncias);
+            
+            if( success ){
+                dispatch( getAtendidasSFP( denuncias ) )
+            }
+          
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+                //console.log(denuncias);
+    const onGetDataEtapa = async() => {
+        try {
+            const { data } = await api.get('/denunciasetapa');
+            const { denuncias, success } = data
+            //console.log(denuncias);
+
+            if( success ){
+                dispatch( getEtapas( denuncias ) )
+            }
+        
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const onGetDataClasificacion = async() => {
+        try {
+            const { data } = await api.get('/denunciasclasificacion');
+            const { denuncias, success } = data
+            //console.log(denuncias);
+
+            if( success ){
+                dispatch( getClasificacion( denuncias ) )
+            }
+        
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
     return {
         denuncias,
         denuncia,
         search,
-
+        chart,
+        proceso,
+        improcedente,
+        concluida,
+        atendidasSFP,
+        etapas,
+        clasificacion,
         onGetDenuncias,
         onSearch,
         onSetSearch,
         onStore,
         onUpdate,
         onSetDenuncia,
-        onResetDenuncia
+        onResetDenuncia,
+        onGetDataChart,
+        onGetDataProceso,
+        onGetDataImprocedente,
+        onGetDataConcluida,
+        onGetDataAtendidasSFP,
+        onGetDataEtapa,
+        onGetDataClasificacion
     }
 }

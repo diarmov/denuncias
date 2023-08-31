@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getChart, getDenuncias, resetDenuncia, setDenuncia, getProceso, getImprocedentes, getConcluidas, getAtendidasSFP, getEtapas, getClasificacion } from "../store";
+import { getChart, getDenuncias, resetDenuncia, setDenuncia,  getTotal, getAtenSFP, getAtenOIC, getAtenTJA, getClasificacion} from "../store";
 import api from "../config/api";
 import { useUiStore } from '../hooks/useUiStore';
 
 
 export const useDenunciasStore = () => {
-    const { denuncias, denuncia, chart, proceso, improcedente, concluida, atendidasSFP, etapas, clasificacion } = useSelector(state => state.denuncias)
+    const { denuncias, denuncia, chart, denunciastotal, atencionsfp, atencionoic, atenciontja, clasificacion } = useSelector(state => state.denuncias)
     const { onLoading, onNotification, onSetSearch } = useUiStore()
     const dispatch = useDispatch();
 
@@ -26,6 +26,41 @@ export const useDenunciasStore = () => {
             onLoading( false )
         }
     }
+
+    const onGetDenunciasTotal = async() => {
+        try {
+            const { data } = await api.get('/denunciastotal');
+            const { denuncias, success } = data
+           // console.log(denuncias);
+            
+            if( success ){
+                dispatch( getTotal( denuncias ) )
+                onLoading( false )
+            }
+          
+        } catch (error) {
+            console.log(error);
+            onLoading( false )
+        }
+    }
+
+    const onGetDataChart = async() => {
+        try {
+            const { data } = await api.get('/denunciasradicadassfp');
+            const { denuncias, success } = data
+            //console.log(denuncias);
+            
+            if( success ){
+                dispatch( getChart( denuncias ) )
+                onLoading( false )
+            }
+          
+        } catch (error) {
+            console.log(error);
+            onLoading( false )
+        }
+    }
+
 
     const onSearch = async( values ) => {
         onLoading( true )
@@ -116,79 +151,54 @@ export const useDenunciasStore = () => {
         dispatch( resetDenuncia() )
     }
 
-    const onGetDataProceso = async() => {
+    const onGetDataAtencionSFP = async() => {
         try {
-            const { data } = await api.get('/denunciasproceso');
+            const { data } = await api.get('/atencionsfp');
             const { denuncias, success } = data
-            //console.log(denuncias);
+            //console.log('data:', data);
             
             if( success ){
-                dispatch( getProceso( denuncias ) )
+                dispatch( getAtenSFP( denuncias ) )
+                onLoading( false )
             }
           
         } catch (error) {
             console.log(error);
+            onLoading( false )
         }
     }
 
-    const onGetDataImprocedente = async() => {
+    const onGetDataAtencionOIC = async() => {
         try {
-            const { data } = await api.get('/denunciasimprocedentes');
+            const { data } = await api.get('/atencionoic');
             const { denuncias, success } = data
-            //console.log(denuncias);
+            //console.log('data:', data);
             
             if( success ){
-                dispatch( getImprocedentes( denuncias ) )
+                dispatch( getAtenOIC( denuncias ) )
+                onLoading( false )
             }
           
         } catch (error) {
             console.log(error);
+            onLoading( false )
         }
     }
 
-    const onGetDataConcluida = async() => {
+    const onGetDataAtencionTJA = async() => {
         try {
-            const { data } = await api.get('/denunciasconcluidas');
+            const { data } = await api.get('/atenciontja');
             const { denuncias, success } = data
-            //console.log(denuncias);
+            //console.log('data:', data);
             
             if( success ){
-                dispatch( getConcluidas( denuncias ) )
+                dispatch( getAtenTJA( denuncias ) )
+                onLoading( false )
             }
           
         } catch (error) {
             console.log(error);
-        }
-    }
-
-    const onGetDataAtendidasSFP = async() => {
-        try {
-            const { data } = await api.get('/denunciasatendidassfp');
-            const { denuncias, success } = data
-            //console.log(denuncias);
-            
-            if( success ){
-                dispatch( getAtendidasSFP( denuncias ) )
-            }
-          
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-                //console.log(denuncias);
-    const onGetDataEtapa = async() => {
-        try {
-            const { data } = await api.get('/denunciasetapa');
-            const { denuncias, success } = data
-            //console.log(denuncias);
-
-            if( success ){
-                dispatch( getEtapas( denuncias ) )
-            }
-        
-        } catch (error) {
-            console.log(error);
+            onLoading( false )
         }
     }
 
@@ -196,28 +206,32 @@ export const useDenunciasStore = () => {
         try {
             const { data } = await api.get('/denunciasclasificacion');
             const { denuncias, success } = data
+            //console.log(denuncias);
 
             if( success ){
                 dispatch( getClasificacion( denuncias ) )
+                onLoading( false )
             }
         
         } catch (error) {
             console.log(error);
+            onLoading( false )
+
         }
     }
 
-    const onGetDataChart = () => {}
+
+    //const onGetDataChart = () => {}
 
 
     return {
         denuncias,
         denuncia,
         chart,
-        proceso,
-        improcedente,
-        concluida,
-        atendidasSFP,
-        etapas,
+        denunciastotal,
+        atencionsfp,
+        atencionoic,
+        atenciontja,
         clasificacion,
         onGetDenuncias,
         onSearch,
@@ -226,11 +240,10 @@ export const useDenunciasStore = () => {
         onSetDenuncia,
         onResetDenuncia,
         onGetDataChart,
-        onGetDataProceso,
-        onGetDataImprocedente,
-        onGetDataConcluida,
-        onGetDataAtendidasSFP,
-        onGetDataEtapa,
+        onGetDenunciasTotal,
+        onGetDataAtencionSFP,
+        onGetDataAtencionOIC,
+        onGetDataAtencionTJA,
         onGetDataClasificacion
     }
 }

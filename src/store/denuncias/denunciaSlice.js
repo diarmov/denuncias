@@ -21,12 +21,11 @@ export const denunciaSlice = createSlice({
             observacion: '',
         },
         chart:[],
-        proceso:[],
-        improcedente:[],
-        concluida:[],
-        atendidasSFP:[],
-        etapas:[],
-        clasificacion:[]
+        denunciastotal:[],
+        atencionsfp:[],
+        atencionoic:[],
+        atenciontja:[],
+        clasificacion:[],
 
     },
     reducers: {
@@ -54,23 +53,20 @@ export const denunciaSlice = createSlice({
                 observacion: '',
             }
         },
+        getTotal:  (state, { payload } ) => {
+            state.denunciastotal = payload;
+        }, 
         getChart:  (state, { payload } ) => {
             state.chart = payload;
-        },
-        getProceso:  (state, { payload } ) => {
-            state.proceso = payload;
-        },
-        getImprocedentes:  (state, { payload } ) => {
-            state.improcedente = payload;
-        },
-        getConcluidas:  (state, { payload } ) => {
-            state.concluida = payload;
-        },
-        getAtendidasSFP:  (state, { payload } ) => {
-            state.atendidasSFP = payload;
-        },
-        getEtapas:  (state, { payload } ) => {
-            state.etapas = payload;
+        }, 
+        getAtenSFP:  (state, { payload } ) => {
+            state.atencionsfp = payload;
+        }, 
+        getAtenOIC:  (state, { payload } ) => {
+            state.atencionoic = payload;
+        }, 
+        getAtenTJA:  (state, { payload } ) => {
+            state.atenciontja = payload;
         },
         getClasificacion:  (state, { payload } ) => {
             state.clasificacion = payload;
@@ -79,5 +75,5 @@ export const denunciaSlice = createSlice({
 });
 
 
-export const { getDenuncias, setDenuncia, resetDenuncia, getChart, getProceso, getImprocedentes, getConcluidas, getAtendidasSFP, getEtapas, getClasificacion } = denunciaSlice.actions;
+export const { getDenuncias, setDenuncia, resetDenuncia, getChart, getTotal, getAtenSFP, getAtenOIC, getAtenTJA, getClasificacion } = denunciaSlice.actions;
 

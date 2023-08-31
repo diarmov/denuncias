@@ -14,7 +14,7 @@ export default function NavbarHead() {
     >
       <Navbar.Brand href="/">
         <img
-          alt="Flowbite React Logo"
+          alt="Logo Gobierno del Estado de Zacatecas"
           className="mr-3 h-6 sm:h-9"
           src="../img/logo.svg"
         />
@@ -25,7 +25,7 @@ export default function NavbarHead() {
       <div className="flex md:order-2">
         <Dropdown
           inline
-          label={<Avatar alt="User settings" img="../img/Humbelina.png" rounded/>}
+          label={<Avatar alt="Imagen de usuario" img="../img/Humbelina.png" rounded/>}
         >
           <Dropdown.Header>
             <span className="block text-sm">

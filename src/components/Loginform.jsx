@@ -35,7 +35,7 @@ const Loginform = () => {
                 </div>
                 
                 <div className='mb-2'>
-                 <TextInput label="Password" name='password' placeholder='Contraseña' type='password' icon={ <Key /> } />
+                 <TextInput label="Password" name='password' placeholder='Contraseña' type='password' icon={ <Key /> } autoComplete="on"/>
                 </div>               
                 
                 <div className='mt-4'>                

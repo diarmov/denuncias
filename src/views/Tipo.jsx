@@ -239,6 +239,38 @@ export default function Tipo() {
           </div>
           </a>
         </div>
+        <div className="h-auto mt-2 mb-2 md:justify-center">
+          <a href="#" className="flex items-center justify-center w-[70%] m-auto  rounded-xl shadow-lg h-min p-3 transition ease-in-out delay-150 bg-gray-50 hover:-translate-y-1 hover:scale-110 duration-300">
+              <div className="w-[30%]">
+                <img src="../img/omision.png" alt=" Logo de Cohecho" className="rounded-full shadow-lg dark:shadow-black/30" />
+              </div>
+              <div className="text-center w-[70%]">
+            <span className="ml-2 text-xs leading-none tracking-widest text-center md:text-xl">
+            {
+                      clasificacion.filter(item => item.idClasificacion == '15')
+                      .map(item => (
+                        item.totalclasifica))
+                    }
+               <br/>Omisión</span>
+            </div>
+            </a>
+          </div>
+          <div className="h-auto mt-2 mb-2 md:justify-center">
+          <a href="#" className="flex items-center justify-center w-[70%] m-auto  rounded-xl shadow-lg h-min p-3 transition ease-in-out delay-150 bg-gray-50 hover:-translate-y-1 hover:scale-110 duration-300">
+              <div className="w-[30%]">
+                <img src="../img/peculado.png" alt=" Logo de Cohecho" className="rounded-full shadow-lg dark:shadow-black/30" />
+              </div>
+              <div className="text-center w-[70%]">
+            <span className="ml-2 text-xs leading-none tracking-widest text-center md:text-xl">
+            {
+                      clasificacion.filter(item => item.idClasificacion == '16')
+                      .map(item => (
+                        item.totalclasifica))
+                    }
+               <br/>Peculado</span>
+            </div>
+            </a>
+          </div>
       </div>
     </div>
     

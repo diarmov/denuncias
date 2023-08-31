@@ -16,7 +16,6 @@ export default function Listado() {
   },[])
 
   const onEdit = ( user ) => {
-    console.log(user);
     onSetUser(user)
     onModal('default')
   }

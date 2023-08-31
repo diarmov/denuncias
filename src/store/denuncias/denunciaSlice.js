@@ -74,10 +74,36 @@ export const denunciaSlice = createSlice({
         },
         getClasificacion:  (state, { payload } ) => {
             state.clasificacion = payload;
-        } 
+        },
+        resetAllDenuncia: ( state ) => {
+            state.denuncias = []
+            state.denuncia = {
+                id: 0,
+                numExpUif: '',
+                numExpOic: '',
+                numExpSubs: '',
+                fechaIniRadi: '',
+                asunto: '',
+                idOrigen: '',
+                idEtapa: '',
+                idEstatus:'',
+                idTipoFalta:'',
+                idClasificacion:'',
+                idDependencia:'',
+                idUbicacion:'',
+                observacion: '',
+            },
+            state.chart = []
+            state.proceso = []
+            state.improcedente = []
+            state.concluida = []
+            state.atendidasSFP = []
+            state.etapas = []
+            state.clasificacion = []
+        }, 
     }
 });
 
 
-export const { getDenuncias, setDenuncia, resetDenuncia, getChart, getProceso, getImprocedentes, getConcluidas, getAtendidasSFP, getEtapas, getClasificacion } = denunciaSlice.actions;
+export const { getDenuncias, setDenuncia, resetDenuncia, getChart, getProceso, getImprocedentes, getConcluidas, getAtendidasSFP, getEtapas, getClasificacion, resetAllDenuncia } = denunciaSlice.actions;
 

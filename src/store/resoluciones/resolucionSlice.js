@@ -48,7 +48,26 @@ export const resolucionSlice = createSlice({
         setRecursos: (state, { payload } ) => {
             state.recursos = payload;
         },
+        resetAllResoluciones: ( state ) => {
+            state.resoluciones = [],
+            state.resolucion = {
+                id: 0,
+                folio: '',
+                fecha: '',
+                idEstatus:0,
+                idUbicacion:0,
+                idDenuncia:0,
+                impugnacion: false,
+                folio_recurso:'',
+                fecha_recurso:'',
+                amparo: false,
+                folio_amparo: '',
+    
+            },
+            state.open = false,
+            state.recursos =[]
+        },
     }
 });
 
-export const { getResoluciones, setResolucion, resetResolucion, setOpen, setRecursos } = resolucionSlice.actions;
+export const { getResoluciones, setResolucion, resetResolucion, setOpen, setRecursos, resetAllResoluciones } = resolucionSlice.actions;

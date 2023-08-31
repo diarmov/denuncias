@@ -34,7 +34,16 @@ export const catalogoSlice = createSlice({
         setUbicacion:  (state, { payload } ) => {
             state.ubicacion = payload;
         },
+        resetAllCatalogos: ( state ) => {
+            state.origen = []
+            state.etapa = []
+            state.estatus = []
+            state.tipo = []
+            state.clasificacion = []
+            state.dependencia = []
+            state.ubicacion = []
+        },
     }
 });
 
-export const { setOrigen, setEtapa, setEstatus, setTipo, setClasificacion, setDependencia, setUbicacion } = catalogoSlice.actions;
+export const { setOrigen, setEtapa, setEstatus, setTipo, setClasificacion, setDependencia, setUbicacion, resetAllCatalogos } = catalogoSlice.actions;

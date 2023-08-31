@@ -2,10 +2,10 @@ import { useDispatch, useSelector } from "react-redux"
 
 import { useUiStore } from '../hooks/useUiStore';
 import api from "../config/api";
-import { createUser, deleteUser, editUser, resetUser, setUser, setUsers } from "../store";
+import { createUser, deleteUser, editUser, resetUser, setRoles, setUser, setUsers } from "../store";
 
 export const useUsersStore = () => {
-    const { users, user } = useSelector(state => state.users)
+    const { users, roles, user } = useSelector(state => state.users)
     const { onLoading, onNotification, onModal } = useUiStore()
     const dispatch = useDispatch();
 
@@ -16,7 +16,8 @@ export const useUsersStore = () => {
             const { usuarios, roles, success } = data
    
             if( success ){
-                dispatch( setUsers(usuarios) )
+                dispatch( setUsers( usuarios ) )
+                dispatch( setRoles( roles ) )
                 onLoading( false )
             }
           
@@ -114,6 +115,7 @@ export const useUsersStore = () => {
 
     return {
         users,
+        roles,
         user,
 
         onGetUser,

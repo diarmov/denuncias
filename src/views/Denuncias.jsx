@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Table, Tooltip,  Pagination, Button} from 'flowbite-react';
-import { HiPlusCircle } from 'react-icons/hi';
+import { HiPlusCircle, HiPencil } from 'react-icons/hi';
 
 import { useDenunciasStore } from '../hooks/useDenunciasStore';
 import { useCatalogoStore } from '../hooks/useCatalogoStore';
@@ -21,7 +21,7 @@ const Denuncias = () => {
   },[])
 
   const sizeText = ( text ) => { 
-    if( text.length > 15  )
+    if( text?.length > 15  )
         return text.substring(0, 15)  + '...'
     else return text
   }
@@ -129,12 +129,13 @@ const Denuncias = () => {
                           className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
                           onClick={() => onEdit(denuncia) }
                         >
-                          <p className='cursor-pointer'>Edit</p>
+                          <Tooltip content="Actualizar">
+                           <p className='cursor-pointer text-xl text-gray-500'><HiPencil /></p>
+                           </Tooltip>
                         </a> 
                     </Table.Cell>
                   </Table.Row>
               ))
-
           }
         </Table.Body>
       </Table>

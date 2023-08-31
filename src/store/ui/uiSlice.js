@@ -16,8 +16,13 @@ export const uiSlice = createSlice({
         },
         setSearch:  (state, { payload } ) => {
             state.search = payload;
-        }, 
+        },
+        resetUi:  ( state ) => {
+            state.loading = false
+            state.modal = { title:'', status: 'undefined' }
+            state.search = false
+        } 
     }
 });
 
-export const { setLoading, setModal, setSearch } = uiSlice.actions;
+export const { setLoading, setModal, setSearch, resetUi } = uiSlice.actions;

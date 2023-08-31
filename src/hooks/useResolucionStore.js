@@ -19,6 +19,7 @@ export const useResolucionStore = () => {
 
             const { data } = await api.get(`/resoluciones?page=${page}`);
             const { resoluciones, success } = data
+      
             if( success ){
                 dispatch( getResoluciones({current_page: resoluciones.current_page, data: resoluciones.data, last_page: resoluciones.last_page  }) )
                 onLoading( false )

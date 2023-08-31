@@ -4,6 +4,7 @@ export const userSlice = createSlice({
     name: 'users',
     initialState: {
         users: [],
+        roles:[],
         user: {
             name: '',
             apellidos:'',
@@ -17,6 +18,9 @@ export const userSlice = createSlice({
     reducers: {
         setUsers:  (state, { payload } ) => {
             state.users = payload;
+        },
+        setRoles:  (state, { payload } ) => {
+            state.roles = payload;
         },
         setUser:  (state, { payload } ) => {
             state.user = payload;
@@ -50,8 +54,21 @@ export const userSlice = createSlice({
                 }
                 return user;
             });
-        }
+        },
+        resetAllUser:  ( state ) => {
+            state.users = [],
+            state.roles =[],
+            state.user = {
+                name: '',
+                apellidos:'',
+                email: '',
+                password:'',
+                confirm: '',
+                role: '',
+                role_id: ''
+            }
+        } 
     }
 });
 
-export const { setUsers, setUser, resetUser, createUser, editUser, deleteUser } = userSlice.actions;
+export const { setUsers, setRoles, setUser, resetUser, createUser, editUser, deleteUser, resetAllUser } = userSlice.actions;

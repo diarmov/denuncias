@@ -1,22 +1,14 @@
 import { useEffect } from 'react';
 import { useFormik } from 'formik';
 import { object, string, ref } from 'yup';
-import { Button, Label, TextInput, Textarea } from 'flowbite-react';
+import { Button, Label, TextInput } from 'flowbite-react';
 
 import { SelectControl } from '../forms';
 import { useUiStore } from '../../hooks/useUiStore';
-import { useResolucionStore } from '../../hooks/useResolucionStore';
 import { useUsersStore } from '../../hooks/useUsersStore';
 
-const roles = [
-  {value: 1, label: 'root' },
-  {value: 2, label: 'OIC' },
-  {value: 3, label: 'UIF' }
-]
-
-
 export const FormUsers = () => {
-  const { user, onStore, onUpdate, onResetUser } = useUsersStore()
+  const { user, roles, onStore, onUpdate, onResetUser } = useUsersStore()
   const { loading, modal } = useUiStore()
 
   const onValidation = () => {

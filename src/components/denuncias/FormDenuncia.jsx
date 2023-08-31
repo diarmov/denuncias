@@ -11,14 +11,17 @@ import { SelectControl } from '../forms';
 import { useCatalogoStore } from '../../hooks/useCatalogoStore';
 import { useDenunciasStore } from '../../hooks/useDenunciasStore';
 import { useUiStore } from '../../hooks/useUiStore';
+import { useAuthStore } from '../../hooks/useAuthStore';
+
 import { FormResolucion } from './FormResolucion';
 import { useResolucionStore } from '../../hooks/useResolucionStore';
 
 
 export const FormDenuncia = () => {
-    const { origen, etapa,  estatus, tipo, clasificacion, dependencia, ubicacion, onGetEstatus  } = useCatalogoStore()
+    const { origen, etapa,  estatus, tipo, clasificacion, dependencia, ubicacion, onGetCatalogos, onGetEstatus  } = useCatalogoStore()
     const { denuncia, onStore, onUpdate, onResetDenuncia } = useDenunciasStore()
     const { open, onSetOpen } = useResolucionStore()
+    const { active } = useAuthStore()
     const { loading } = useUiStore()
     const navigate = useNavigate();
 
@@ -44,6 +47,10 @@ export const FormDenuncia = () => {
       },
       validationSchema: validations
     });
+
+    useEffect(() => {
+      if(origen.length === 0) onGetCatalogos()
+    },[])
 
     useEffect(() => {
         if( denuncia.id > 0 ) setValues(denuncia)
@@ -94,30 +101,40 @@ export const FormDenuncia = () => {
       <form onSubmit={handleSubmit} className='mb-4'>  
          <div className='grid grid-cols-1 md:grid-cols-3 gap-3'>
 
-            <div className=''>
-              <Label htmlFor="numExpUif" value="Folio Uif"/>
-              <TextInput               
-                  placeholder="Folio Uif"
-                  type="text"
-                  name='numExpUif'
-                  onChange={handleChange}
-                  value={values.numExpUif}
-              />
-            </div>
-            
-            <div>
-              <Label htmlFor="numExpOic" value="Folio Oic"/>
-              <TextInput               
-                  placeholder="Folio Oic"
-                  type="text"
-                  name='numExpOic'
-                  onChange={handleChange}
-                  value={values.numExpOic}
-              />
-            </div>
-            
-            {
-              denuncia.id > 0 && (
+          {
+            active?.role === 'OIC' && (
+              <div>
+                <Label htmlFor="numExpOic" value="Folio Oic"/>
+                <TextInput               
+                    placeholder="Folio Oic"
+                    type="text"
+                    name='numExpOic'
+                    onChange={handleChange}
+                    value={values.numExpOic}
+                    required
+                />
+              </div>
+            )
+          }
+
+          {
+             ( active?.role !== 'OIC' && active?.role !== 'DC') && (
+                <div className=''>
+                  <Label htmlFor="numExpUif" value="Folio Uif"/>
+                  <TextInput               
+                      placeholder="Folio Uif"
+                      type="text"
+                      name='numExpUif'
+                      onChange={handleChange}
+                      value={values.numExpUif}
+                      required
+                  />
+                </div>
+              )
+           }
+
+           {
+              (active?.role === 'DC' || values.idEtapa === 2) && (            
                 <div>
                   <Label htmlFor="numExpSubs" value="Folio Substanciación"/>
                   <TextInput               
@@ -126,10 +143,13 @@ export const FormDenuncia = () => {
                       name='numExpSubs'
                       onChange={handleChange}
                       value={values.numExpSubs}
+                      required
                   />
-                </div> 
-              )
-            }
+                </div>
+             )
+           } 
+              
+          
                
 
             {

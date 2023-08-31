@@ -1,17 +1,18 @@
 
 import { useDispatch, useSelector } from 'react-redux';
 
-//import { useUiStore } from './';
 import api from '../config/api';
-
 import { 
          login, 
          logout, 
          onChecking,
+         resetAllUser,
          resetAuth,
+         resetUi,
+         resetAllDenuncia,
+         resetAllResoluciones,
+         resetAllCatalogos
        } from '../store';
-
-
 
 export const useAuthStore = () => {
   const { users, active, status } = useSelector(state => state.auth)
@@ -35,11 +36,16 @@ export const useAuthStore = () => {
     
   }
 
-  const onLogout = async() => {
+  const onLogout = async() => {      
         await api.post('/logout');
         localStorage.clear();
         dispatch( logout() );
         dispatch( resetAuth() );
+        dispatch( resetAllDenuncia() );
+        dispatch( resetAllResoluciones() );
+        dispatch( resetAllCatalogos() );
+        dispatch( resetAllUser() );
+        dispatch( resetUi() );         
   }
 
   const checkAuthToken = async() => {

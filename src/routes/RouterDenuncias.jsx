@@ -28,8 +28,8 @@ export const RouterDenuncias = () => {
             status ==='authenticated' 
             ? (
                 <>
-                    <Route path='/denuncias/*' element={ <Inicio /> } />
-                    <Route path='/*' element={ <Navigate to='/denuncias/' /> } />                
+                    <Route path='/*' element={ <Inicio /> } />
+                    <Route path='/*' element={ <Navigate to='/' /> } />                
                 </>
             )
             : (

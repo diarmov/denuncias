@@ -12,15 +12,14 @@ export const denunciaSlice = createSlice({
             fechaIniRadi: '',
             asunto: '',
             idOrigen: '',
-            idEtapa: 0,
-            idEstatus:0,
-            idTipoFalta:0,
-            idClasificacion:0,
-            idDependencia:0,
-            idUbicacion:0,
+            idEtapa: '',
+            idEstatus:'',
+            idTipoFalta:'',
+            idClasificacion:'',
+            idDependencia:'',
+            idUbicacion:'',
             observacion: '',
         },
-        search: false,
         chart:[],
         proceso:[],
         improcedente:[],
@@ -34,7 +33,6 @@ export const denunciaSlice = createSlice({
         getDenuncias:  (state, { payload } ) => {
             state.denuncias = payload;
         },
-
         setDenuncia: (state, { payload } ) => {
             state.denuncia = payload;
         },
@@ -47,18 +45,15 @@ export const denunciaSlice = createSlice({
                 fechaIniRadi: '',
                 asunto: '',
                 idOrigen: '',
-                idEtapa: 0,
-                idEstatus:0,
-                idTipoFalta:0,
-                idClasificacion:0,
-                idDependencia:0,
-                idUbicacion:0,
+                idEtapa: '',
+                idEstatus:'',
+                idTipoFalta:'',
+                idClasificacion:'',
+                idDependencia:'',
+                idUbicacion:'',
                 observacion: '',
             }
         },
-        setSearch:  (state, { payload } ) => {
-            state.search = payload;
-        }, 
         getChart:  (state, { payload } ) => {
             state.chart = payload;
         },
@@ -84,5 +79,5 @@ export const denunciaSlice = createSlice({
 });
 
 
-export const { getDenuncias, setDenuncia, resetDenuncia, setSearch, getChart, getProceso, getImprocedentes, getConcluidas, getAtendidasSFP, getEtapas, getClasificacion } = denunciaSlice.actions;
+export const { getDenuncias, setDenuncia, resetDenuncia, getChart, getProceso, getImprocedentes, getConcluidas, getAtendidasSFP, getEtapas, getClasificacion } = denunciaSlice.actions;
 

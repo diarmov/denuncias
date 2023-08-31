@@ -1,19 +1,26 @@
+
+import { useEffect } from 'react';
+
 import { useFormik } from 'formik';
+import { useNavigate } from 'react-router-dom';
 import { object, string } from 'yup';
 import { Button, Label, TextInput, Textarea } from 'flowbite-react';
+import { HiOutlineArrowSmUp } from 'react-icons/hi';
 
-
-import { SelectControl } from '../forms/SelectControl';
+import { SelectControl } from '../forms';
 import { useCatalogoStore } from '../../hooks/useCatalogoStore';
 import { useDenunciasStore } from '../../hooks/useDenunciasStore';
 import { useUiStore } from '../../hooks/useUiStore';
-import { useEffect } from 'react';
+import { FormResolucion } from './FormResolucion';
+import { useResolucionStore } from '../../hooks/useResolucionStore';
+
 
 export const FormDenuncia = () => {
-    const { origen, etapa,  estatus, tipo, clasificacion, dependencia, ubicacion  } = useCatalogoStore()
-    const { denuncia, onStore, onUpdate } = useDenunciasStore()
+    const { origen, etapa,  estatus, tipo, clasificacion, dependencia, ubicacion, onGetEstatus  } = useCatalogoStore()
+    const { denuncia, onStore, onUpdate, onResetDenuncia } = useDenunciasStore()
+    const { open, onSetOpen } = useResolucionStore()
     const { loading } = useUiStore()
-
+    const navigate = useNavigate();
 
     const validations = object({
       fechaIniRadi: string().required('Ingrese la fecha de radicación e inicio'),
@@ -21,11 +28,10 @@ export const FormDenuncia = () => {
       idOrigen: string().required('Indicar el origen de la denuncia'),
       idEtapa: string().required('Indicar la etapa de la denuncia'),
       idEstatus: string().required('Indicar el estatus de la denuncia'),
-      idTipoFalta: string().required('Indicar el tipo de falta'),
-      idClasificacion: string().required('Indicar la clasificación'),
       idDependencia: string().required('Indicar la dependencia'),
       idUbicacion: string().required('Indicar la ubicación actual'),
     });
+
 
     const { handleSubmit,  handleChange, values, setFieldValue, touched, errors, resetForm, setValues } = useFormik({
       initialValues: denuncia,      
@@ -34,6 +40,7 @@ export const FormDenuncia = () => {
         ? await onUpdate( values )
         : await onStore( values )
         resetForm()
+        navigate('/denuncias')
       },
       validationSchema: validations
     });
@@ -41,13 +48,53 @@ export const FormDenuncia = () => {
     useEffect(() => {
         if( denuncia.id > 0 ) setValues(denuncia)
     }, [denuncia])
-    
+
+    useEffect(() => {
+      values.idEtapa === 3 ? onSetOpen( true ) : onSetOpen( false )
+      onGetEstatus( values.idEtapa )
+    }, [values.idEtapa])
+
+    const handleBack = () => {
+      onResetDenuncia()
+      resetForm()
+      navigate('/denuncias')
+    }
+
+
   return (
-    <>
+    <div className='container px-20 relative overflow-x-auto mb-6'>
+      <div className=' text-center pt-6 pb-10'>
+        <p className='text-2xl md:text-4xl'>{denuncia.id > 0 ? 'Modificar' : 'Agregar'} Denuncia</p>
+        <p className='text-2xl hidden md:block'>Podras agregar o realizar modificaciones a las carpetas de denuncia </p>
+      </div>
+
+      <div className='flex flex-row-reverse'>
+        <Button onClick={ handleBack }> 
+         <span className='text-lg mr-1'><HiOutlineArrowSmUp /></span>Regresar
+        </Button>
+      </div>
+
+      
+        {
+          (denuncia.id > 0 && open) && (
+           <div className='mt-10'>
+              <div className='flex justify-between items-center'>
+                  <div className='flex-1 border-b-2'></div>
+                  <div className='w-32 text-center font-semibold mx-2'>Resoluciones</div>
+                  <div className='flex-1 border-b-2'></div>
+              </div>
+              <FormResolucion 
+                idDenuncia={ denuncia.id }
+              />
+              <div className='flex-1 border-b-2 my-9'></div>
+           </div>
+          )
+        }
+
       <form onSubmit={handleSubmit} className='mb-4'>  
          <div className='grid grid-cols-1 md:grid-cols-3 gap-3'>
 
-            <div className='mt-2'>
+            <div className=''>
               <Label htmlFor="numExpUif" value="Folio Uif"/>
               <TextInput               
                   placeholder="Folio Uif"
@@ -58,7 +105,7 @@ export const FormDenuncia = () => {
               />
             </div>
             
-            <div className='mt-2'>
+            <div>
               <Label htmlFor="numExpOic" value="Folio Oic"/>
               <TextInput               
                   placeholder="Folio Oic"
@@ -68,9 +115,10 @@ export const FormDenuncia = () => {
                   value={values.numExpOic}
               />
             </div>
+            
             {
               denuncia.id > 0 && (
-                <div className='mt-2'>
+                <div>
                   <Label htmlFor="numExpSubs" value="Folio Substanciación"/>
                   <TextInput               
                       placeholder="Folio Substanciación"
@@ -81,13 +129,13 @@ export const FormDenuncia = () => {
                   />
                 </div> 
               )
-              }
+            }
                
 
             {
               denuncia.id === 0 && (
                 <>
-                   <div className='mt-2'>
+                   <div>
                     <Label htmlFor="fechaIniRadi" value="Fecha de radicación e inicio"/>
                     <TextInput               
                         placeholder="Fecha de radicación e inicio"
@@ -99,7 +147,7 @@ export const FormDenuncia = () => {
                     { touched.fechaIniRadi && errors.fechaIniRadi ? (<div className='text-sm text-red-600'>{errors.fechaIniRadi}</div>) : null }
                   </div>
 
-                  <div className='mt-2'>
+                  <div>
                     <Label htmlFor="idOrigen" value="Origen de la denuncia"/>
                     <SelectControl 
                       options={origen}
@@ -109,10 +157,10 @@ export const FormDenuncia = () => {
                     { touched.idOrigen && errors.idOrigen ? (<div className='text-sm text-red-600'>{errors.idOrigen}</div>) : null }
                   </div>
 
-                  <div className='mt-2'>
-                    <Label htmlFor="asunto" value="Asunto"/>
+                  <div>
+                    <Label htmlFor="asunto" value="Asunto/Motivo/Denominacion"/>
                     <TextInput               
-                        placeholder="Indique el asusto"
+                        placeholder="Indique el Asunto/Motivo/Denominacion"
                         type="text"
                         name='asunto'
                         onChange={handleChange}
@@ -122,7 +170,7 @@ export const FormDenuncia = () => {
                   </div>
 
 
-                  <div className='mt-2'>
+                  <div>
                     <Label htmlFor="idTipoFalta" value="Tipo de falta"/>
                     <SelectControl 
                       options={tipo}
@@ -156,9 +204,9 @@ export const FormDenuncia = () => {
             }
            
 
-            <div className='mt-2'>
+            <div>
               <Label htmlFor="idEtapa" value="Etapa actual de la denuncia"/>
-              <SelectControl 
+              <SelectControl
                 options={etapa}
                 value={values.idEtapa}
                 onChange={value=>setFieldValue('idEtapa', value.value)}
@@ -166,7 +214,7 @@ export const FormDenuncia = () => {
               { touched.idEtapa && errors.idEtapa ? (<div className='text-sm text-red-600'>{errors.idEtapa}</div>) : null }
             </div>
          
-            <div className='mt-2'>
+            <div>
               <Label htmlFor="idEstatus" value="Estatus actual de la denuncia"/>
               <SelectControl 
                 options={estatus}
@@ -176,7 +224,7 @@ export const FormDenuncia = () => {
               { touched.idEstatus && errors.idEstatus ? (<div className='text-sm text-red-600'>{errors.idEstatus}</div>) : null }
             </div>
 
-            <div className='mt-2'>
+            <div>
               <Label htmlFor="idUbicacion" value="Ubicación"/>
               <SelectControl 
                 options={ubicacion}
@@ -186,9 +234,7 @@ export const FormDenuncia = () => {
                { touched.idUbicacion && errors.idUbicacion ? (<div className='text-sm text-red-600'>{errors.idUbicacion}</div>) : null }
             </div>  
 
-            
-
-            <div className="col-span-3 mt-2">
+            <div className="col-span-1 md:col-span-3">
               <Label htmlFor="observacion" value="Observaciones"/>
                <Textarea               
                 placeholder="Observaciones a la denuncia"               
@@ -200,18 +246,22 @@ export const FormDenuncia = () => {
             </div>
          </div>
 
-        <div className='mt-3'>
-          <Button 
-            isProcessing={loading}
-            disabled={loading}
-            type="submit" 
-            className='ml-2'>
-                Guardar
-            </Button>
-        </div>
+        {
+          !open && (
+            <div className='mt-3'>
+              <Button 
+                isProcessing={loading}
+                disabled={loading}
+                type="submit" 
+                className='ml-2'>
+                    Guardar
+                </Button>
+            </div>
+          )
+        }
     
      </form>
-    </>
+    </div>
   )
 }
 

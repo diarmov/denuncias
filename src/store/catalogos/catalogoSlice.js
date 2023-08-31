@@ -19,6 +19,7 @@ export const catalogoSlice = createSlice({
             state.etapa = payload;
         },
         setEstatus:  (state, { payload } ) => {
+            state.estatus = [];
             state.estatus = payload;
         },
         setTipo:  (state, { payload } ) => {

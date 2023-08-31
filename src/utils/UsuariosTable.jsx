@@ -1,11 +1,12 @@
-import React, { createRef, useState } from "react";
+import React, { useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage} from 'formik';
 import * as yup from 'yup';
 
 import { MagnifyingGlassIcon, ChevronUpDownIcon } from "@heroicons/react/24/solid";
 import { PencilIcon, UserPlusIcon, TrashIcon } from "@heroicons/react/24/solid";
-import axios from "axios";
 import { Card, CardHeader,  Input, div,  Button, CardBody, Chip, CardFooter, Tabs, TabsHeader, Tab, Avatar, IconButton, Tooltip } from "@material-tailwind/react";
+
+import { useUsersStore } from '../hooks/useUsersStore';
 
 const SUPPORTED_FORMATS =["image/jpg", "image/jpeg", "image/png"];
 
@@ -50,7 +51,12 @@ const FormSchema = yup.object().shape({
 //const ITEMS_PER_PAGE = 10;
  
 export default function UsuariosTable() {
-  const { usuarios } = useDenuncias();
+  const { users, onGetUser } = useUsersStore();
+
+  useEffect(() => {
+    if(users.length === 0) onGetUser()
+  },[])
+
 
   const handleSubmit = (values) =>{
     if (values && values.preventDefault) { values.preventDefault(); }
@@ -120,8 +126,8 @@ export default function UsuariosTable() {
             </tr>
           </thead>
           <tbody>
-            {usuarios?.map(({id, foto, name, apellidos, direccion, email, rol, estatus}, index) => {
-              const isLast = index === usuarios.length - 1;
+            {users?.map(({id, foto, name, apellidos, direccion, email, rol, estatus}, index) => {
+              const isLast = index === users.length - 1;
               const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
  
               return (
@@ -192,6 +198,7 @@ export default function UsuariosTable() {
             })}
           </tbody>
         </table>
+
       </CardBody>
       <CardFooter className="flex items-center justify-between p-4 border-t border-blue-gray-50">
         <div variant="small" className="font-normal blue-gray">
@@ -211,170 +218,7 @@ export default function UsuariosTable() {
             <div
             className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
           >
-            <div className="relative w-auto max-w-3xl mx-auto my-6 shadow-2xl">
-              {/*content*/}
-              <div className="relative flex flex-col w-full bg-white border-0 shadow-2xl outline-none focus:outline-none ">
-                {/*header*/}
-                <div className="flex items-start justify-between p-5 border-b border-solid rounded-t border-slate-200 bg-slate-300">
-                  <h3 className="text-3xl font-semibold">
-                    Crear nuevo usuario
-                  </h3>
-                  <button
-                    className="float-right text-3xl font-semibold leading-none text-gray-500 border-0 outline-none focus:outline-none"
-                    onClick={() => setShowModal(false)}
-                  >
-                    <span className="">
-                      X
-                    </span>
-                  </button>
-                  
-                </div>
-                {/*body*/}
-                <Formik
-                    initialValues={{ 
-                        name:"",
-                        apellidos:"",
-                        email:"",
-                        rol:"",
-                        password:"",
-                        password_confirmation:"",
-                        foto:null,
-                        direccion:"",
-                        }}
-                        validationSchema={FormSchema}
-                        onSubmit={handleSubmit}
-                    >
-                    {( {values, handleSubmit, handleChange, errors, setFieldValue} ) => (
-                          <div className='flex-col px-5 text-center bg-white'>
-                            <Form>
-                                <div className="relative flex-auto p-6">
-                                  <div className="flex flex-grow w-full my-4 text-lg leading-relaxed text-slate-500">
-                                    <div className="m-1">
-                                        <Field 
-                                            type="input" 
-                                            name="name" 
-                                            placeholder="Nombre de usuario" 
-                                            className="p-3 border rounded-lg"
-                                            value={values.name}
-                                            onChange={handleChange}
-                                        />
-                                        <div className='text-red-600'>{errors.name && errors.name }</div>
-                                    </div>
-                                    <div className="m-1">
-                                        <Field 
-                                            type="input" 
-                                            name="apellidos" 
-                                            placeholder="Apellidos de usuario" 
-                                            className="p-3 border rounded-lg" 
-                                            value={values.apellidos}
-                                            onChange={handleChange}
-                                        />
-                                        <div className='text-red-600'>{errors.apellidos && errors.apellidos }</div>
-                                    </div>
-                                    <div className="m-1">
-                                        <Field 
-                                            type="email" 
-                                            name="email" 
-                                            placeholder="Email" 
-                                            className="p-3 rounded-lg"
-                                            value={values.email}
-                                            onChange={handleChange}
-                                        />
-                                        <div className='text-red-600'>{errors.email && errors.email }</div>
-                                    </div>
-                                  </div>
-                                  <div className="flex flex-grow w-full my-4 text-lg leading-relaxed text-slate-500">
-                                      <div className="m-1">
-                                        <Field 
-                                          as="select" 
-                                          name="rol" 
-                                          className="p-3 rounded-lg"
-                                          aria-label="Rol de usuario"
-                                          value={values.rol}
-                                          onChange={handleChange}>
-                                          <option value="">Rol de usuario</option>
-                                          <option value="rol1">Rol 1</option>
-                                          <option value="rol2">Rol 2</option>
-                                          <option value="rol3">Rol 3</option>
-                                          <option value="rol4">Rol 4</option>
-                                          <option value="rol5">Rol 5</option>
-                                        </Field>
-                                        <div className='text-red-600'>{errors.rol && errors.rol }</div>
-                                      </div>
-                                      <div className="m-1">
-                                      <label htmlFor="foto" className="mr-2">Foto de perfil</label>
-                                        <input
-                                        type="file"
-                                        name="foto"
-                                        className="border rounded-lg"
-                                        aria-label="Fotografía"
-                                        onChange={(event) => {
-                                            setFieldValue("foto", event.target.files[0])
-                                          }
-                                        }
-                                        />
-                                        <div div className='text-red-600'>{errors.foto && errors.foto }</div>
-                                      </div>
-                                  </div>
-                                  <div className="flex flex-grow w-full my-4 text-lg leading-relaxed text-slate-500">
-                                      <div className="m-1">
-                                        <Field 
-                                          type="text"
-                                          name="direccion"
-                                          placeholder="Departamento o Dirección"
-                                          className="p-3 rounded-lg"
-                                          autoComplete="on"
-                                          value={values.direccion}
-                                          onChange={handleChange}
-                                        />
-                                        <div div className='text-red-600'>{errors.direccion && errors.direccion }</div>
-                                      </div>
-                                      <div className="m-1">
-                                        <Field 
-                                            type="password" 
-                                            name="password" 
-                                            placeholder="Contraseña" 
-                                            className="p-3 rounded-lg"
-                                            autoComplete="on"
-                                            value={values.password}
-                                            onChange={handleChange}
-                                        />
-                                        <div className='text-red-600'>{errors.password && errors.password }</div>
-                                      </div>
-                                      <div className="m-1">
-                                        <Field 
-                                            type="password" 
-                                            name="password_confirmation" 
-                                            placeholder="Repite tu Contraseña" 
-                                            className="p-3 border rounded-lg"
-                                            autoComplete="on"
-                                            value={values.password_confirmation}
-                                            onChange={handleChange}
-                                        />
-                                      <div div className='text-red-600'>{errors.password_confirmation && errors.password_confirmation }</div>
-                                      </div>
-                                  </div>
-                                </div>
-                                <div className="flex items-center justify-end p-6 border-t border-solid rounded-b border-slate-200">
-                                  <button
-                                    className="px-6 py-3 mb-1 mr-1 text-sm font-bold text-white uppercase transition-all duration-150 ease-linear bg-red-500 rounded shadow outline-none active:bg-red-600 hover:shadow-lg focus:outline-none"
-                                    type="button"
-                                    onClick={() => setShowModal(false)}
-                                  >
-                                    Close
-                                  </button>
-                                  <button
-                                    className="px-6 py-3 mb-1 mr-1 text-sm font-bold text-white uppercase transition-all duration-150 ease-linear bg-blue-500 rounded shadow outline-none active:bg-blue-600 hover:shadow-lg focus:outline-none"
-                                    type="submit">
-                                    Guardar
-                                  </button>
-                                </div>
-                            </Form>         
-                          </div>
-                    )}
-                    </Formik>                                                            
-              </div>
-            </div>
+           
             </div>
         ) : null}
     </div>

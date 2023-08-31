@@ -4,7 +4,7 @@ import Sidebarmenu from '../components/Sidebarmenu'
 import ListPages from '../routes/ListPages';
 
 const Inicio = () => {
-  const { list } = ListPages();
+  const { list, components } = ListPages();
   return (
         <div className='text- sm:text-lg'>
             <NavbarHead />
@@ -14,6 +14,10 @@ const Inicio = () => {
               <Routes>
                 {list.map(item => (
                     <Route key={ item.title } path={item.link} element={item.component} />            
+                ))}  
+
+                {components.map((page, index) => (
+                    <Route key={ index } path={page.link} element={page.component} />            
                 ))}
               </Routes>
               </div>

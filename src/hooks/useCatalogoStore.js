@@ -14,12 +14,11 @@ export const useCatalogoStore = () => {
         onLoading( true )
         try {
             const { data } = await api.get(`/catalogos`);
-            const { origen, etapa,  estatus, tipo, clasificacion, dependencia, ubicacion, success } = data
+            const { origen, etapa, tipo, clasificacion, dependencia, ubicacion, success } = data
             
             if( success ){
                 dispatch( setOrigen( origen ) )
                 dispatch( setEtapa( etapa ) )
-                dispatch( setEstatus( estatus ) )
                 dispatch( setTipo( tipo ) )
                 dispatch( setClasificacion( clasificacion ) )
                 dispatch( setDependencia( dependencia ) )
@@ -33,6 +32,17 @@ export const useCatalogoStore = () => {
         }
     }
 
+    const onGetEstatus = async( etapa) => {
+        try {
+            const { data } = await api.get(`/estatus/${etapa}`);
+            dispatch( setEstatus( data ) )
+        
+        } catch (error) {
+            console.log(error);
+         
+        }
+    }
+
     return {
         origen, 
         etapa,  
@@ -42,6 +52,7 @@ export const useCatalogoStore = () => {
         dependencia, 
         ubicacion,
 
-        onGetCatalogos
+        onGetCatalogos,
+        onGetEstatus
     }
 }

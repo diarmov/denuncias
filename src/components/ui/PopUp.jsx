@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
-import { Button, Modal } from 'flowbite-react';
+import { Modal } from 'flowbite-react';
 import { useUiStore } from '../../hooks/useUiStore';
 
-export const PopUp = ({ title, icon, textButton, children }) => {
+export const PopUp = ({ title, children }) => {
   const { modal, onModal } = useUiStore()
   return (
     <>
-        <Button onClick={() => onModal('default')}>{ icon } { textButton }</Button>
-
         <Modal show={modal === 'default'} size='5xl' onClose={() => onModal(undefined)}>
         <Modal.Header>{ title }</Modal.Header>
         <Modal.Body>

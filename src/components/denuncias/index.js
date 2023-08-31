@@ -1,2 +1,2 @@
 export { FormDenuncia } from "./FormDenuncia";
-export { Search } from "./Search";
+export { FormResolucion } from "./FormResolucion";

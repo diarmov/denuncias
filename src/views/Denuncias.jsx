@@ -1,20 +1,19 @@
-'use client';
 
 import { useEffect } from 'react';
-
-import { Table, Tooltip,  Pagination} from 'flowbite-react';
-import{ HiPlusCircle } from 'react-icons/hi';
+import { useNavigate } from 'react-router-dom';
+import { Table, Tooltip,  Pagination, Button} from 'flowbite-react';
+import { HiPlusCircle } from 'react-icons/hi';
 
 import { useDenunciasStore } from '../hooks/useDenunciasStore';
 import { useCatalogoStore } from '../hooks/useCatalogoStore';
+import { Search } from '../components/ui';
 import { useUiStore } from '../hooks/useUiStore';
-import { FormDenuncia, Search } from '../components/denuncias';
-import { PopUp } from '../components/ui';
 
 const Denuncias = () => {
-  const { denuncias, search, onGetDenuncias, onSetDenuncia } = useDenunciasStore()
+  const { denuncias, onGetDenuncias, onSetDenuncia, onSearch } = useDenunciasStore()
   const { origen, onGetCatalogos } = useCatalogoStore()
-  const { onModal } = useUiStore()
+  const { search } = useUiStore()
+  const navigate = useNavigate();
  
   useEffect(() => {
     if(denuncias.length === 0) onGetDenuncias()
@@ -32,8 +31,8 @@ const Denuncias = () => {
   }
 
   const onEdit = ( denuncia ) => {
-    onSetDenuncia(denuncia)
-    onModal('default')
+    onSetDenuncia( denuncia )
+    navigate('/denuncias-manage')
   }
   
   return (
@@ -44,15 +43,13 @@ const Denuncias = () => {
       </div>
     
       <div className='flex justify-between'>
-        <Search /> 
-
-        <PopUp
-          title='Agregar Denuncia'
-          icon={<HiPlusCircle  className='text-lg'/>} 
-          textButton='Denuncia'
-        >
-          <FormDenuncia />
-        </PopUp>  
+        <Search 
+          onGetData={ onGetDenuncias }
+          onSearch={ onSearch }
+        /> 
+        <Button onClick={() => navigate('/denuncias-manage') }> 
+         <span className='text-lg mr-1'><HiPlusCircle /></span>Denuncia
+        </Button>
       </div>
 
       <Table hoverable>
@@ -129,11 +126,10 @@ const Denuncias = () => {
                     
                     <Table.Cell>
                         <a
-                        className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
-                        href="#"
-                        onClick={() => onEdit(denuncia) }
+                          className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+                          onClick={() => onEdit(denuncia) }
                         >
-                          <p>Edit</p>
+                          <p className='cursor-pointer'>Edit</p>
                         </a> 
                     </Table.Cell>
                   </Table.Row>

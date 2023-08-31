@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getChart, getDenuncias, resetDenuncia, setDenuncia, setSearch, getProceso, getImprocedentes, getConcluidas, getAtendidasSFP, getEtapas, getClasificacion } from "../store";
+import { getChart, getDenuncias, resetDenuncia, setDenuncia, getProceso, getImprocedentes, getConcluidas, getAtendidasSFP, getEtapas, getClasificacion } from "../store";
 import api from "../config/api";
 import { useUiStore } from '../hooks/useUiStore';
 
 
 export const useDenunciasStore = () => {
-    const { denuncias, denuncia, search, chart, proceso, improcedente, concluida, atendidasSFP, etapas, clasificacion } = useSelector(state => state.denuncias)
-    const { onLoading, onModal, onNotification } = useUiStore()
+    const { denuncias, denuncia, chart, proceso, improcedente, concluida, atendidasSFP, etapas, clasificacion } = useSelector(state => state.denuncias)
+    const { onLoading, onNotification, onSetSearch } = useUiStore()
     const dispatch = useDispatch();
 
     const onGetDenuncias = async( page = 1 ) => {
@@ -45,21 +45,15 @@ export const useDenunciasStore = () => {
         }
     }
 
-    const onSetSearch = ( status ) => {
-        dispatch( setSearch( status) )
-    }
-
     const onStore = async( values ) => {
    
         onLoading(true)
         try {
           const { data } = await api.post('/denuncias', values) 
           const { success } = data
-         
 
           if( success ) {
               onGetDenuncias()
-              onModal(undefined)
               onLoading(false) 
               onNotification({icon:'success', message:'Denuncia guardada correctamente'})   
           }
@@ -80,15 +74,12 @@ export const useDenunciasStore = () => {
             })
     
             formData.append('_method', 'PUT');
-    
-           
-    
+
             const { data } = await api.post(`/denuncias/${values.id}`, formData)
            
             if(data.success){
                 onGetDenuncias()
                 onResetDenuncia()
-                onModal(undefined)
                 onLoading(false) 
                 onNotification({icon:'success', message:'Denuncia modificada correctamente'})   
             }
@@ -205,7 +196,6 @@ export const useDenunciasStore = () => {
         try {
             const { data } = await api.get('/denunciasclasificacion');
             const { denuncias, success } = data
-            //console.log(denuncias);
 
             if( success ){
                 dispatch( getClasificacion( denuncias ) )
@@ -216,11 +206,12 @@ export const useDenunciasStore = () => {
         }
     }
 
+    const onGetDataChart = () => {}
+
 
     return {
         denuncias,
         denuncia,
-        search,
         chart,
         proceso,
         improcedente,
@@ -230,7 +221,6 @@ export const useDenunciasStore = () => {
         clasificacion,
         onGetDenuncias,
         onSearch,
-        onSetSearch,
         onStore,
         onUpdate,
         onSetDenuncia,

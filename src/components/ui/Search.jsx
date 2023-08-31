@@ -2,11 +2,11 @@ import { useFormik } from 'formik'
 import { HiDocumentSearch } from 'react-icons/hi';
 import { FilterAltOff } from '@mui/icons-material';
 
-import { useDenunciasStore } from '../../hooks/useDenunciasStore';
 import { Button, TextInput } from 'flowbite-react';
+import { useUiStore } from '../../hooks/useUiStore';
 
-export const Search = () => {
-  const { search, onGetDenuncias, onSearch, onSetSearch } = useDenunciasStore()
+export const Search = ({ onGetData, onSearch }) => {
+  const { search, onSetSearch } = useUiStore()
 
   const formik = useFormik({
     initialValues: {
@@ -18,8 +18,9 @@ export const Search = () => {
   });
 
   const handleSearch = async() => {
-    await onGetDenuncias()
+    await onGetData()
     onSetSearch( false )
+    formik.resetForm()
   }
 
   return (
@@ -29,7 +30,7 @@ export const Search = () => {
         <TextInput
                 className='flex-initial w-80'
                 rightIcon={HiDocumentSearch}
-                placeholder="Buscar carpeta de denuncia"
+                placeholder="Buscar ...."
                 required
                 type="text"
                 name='search'
@@ -44,6 +45,7 @@ export const Search = () => {
                 </div>
             )
            }
+
     
             <Button type="submit" className='ml-2'>
                 Buscar

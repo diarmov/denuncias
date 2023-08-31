@@ -1,3 +1,5 @@
+export * from './users/userSlice'
+export * from './resoluciones/resolucionSlice'
 export * from './catalogos/catalogoSlice'
 export * from './ui/uiSlice'
 export * from './denuncias/denunciaSlice'

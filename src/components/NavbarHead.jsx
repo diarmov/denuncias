@@ -10,15 +10,16 @@ export default function NavbarHead() {
     <Navbar
       fluid
       rounded
-      className='bg-slate-300 w-auto'
+      className='w-auto text-white'
+      style={{ background: '#7E212C'}}
     >
       <Navbar.Brand href="/">
         <img
           alt="Logo Gobierno del Estado de Zacatecas"
-          className="mr-3 h-6 sm:h-9"
-          src="../img/logo.svg"
+          className="mr-8 h-6 sm:h-9"
+          src="../img/logo_blanco.png"
         />
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+        <span className="self-center whitespace-nowrap text-xl font-semibold">
           Sistema Integral de Seguimiento a Denuncias
         </span>
       </Navbar.Brand>

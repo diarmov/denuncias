@@ -5,8 +5,13 @@ export const roles = () => {
            return true
     }
 
+    const isDenuncia= ( user ) => {
+        if(user?.role === 'OIC' || user?.role === 'UIF' || user?.role === 'DR' || user?.role === 'DRSP' || user?.role === 'DC')
+           return true
+    }
+
     const isResolucion = ( user ) => {
-        if(user?.role === 'OIC' || user?.role === 'JFC' || user?.role === 'TJA')
+        if(user?.role === 'OIC' || user?.role === 'JFC' || user?.role === 'TJA' || user?.role === 'DC')
            return true
     }
 
@@ -47,6 +52,7 @@ export const roles = () => {
 
   return {
     isRoot,
+    isDenuncia,
     isResolucion,
     isOic,   
     isUif,

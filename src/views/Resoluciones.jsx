@@ -63,9 +63,6 @@ const Resoluciones = () => {
 
     <Table hoverable>
       <Table.Head>
-        <Table.HeadCell>
-          Folio UIF
-        </Table.HeadCell>
         <Table.HeadCell>          
           Folio          
         </Table.HeadCell>
@@ -86,12 +83,7 @@ const Resoluciones = () => {
       <Table.Body className="divide-y">
         {
             resoluciones.data?.map((resolucion, index) => (
-                <Table.Row className="bg-white" key={ index }>
-                  <Table.Cell className='whitespace-nowrap'>
-                      <Tooltip content={ resolucion.numExpUif }>
-                          { sizeText( resolucion.numExpUif) }
-                      </Tooltip>
-                  </Table.Cell>                   
+                <Table.Row className="bg-white" key={ index }>                 
                   
                   <Table.Cell className="whitespace-nowrap">
                       <Tooltip content={ resolucion.folio }>
@@ -128,7 +120,7 @@ const Resoluciones = () => {
 
                         <a
                             className="font-medium text-cyan-600 hover:underline dark:text-cyan-500  mx-1"
-                            onClick={() => handleModal({resolucion, option: 2,  title: 'Agregar Recurso de Inconformidad'}) }
+                            onClick={() => handleModal({resolucion, option: 2,  title: 'Agregar Impugnación'}) }
                         >
                             <Tooltip content="Agregar recurso"  >
                                 <p className='cursor-pointer text-xl text-gray-500'><HiOutlineFolderOpen /></p>

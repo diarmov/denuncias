@@ -7,11 +7,10 @@ import { setClasificacion, setDependencia, setEstatus, setEtapa, setOrigen, setT
 
 export const useCatalogoStore = () => {
     const { origen, etapa,  estatus, tipo, clasificacion, dependencia, ubicacion } = useSelector(state => state.catalogos)
-    const { onLoading } = useUiStore()
     const dispatch = useDispatch();
 
     const onGetCatalogos = async() => {
-        onLoading( true )
+  
         try {
             const { data } = await api.get(`/catalogos`);
             const { origen, etapa, tipo, clasificacion, dependencia, ubicacion, success } = data
@@ -23,12 +22,10 @@ export const useCatalogoStore = () => {
                 dispatch( setClasificacion( clasificacion ) )
                 dispatch( setDependencia( dependencia ) )
                 dispatch( setUbicacion( ubicacion ) )
-                onLoading( false )
             }
-            onLoading( false )
+
         } catch (error) {
             console.log(error);
-            onLoading( false )
         }
     }
 

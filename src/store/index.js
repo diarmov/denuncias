@@ -1,3 +1,4 @@
+export * from './busqueda/busquedaSlice'
 export * from './users/userSlice'
 export * from './resoluciones/resolucionSlice'
 export * from './catalogos/catalogoSlice'

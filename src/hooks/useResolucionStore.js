@@ -5,11 +5,11 @@ import api from "../config/api";
 import { useNavigate } from "react-router-dom";
 import { useDenunciasStore } from "./useDenunciasStore";
 
-
 export const useResolucionStore = () => {
     const { resoluciones, open, resolucion, recursos } = useSelector(state => state.resoluciones)
     const { onLoading, onNotification, onModal, onSetSearch } = useUiStore()
     const { onSetDenuncia } = useDenunciasStore()
+
     const dispatch = useDispatch();
     const navigate = useNavigate(); 
 
@@ -89,19 +89,26 @@ export const useResolucionStore = () => {
         onLoading(true)
         try {
           const { data } = await api.post('/resoluciones-recurso', values)
-          const { success } = data
-
+          const { success, denuncia } = data
+        console.log(data);
           if( success ) {
               onLoading(false) 
               onModal(undefined)
-              onNotification({icon:'success', message:'Recurso guardado correctamente'})    
+              onNotification({
+                icon:'info', 
+                title:'Recurso guardado correctamente', 
+                message:'Seras redirigido a la pantalla denuncias para que actualices la etapa procesal', 
+                type: 2
+            })   
+              onSetDenuncia(denuncia)
+              navigate('/denuncias-manage')
              
           }
 
         } catch (error) {
           console.log(error);
           onLoading(false)
-          onNotification({icon:'error', message:error.response.data.message})   
+          //onNotification({icon:'error', message:error.response.data.message})   
         }
     }
 

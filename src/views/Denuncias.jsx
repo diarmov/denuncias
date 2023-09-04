@@ -54,7 +54,10 @@ const Denuncias = () => {
 
       <Table hoverable>
         <Table.Head>
-        <Table.HeadCell>
+          <Table.HeadCell>
+            Folios
+          </Table.HeadCell>
+          <Table.HeadCell>
             Origen
           </Table.HeadCell>
           <Table.HeadCell>
@@ -76,13 +79,38 @@ const Denuncias = () => {
             Ubicación
           </Table.HeadCell>
           <Table.HeadCell>
-            Acciones
+            
           </Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
           {
               denuncias.data?.map((denuncia, index) => (
                   <Table.Row className="bg-white" key={ index }>
+                    <Table.Cell className="whitespace-nowrap text-gray-900 ">
+                        {
+                          denuncia.numExpOic !== '' && (
+                            <Tooltip content={ denuncia.numExpOic }>
+                                { sizeText( denuncia.numExpOic) }
+                            </Tooltip>
+                          )
+                        }
+
+                        {
+                          denuncia.numExpUif !== '' && (
+                            <Tooltip content={ denuncia.numExpUif }>
+                                { sizeText( denuncia.numExpUif) }
+                            </Tooltip>
+                          )
+                        }
+
+                        {
+                          denuncia.numExpSubs !== '' && (
+                            <Tooltip content={ denuncia.numExpSubs }>
+                                { sizeText( denuncia.numExpSubs) }
+                            </Tooltip>
+                          )
+                        }
+                    </Table.Cell>
                     <Table.Cell className="whitespace-nowrap text-gray-900 ">
                         <Tooltip content={ denuncia.origen }>
                             { sizeText( denuncia.origen) }

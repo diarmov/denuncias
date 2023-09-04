@@ -62,7 +62,7 @@ export const useAuthStore = () => {
         dispatch( login(user) );
         return true
     } catch (error) {
-        console.log(error);
+        onNotification({icon:'error', message:'Credenciales Incorrectas'})   
         localStorage.clear();
         onLogout()
         return false

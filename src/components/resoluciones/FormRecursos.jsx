@@ -1,6 +1,6 @@
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import { useFormik } from "formik";
-import { number, object, string } from 'yup';
+import { object, string } from 'yup';
 
 import { useUiStore } from "../../hooks/useUiStore";
 import { useResolucionStore } from "../../hooks/useResolucionStore";
@@ -15,7 +15,7 @@ export const FormRecursos = () => {
         fecha: string().required('Indicar la fecha de la impugnación'),
     });
 
-    const { handleSubmit,  handleChange, values, setFieldValue, touched, errors, resetForm, setValues } = useFormik({
+    const { handleSubmit,  handleChange, values, touched, errors, resetForm } = useFormik({
         initialValues: {
             folio: '',
             fecha: '',
@@ -24,6 +24,7 @@ export const FormRecursos = () => {
         onSubmit: async values => {
             await onStoreRecurso({ ...values, idresolucion: resolucion.id })
             resetForm()
+            document.getElementById("amparo").checked = false;
         },
         validationSchema: validations
     });
@@ -32,9 +33,9 @@ export const FormRecursos = () => {
     <form onSubmit={handleSubmit} className='mb-4'>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-3'>  
             <div className='mt-2'>
-                <Label htmlFor="folio" value="Folio del recurso"/>
+                <Label htmlFor="folio" value="Folio de la impugnación"/>
                 <TextInput               
-                    placeholder="Folio del recurso"
+                    placeholder="Folio del impugnación"
                     type="text"
                     name='folio'
                     onChange={handleChange}
@@ -44,9 +45,8 @@ export const FormRecursos = () => {
             </div>
 
             <div className='mt-2'>
-                <Label htmlFor="fecha" value="Fecha de interposición de recurso"/>
-                <TextInput               
-                    placeholder="Fecha de interposición de recursocha"
+                <Label htmlFor="fecha" value="Fecha de interposición de la impugnación"/>
+                <TextInput 
                     type="date"
                     name='fecha'
                     onChange={handleChange}

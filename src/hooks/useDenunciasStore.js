@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getChart, getDenuncias, resetDenuncia, setDenuncia,  getTotal, getAtenSFP, getAtenOIC, getAtenTJA, getClasificacion} from "../store";
+import { getChart, getDenuncias, resetDenuncia, setDenuncia,  getTotal, getAtenSFP, getAtenOIC, getAtenTJA, getClasificacion, setClasificacionId} from "../store";
 import api from "../config/api";
 import { useUiStore } from '../hooks/useUiStore';
 
 
 export const useDenunciasStore = () => {
-    const { denuncias, denuncia, chart, denunciastotal, atencionsfp, atencionoic, atenciontja, clasificacion } = useSelector(state => state.denuncias)
+    const { denuncias, denuncia, chart, denunciastotal, atencionsfp, atencionoic, atenciontja, clasificacion, clasificacionId } = useSelector(state => state.denuncias)
     const { onLoading, onNotification, onSetSearch } = useUiStore()
     const dispatch = useDispatch();
 
@@ -203,10 +203,10 @@ export const useDenunciasStore = () => {
     }
 
     const onGetDataClasificacion = async() => {
+        onLoading(true)
         try {
             const { data } = await api.get('/denunciasclasificacion');
             const { denuncias, success } = data
-            //console.log(denuncias);
 
             if( success ){
                 dispatch( getClasificacion( denuncias ) )
@@ -217,6 +217,23 @@ export const useDenunciasStore = () => {
             console.log(error);
             onLoading( false )
 
+        }
+    }
+
+    const onGetDataClasificacionById = async( id ) => { 
+        onLoading(true)
+        try {
+            const { data } = await api.get(`/clasificacion-id/${id}`);
+            const { denuncias, success } = data
+
+            if( success ){
+                dispatch( setClasificacionId( denuncias ) )
+                onLoading(false)
+            }
+        
+        } catch (error) {
+            console.log(error);
+            onLoading(false)
         }
     }
 
@@ -233,6 +250,8 @@ export const useDenunciasStore = () => {
         atencionoic,
         atenciontja,
         clasificacion,
+        clasificacionId,
+
         onGetDenuncias,
         onSearch,
         onStore,
@@ -244,6 +263,7 @@ export const useDenunciasStore = () => {
         onGetDataAtencionSFP,
         onGetDataAtencionOIC,
         onGetDataAtencionTJA,
-        onGetDataClasificacion
+        onGetDataClasificacion,
+        onGetDataClasificacionById
     }
 }

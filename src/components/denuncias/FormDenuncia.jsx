@@ -15,6 +15,7 @@ import { useAuthStore } from '../../hooks/useAuthStore';
 
 import { FormResolucion } from './FormResolucion';
 import { useResolucionStore } from '../../hooks/useResolucionStore';
+import { roles } from '../../helpers/roles';
 
 
 export const FormDenuncia = () => {
@@ -24,6 +25,7 @@ export const FormDenuncia = () => {
     const { active } = useAuthStore()
     const { loading } = useUiStore()
     const navigate = useNavigate();
+    const {  isTja, isJfc } = roles() 
 
     const validations = object({
       fechaIniRadi: string().required('Ingrese la fecha de radicación e inicio'),
@@ -39,11 +41,17 @@ export const FormDenuncia = () => {
     const { handleSubmit,  handleChange, values, setFieldValue, touched, errors, resetForm, setValues } = useFormik({
       initialValues: denuncia,      
       onSubmit: async values => {
+        if( isTja( active ) || isJfc( active ) )
+            navigate('/resoluciones') 
+        else
+            navigate('/denuncias')
+
         denuncia.id > 0
         ? await onUpdate( values )
         : await onStore( values )
         resetForm()
-        navigate('/denuncias')
+
+        
       },
       validationSchema: validations
     });

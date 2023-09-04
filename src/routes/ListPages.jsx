@@ -14,7 +14,7 @@ import { useAuthStore } from '../hooks/useAuthStore';
 
 
 const ListPages = () => {
-    const {  isRoot, isResolucion} = roles() 
+    const {  isRoot, isDenuncia, isResolucion} = roles() 
     const { active } = useAuthStore()
 
     const list = useMemo(()=>[
@@ -22,9 +22,13 @@ const ListPages = () => {
         {title: 'Busqueda', icon: <HiSearch />, link:'busqueda', component: <Busqueda /> },
         {title: 'Tipo de Denuncia', icon: <HiAnnotation />, link:'tipo', component: <Tipo /> },
         {title: 'Estadisticas', icon: <HiChartSquareBar />, link:'estadisticas', component: <Estadisticas /> },
-        {title: 'Denuncias', icon: <HiFolderOpen />, link:'denuncias', component: <Denuncias /> },
+      
+        ...isDenuncia(active)  ? [
+          {title: 'Denuncias', icon: <HiFolderAdd />, link:'denuncias', component: <Denuncias /> },
+        ] : [],
        
         ...isRoot(active) ? [
+          {title: 'Denuncias', icon: <HiFolderAdd />, link:'denuncias', component: <Denuncias /> },
           {title: 'Resoluciones', icon: <HiFolderAdd />, link:'resoluciones', component: <Resoluciones /> },
           {title: 'Usuarios', icon: <HiUser />, link:'users', component: <Listado /> },
         ] : [],
@@ -32,6 +36,7 @@ const ListPages = () => {
         ...isResolucion(active)  ? [
           {title: 'Resoluciones', icon: <HiFolderAdd />, link:'resoluciones', component: <Resoluciones /> },
         ] : [],
+        
     ],[])
 
     const components = useMemo(()=>[

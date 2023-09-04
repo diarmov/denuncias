@@ -48,7 +48,7 @@ export default function Estadisticas() {
                         placeholder="Periodo hasta"
                         aria-label="Búsqueda de por periodo" 
                         className="m-2 rounded-lg" 
-                        value={values.periodos}
+                        value={values.periodo}
                         onChange={handleChange}
                       />
                 <Field 

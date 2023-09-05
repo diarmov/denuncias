@@ -1,30 +1,10 @@
 import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
+import { useEstadisticaStore } from '../hooks/useEstadisticaStore';
+import { fncBusqueda } from '../helpers/fncBusqueda';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
-
-
-
-  var tipofalta = ["Graves", "No Graves"];
-  var total = [152,40];
-  var color = ['#6AA9F7', 'yellow']
-
-  var midata = {
-    labels: tipofalta,
-    datasets: [
-      {
-        label: 'Total de Faltas',
-        data: total,
-        fill: false,
-        lineTension: 0.1,
-        backgroundColor:color,
-        borderColor: 'black',
-        borderWidth: 1,
-        pointRadius: 3,
-      },
-    ],
-  };
 
   var mioptions = {
   plugins: {
@@ -42,5 +22,23 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 };
 
 export default function PieChartEstadistica() {
+  const { tipo } = useEstadisticaStore()
+
+  var midata = {
+    labels: tipo.labels,
+    datasets: [
+      {
+        label: 'Total de Faltas',
+        data: tipo.data,
+        fill: false,
+        lineTension: 0.1,
+        backgroundColor:tipo.color,
+        borderColor: 'black',
+        borderWidth: 1,
+        pointRadius: 3,
+      },
+    ],
+  };
+
   return <Pie data={midata} options={mioptions}/>;
 }

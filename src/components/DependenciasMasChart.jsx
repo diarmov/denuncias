@@ -9,6 +9,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import { useEstadisticaStore } from '../hooks/useEstadisticaStore';
 
 ChartJS.register(
   CategoryScale,
@@ -18,30 +19,6 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
-var dependencias = [
-                    "Secretaría de Seguridad Pública", 
-                    "Secretaría General de Gobierno", 
-                    "Coordinación General Jurídica", 
-                    "Secretaría de Obras Públicas", 
-                    "Secretaría del Campo",
-                    "Secretaría de Educación", 
-                    "Instituto para la Construcción de Escueleas", 
-                    "Secretaría de las Mujeres"
-                ];
-var denuncias = [150,130,110,90,70,60,50,40];
-var colores = ['skyblue','purple','yellow','pink','green','orange','aqua','red']
-
-var midata = {
-    labels: dependencias,
-    datasets: [
-        {
-            label: 'Denuncias',
-            data: denuncias,
-            backgroundColor: colores,
-        }
-    ],
-};
 
 var mioptions = {
     indexAxis: 'y',
@@ -67,5 +44,23 @@ var mioptions = {
   };
 
 export default function DependenciasMasChart(){
-    return <Bar data={midata} options={mioptions}/>
+  const { byDep } = useEstadisticaStore()
+
+  var midata = {
+    labels: byDep.labels,
+    datasets: [
+      {
+        label: 'Total de Faltas',
+        data: byDep.data,
+        fill: false,
+        lineTension: 0.1,
+        backgroundColor:byDep.color,
+        borderColor: 'black',
+        borderWidth: 1,
+        pointRadius: 3,
+      },
+    ],
+  };
+
+  return <Bar data={midata} options={mioptions}/>
 }

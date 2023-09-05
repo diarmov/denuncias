@@ -12,7 +12,7 @@ const images = ['cohecho','desacato','nepotismo','abuso_funciones','desvio_recur
 export default function Tipo() {
   const { clasificacion, onGetDataClasificacion, onGetDataClasificacionById } = useDenunciasStore()
   const { onModal } = useUiStore()
-  const [tipo, setTipo] = useState({tipo:'', id: 0})
+  const [tipo, setTipo] = useState('')
 
   useEffect(() => {
    if(clasificacion.length === 0) onGetDataClasificacion()
@@ -30,9 +30,9 @@ export default function Tipo() {
     else return (<span>{text}</span>)
   }
 
-  const onDetails = async( title, id ) => {
+  const onDetails = async( title, id, total) => {
     await onGetDataClasificacionById(id)
-    setTipo({ title, id })
+    setTipo(`Total de Denuncias por ${title} - ${total}`)
     onModal( 'default' )
   }
 
@@ -46,15 +46,15 @@ export default function Tipo() {
       <div className="w-full p-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 text-sm md:text-md lg:text-lg">
 
         <PopUp 
-         title = { tipo.title }
+         title = { tipo }
         >
-          <TableTipo id = { tipo.id }/>
+          <TableTipo />
         </PopUp>
         
         {
           clasificacion.map(item => (
             <div className="h-auto mt-2 mb-2 md:justify-center" key={item.id}>
-              <a  onClick={() => onDetails( item.clasificacion, item.id )} className="flex items-center justify-center w-[70%] m-auto  rounded-xl shadow-lg h-min p-3 transition ease-in-out delay-150 bg-gray-50 hover:-translate-y-1 hover:scale-110 duration-300 cursor-pointer">
+              <a  onClick={() => onDetails( item.clasificacion, item.id, item.total )} className="flex items-center justify-center w-[70%] m-auto  rounded-xl shadow-lg h-min p-3 transition ease-in-out delay-150 bg-gray-50 hover:-translate-y-1 hover:scale-110 duration-300 cursor-pointer">
                 <div className="w-[30%]">
                   <img src={`../img/${ images[ item.id -1 ]}.png`} alt=" Logo de Cohecho" className="rounded-full shadow-lg dark:shadow-black/30" />
                 </div>

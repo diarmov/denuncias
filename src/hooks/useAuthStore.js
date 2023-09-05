@@ -11,7 +11,8 @@ import {
          resetUi,
          resetAllDenuncia,
          resetAllResoluciones,
-         resetAllCatalogos
+         resetAllCatalogos,
+         resetAllBusqueda
        } from '../store';
 
 export const useAuthStore = () => {
@@ -45,7 +46,8 @@ export const useAuthStore = () => {
         dispatch( resetAllResoluciones() );
         dispatch( resetAllCatalogos() );
         dispatch( resetAllUser() );
-        dispatch( resetUi() );         
+        dispatch( resetUi() );  
+        dispatch( resetAllBusqueda() );       
   }
 
   const checkAuthToken = async() => {

@@ -4,6 +4,7 @@ export const catalogoSlice = createSlice({
     name: 'catalogos',
     initialState: {
         origen: [],
+        captacion: [],
         etapa: [],
         estatus: [],
         tipo: [],
@@ -14,6 +15,9 @@ export const catalogoSlice = createSlice({
     reducers: {
         setOrigen:  (state, { payload } ) => {
             state.origen = payload;
+        },
+        setCaptacion:  (state, { payload } ) => {
+            state.captacion = payload;
         },
         setEtapa:  (state, { payload } ) => {
             state.etapa = payload;
@@ -46,4 +50,4 @@ export const catalogoSlice = createSlice({
     }
 });
 
-export const { setOrigen, setEtapa, setEstatus, setTipo, setClasificacion, setDependencia, setUbicacion, resetAllCatalogos } = catalogoSlice.actions;
+export const { setOrigen, setCaptacion, setEtapa, setEstatus, setTipo, setClasificacion, setDependencia, setUbicacion, resetAllCatalogos } = catalogoSlice.actions;

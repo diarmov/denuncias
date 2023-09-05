@@ -19,7 +19,7 @@ import { roles } from '../../helpers/roles';
 
 
 export const FormDenuncia = () => {
-    const { origen, etapa,  estatus, tipo, clasificacion, dependencia, ubicacion, onGetCatalogos, onGetEstatus  } = useCatalogoStore()
+    const { captacion, origen, etapa,  estatus, tipo, clasificacion, dependencia, ubicacion, onGetCatalogos, onGetEstatus  } = useCatalogoStore()
     const { denuncia, onStore, onUpdate, onResetDenuncia } = useDenunciasStore()
     const { open, onSetOpen } = useResolucionStore()
     const { active } = useAuthStore()
@@ -66,7 +66,7 @@ export const FormDenuncia = () => {
 
     useEffect(() => {
       values.idEtapa === 3 ? onSetOpen( true ) : onSetOpen( false )
-      onGetEstatus( values.idEtapa )
+      if(values.idEtapa > 0) onGetEstatus( values.idEtapa )
     }, [values.idEtapa])
 
     const handleBack = () => {
@@ -157,9 +157,7 @@ export const FormDenuncia = () => {
              )
            } 
               
-          
-               
-
+        
             {
               denuncia.id === 0 && (
                 <>
@@ -173,6 +171,16 @@ export const FormDenuncia = () => {
                         value={values.fechaIniRadi}
                     />
                     { touched.fechaIniRadi && errors.fechaIniRadi ? (<div className='text-sm text-red-600'>{errors.fechaIniRadi}</div>) : null }
+                  </div>
+
+                  <div>
+                    <Label htmlFor="idCaptacion" value="Medio de captacion"/>
+                    <SelectControl 
+                      options={captacion}
+                      value={values.idCaptacion}
+                      onChange={value=>setFieldValue('idCaptacion', value.value)}
+                    />
+                    { touched.idCaptacion && errors.idCaptacion ? (<div className='text-sm text-red-600'>{errors.idCaptacion}</div>) : null }
                   </div>
 
                   <div>
@@ -196,7 +204,6 @@ export const FormDenuncia = () => {
                     />
                     { touched.asunto && errors.asunto ? (<div className='text-sm text-red-600'>{errors.asunto}</div>) : null }
                   </div>
-
 
                   <div>
                     <Label htmlFor="idTipoFalta" value="Tipo de falta"/>

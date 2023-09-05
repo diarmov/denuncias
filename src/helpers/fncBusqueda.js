@@ -22,7 +22,24 @@ export const fncBusqueda = () => {
      }
 
    }
+
+   const onGetData = ( tipo ) => {
+      var color = ['#7E212C','skyblue','purple','green','pink','green','orange','aqua','red']
+      let data = []
+      let labels = []
+
+      tipo.map(item => {
+         data.push( item.total )
+         labels.push( item.nombre )
+      })
+
+      return {
+         data,
+         labels,
+         color 
+      }
+   }
   
-   return { onDetails }
+   return { onDetails, onGetData }
 }
 

@@ -6,9 +6,10 @@ export const busquedaSlice = createSlice({
        details: {},
        paginate: [],
        search: {
-        idOrigen: '',
+        idCaptacion: '',
         idTipoFalta:'',
         idDependencia:'',
+        idClasificacion:'',
       }
     },
     reducers: {
@@ -21,7 +22,25 @@ export const busquedaSlice = createSlice({
         setCustomSearch:  (state, { payload } ) => {
             state.search = payload;
         },
+        resetBusqueda: ( state ) => {
+            state.search = {
+                idCaptacion: '',
+                idTipoFalta:'',
+                idDependencia:'',
+                idClasificacion:'',
+              }
+        },
+        resetAllBusqueda: ( state ) => {
+            state.details = {},
+            state.paginate = [],
+            state.search = {
+                idCaptacion: '',
+                idTipoFalta:'',
+                idDependencia:'',
+                idClasificacion:'',
+            }
+        }
     }
 });
 
-export const { setCustomPaginate, setDetails, setCustomSearch } = busquedaSlice.actions;
+export const { setCustomPaginate, setDetails, setCustomSearch, resetBusqueda, resetAllBusqueda } = busquedaSlice.actions;

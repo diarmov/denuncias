@@ -1,22 +1,23 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useUiStore } from '../hooks/useUiStore';
 import api from "../config/api";
-import { setClasificacion, setDependencia, setEstatus, setEtapa, setOrigen, setTipo, setUbicacion } from "../store";
+import { setCaptacion, setClasificacion, setDependencia, setEstatus, setEtapa, setOrigen, setTipo, setUbicacion } from "../store";
 
 
 
 export const useCatalogoStore = () => {
-    const { origen, etapa,  estatus, tipo, clasificacion, dependencia, ubicacion } = useSelector(state => state.catalogos)
+    const { origen, captacion, etapa,  estatus, tipo, clasificacion, dependencia, ubicacion } = useSelector(state => state.catalogos)
     const dispatch = useDispatch();
 
     const onGetCatalogos = async() => {
   
         try {
             const { data } = await api.get(`/catalogos`);
-            const { origen, etapa, tipo, clasificacion, dependencia, ubicacion, success } = data
+            const { origen, captacion, etapa, tipo, clasificacion, dependencia, ubicacion, success } = data
             
             if( success ){
                 dispatch( setOrigen( origen ) )
+                dispatch( setCaptacion( captacion ) )
                 dispatch( setEtapa( etapa ) )
                 dispatch( setTipo( tipo ) )
                 dispatch( setClasificacion( clasificacion ) )
@@ -42,6 +43,7 @@ export const useCatalogoStore = () => {
 
     return {
         origen, 
+        captacion,
         etapa,  
         estatus, 
         tipo, 

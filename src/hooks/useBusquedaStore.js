@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { setCustomPaginate, setCustomSearch, setDetails } from "../store";
+import { resetBusqueda, setCustomPaginate, setCustomSearch, setDetails } from "../store";
 import { useUiStore } from "./useUiStore";
 import api from "../config/api";
 import { fncBusqueda } from "../helpers/fncBusqueda";
@@ -52,6 +52,10 @@ export const useBusquedaStore = () => {
         dispatch( setCustomSearch( values ) )
     }
 
+    const onResetSearch = (  ) => {
+        dispatch( resetBusqueda(  ) )
+    }
+
     return {
         denuncias,
         details,
@@ -60,6 +64,7 @@ export const useBusquedaStore = () => {
 
         onGetDenuncias,
         onGetPaginate,
-        onSetCustomSearch
+        onSetCustomSearch,
+        onResetSearch
     }
 }

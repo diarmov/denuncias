@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import { useEstadisticaStore } from '../hooks/useEstadisticaStore';
 
 
 ChartJS.register(
@@ -19,20 +20,6 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
-var denuncias = [60, 56, 20, 36, 80, 30,];
-var meses = ["Derivadas de Auditoría","SIDEC","Comparecencia", "Incompetencia de OIC", "Atracción", "Oficio"];
-
-var midata = {
-    labels: meses,
-    datasets: [
-        {
-            label: 'Denuncias',
-            data: denuncias,
-            backgroundColor: ['rgba(239, 96, 115)','rgba(229, 230, 64)','rgba(217, 108, 11)','rgba(184, 83, 244)','rgba(41, 106, 18)','rgba(245, 84, 205)']
-        },
-    ],
-};
 
 var mioptions = {
     responsive: true,
@@ -52,5 +39,23 @@ var mioptions = {
 };
 
 export default function OrigenDenunciasChart(){
-    return <Bar data={midata} options={mioptions}/>
+  const { byOrigen } = useEstadisticaStore()
+
+  var midata = {
+    labels: byOrigen.labels,
+    datasets: [
+      {
+        label: 'Total de Faltas',
+        data: byOrigen.data,
+        fill: false,
+        lineTension: 0.1,
+        backgroundColor:byOrigen.color,
+        borderColor: 'black',
+        borderWidth: 1,
+        pointRadius: 3,
+      },
+    ],
+  };
+  
+  return <Bar data={midata} options={mioptions}/>
 }

@@ -10,6 +10,7 @@ import {
     Legend, 
     Filler 
 } from 'chart.js';
+import { useEstadisticaStore } from "../hooks/useEstadisticaStore";
 
 ChartJS.register(
     CategoryScale,
@@ -21,27 +22,6 @@ ChartJS.register(
     Legend,
     Filler
 );
-var beneficios = [0, 56, 20, 36, 80, 30, 40, 20, 25, 30, 12, 60];
-var meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
-
-var midata = {
-    labels: meses,
-    datasets: [
-        {
-            label: 'Denuncias',
-            data: beneficios,
-            tension: 0.5,
-            fill: true,
-            borderColor: 'blue',
-            backgroundColor: 'rgba(71, 145, 255, .4)',
-            pointRadius: 2,
-            pointBorderColor: 'blue',
-            pointBackgroundColor: 'blue',
-            borderWidth: 1,
-            
-        },
-    ],
-};
 
 var mioptions = {
     responsive: true,
@@ -61,5 +41,26 @@ var mioptions = {
 };
 
 export default function DenunciasxMesChart(){
-    return <Line data={midata} options={mioptions}/>
+  const { byMonth } = useEstadisticaStore()
+
+  let midata = {
+    labels: byMonth.labels,
+    datasets: [
+        {
+            label: 'Total de denuncias',
+            data: byMonth.data,
+            tension: 0.5,
+            fill: true,
+            borderColor: 'blue',
+            backgroundColor: 'rgba(71, 145, 255, .4)',
+            pointRadius: 2,
+            pointBorderColor: 'blue',
+            pointBackgroundColor: 'blue',
+            borderWidth: 1,
+            
+        },
+    ],
+  };
+
+  return <Line data={midata} options={mioptions}/>
 }

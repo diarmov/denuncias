@@ -1,8 +1,15 @@
+import { useState } from 'react';
 import { Pagination, Table, Tooltip} from 'flowbite-react';
 import { useBusquedaStore } from '../../hooks/useBusquedaStore';
+import { HiExclamation } from 'react-icons/hi';
+
+import { PopUp } from "../../components/ui";
+import { useUiStore } from '../../hooks/useUiStore';
 
 export const TableBusqueda = () => {
   const { paginate, search, onGetPaginate  } = useBusquedaStore()
+  const { onModal } = useUiStore()
+  const [asunto, setAsunto] = useState('')
 
   const sizeText = ( text ) => { 
     if( text?.length > 15  )
@@ -14,8 +21,19 @@ export const TableBusqueda = () => {
     onGetPaginate( search, page  )
   }
 
+  const handleModal = ( asunto ) => {
+      setAsunto( asunto )
+      onModal( 'default' )
+  }
+
   return (
     <>
+
+     <PopUp
+        title ='Asunto/Motivo/Denominacion'
+     >
+      <p>{asunto}</p>
+     </PopUp>
      {
         (paginate.current_page )  && (
            <div className='flex flex-row-reverse mt-2 mb-2'>
@@ -32,9 +50,6 @@ export const TableBusqueda = () => {
     <Table hoverable>
         <Table.Head>
           <Table.HeadCell>
-            Folios
-          </Table.HeadCell>
-          <Table.HeadCell>
             Dependencia
           </Table.HeadCell>
           <Table.HeadCell>
@@ -49,37 +64,14 @@ export const TableBusqueda = () => {
           <Table.HeadCell>
             Clasificación          
           </Table.HeadCell>
+          <Table.HeadCell>
+                      
+          </Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
           {
               paginate.data?.map((denuncia, index) => (
                   <Table.Row className="bg-white" key={ index }>
-                    <Table.Cell className="whitespace-nowrap text-gray-900 ">
-                        {
-                          denuncia.numExpOic !== '' && (
-                            <Tooltip content={ denuncia.numExpOic }>
-                                { sizeText( denuncia.numExpOic) }
-                            </Tooltip>
-                          )
-                        }
-
-                        {
-                          denuncia.numExpUif !== '' && (
-                            <Tooltip content={ denuncia.numExpUif }>
-                                { sizeText( denuncia.numExpUif) }
-                            </Tooltip>
-                          )
-                        }
-
-                        {
-                          denuncia.numExpSubs !== '' && (
-                            <Tooltip content={ denuncia.numExpSubs }>
-                                { sizeText( denuncia.numExpSubs) }
-                            </Tooltip>
-                          )
-                        }
-                    </Table.Cell>
-
                     <Table.Cell className='whitespace-nowrap'>
                         <Tooltip content={ denuncia.dependencia }>
                             { sizeText( denuncia.dependencia ) }
@@ -104,9 +96,13 @@ export const TableBusqueda = () => {
                     </Table.Cell>
 
                     <Table.Cell className='whitespace-nowrap'>
-                        <Tooltip content={ denuncia.clasificacion }>
-                            { sizeText( denuncia.clasificacion ) }
+                        <Tooltip content={ denuncia.idClasificacion }>
+                            { sizeText( denuncia.idClasificacion ) }
                         </Tooltip>
+                    </Table.Cell>
+
+                    <Table.Cell className='whitespace-nowrap'>
+                      <a className='cursor-pointer' onClick={() =>  handleModal(denuncia.asunto)}><span className='text-2xl text-yellow-500'><HiExclamation /></span></a>
                     </Table.Cell>
                   </Table.Row>
               ))

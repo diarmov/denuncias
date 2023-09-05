@@ -9,8 +9,8 @@ import { useBusquedaStore } from '../hooks/useBusquedaStore'
 
 
 export default function Busqueda() {
-  const { origen, tipo, dependencia, onGetCatalogos, onGetEstatus  } = useCatalogoStore()
-  const { paginate, search, onGetDenuncias   } = useBusquedaStore()
+  const { captacion, tipo, dependencia, clasificacion, onGetCatalogos, onGetEstatus  } = useCatalogoStore()
+  const { paginate, search, onGetDenuncias, onResetSearch   } = useBusquedaStore()
 
   const { handleSubmit, values, setFieldValue, resetForm } = useFormik({
     initialValues: search,      
@@ -21,7 +21,7 @@ export default function Busqueda() {
 
   useEffect(() => {
     if(paginate.length === 0) onGetDenuncias( values )
-    if(origen.length === 0) onGetCatalogos()
+    if(captacion.length === 0) onGetCatalogos()
   },[])
 
   useEffect(() => {
@@ -32,15 +32,12 @@ export default function Busqueda() {
   const filtersOff = async () => {
     resetForm()
     await onGetDenuncias({
-      idOrigen: '',
+      idCaptacion: '',
       idTipoFalta:'',
       idDependencia:'',
+      asunto:''
     })
-    onSetCustomSearch({
-      idOrigen: '',
-      idTipoFalta:'',
-      idDependencia:'',
-    })
+    onResetSearch()
   }
 
   return (
@@ -48,6 +45,8 @@ export default function Busqueda() {
       <div className="md:p-9 p-3 ">
         <div className="w-full text-center md:text-4xl text-sm mb-3">Búsqueda Avanzada</div>
         <div className="w-full font-semibold text-center md:text-lg text-xs mb-3">Aquí podrás realizar búsquedas específicas</div>
+
+        
         
         <div className="w-full md:text-base text-xs mb-3 p-6 rounded-md shadow-md mt-3">
             <form onSubmit={handleSubmit} className='mb-4'> 
@@ -61,13 +60,12 @@ export default function Busqueda() {
                         />
                       </div>
 
-
                       <div>
-                        <Label htmlFor="idOrigen" value="Origen de la denuncia"/>
+                        <Label htmlFor="idCaptacion" value="Medio de Captación"/>
                         <SelectControl 
-                          options={origen}
-                          value={values.idOrigen}
-                          onChange={value=>setFieldValue('idOrigen', value.value)}
+                          options={captacion}
+                          value={values.idCaptacion}
+                          onChange={value=>setFieldValue('idCaptacion', value.value)}
                         />                       
                       </div>
 
@@ -78,9 +76,18 @@ export default function Busqueda() {
                           value={values.idTipoFalta}
                           onChange={value=>setFieldValue('idTipoFalta', value.value)}
                         />                      
+                      </div>
+
+                      <div className='mt-2'>
+                        <Label htmlFor="idClasificacion" value="Clasificación"/>
+                        <SelectControl 
+                          options={clasificacion}
+                          value={values.idClasificacion}
+                          onChange={value=>setFieldValue('idClasificacion', value.value)}
+                        />                  
                       </div>                     
 
-                      <div>
+                      <div className='mt-2'>
                         <div className="flex">
                         <Button 
                           type="submit" 

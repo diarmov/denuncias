@@ -12,7 +12,7 @@ export default function Busqueda() {
   const { captacion, tipo, dependencia, clasificacion, onGetCatalogos, onGetEstatus  } = useCatalogoStore()
   const { paginate, search, onGetDenuncias, onResetSearch   } = useBusquedaStore()
 
-  const { handleSubmit, values, setValues } = useFormik({
+  const { handleSubmit, values, setValues, setFieldValue  } = useFormik({
     initialValues: search,      
     onSubmit: async values => {
       await onGetDenuncias( values )

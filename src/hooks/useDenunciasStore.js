@@ -238,9 +238,6 @@ export const useDenunciasStore = () => {
     }
 
 
-    //const onGetDataChart = () => {}
-
-
     return {
         denuncias,
         denuncia,

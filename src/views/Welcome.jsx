@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-const Welcome = () => {
+const Welcome = ({ onSetSelectedLink, link }) => {
+  useEffect(() => {
+    onSetSelectedLink(link)
+  },[])
+
   return (
     <div className='flex flex-col justify-center items-center mt-16 px-10'>
       <p className='font-bold text-3xl md:text-6xl text-gray-800'>Bienvenido</p>

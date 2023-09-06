@@ -7,6 +7,7 @@ export const uiSlice = createSlice({
         modal: { title:'', status: 'undefined' },
         modalpwd: { title:'', status: 'undefined' },
         search: false,
+        selectedLink: ''
     },
     reducers: {
         setLoading:  (state, { payload } ) => {
@@ -21,13 +22,18 @@ export const uiSlice = createSlice({
         setModalPwd:  (state, { payload } ) => {
             state.modalpwd = payload;
         },
+        setSelectedLink: (state, { payload } ) => {
+            state.selectedLink = payload;
+        },
         resetUi:  ( state ) => {
             state.loading = false
             state.modal = { title:'', status: 'undefined' }
             state.modalpwd = { title:'', status: 'undefined' },
             state.search = false
-        } 
+            state.selectedLink = ''
+        },
+       
     }
 });
 
-export const { setLoading, setModal, setSearch, resetUi, setModalPwd } = uiSlice.actions;
+export const { setLoading, setModal, setSearch, resetUi, setSelectedLink, setModalPwd } = uiSlice.actions;

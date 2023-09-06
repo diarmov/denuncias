@@ -9,13 +9,14 @@ import { useCatalogoStore } from '../hooks/useCatalogoStore';
 import { Search } from '../components/ui';
 import { useUiStore } from '../hooks/useUiStore';
 
-const Denuncias = () => {
+const Denuncias = ({ onSetSelectedLink, link }) => {
   const { denuncias, onGetDenuncias, onSetDenuncia, onSearch } = useDenunciasStore()
   const { origen, onGetCatalogos } = useCatalogoStore()
   const { search } = useUiStore()
   const navigate = useNavigate();
  
   useEffect(() => {
+    onSetSelectedLink(link)
     if(denuncias.length === 0) onGetDenuncias()
     if(origen.length === 0) onGetCatalogos()
   },[])

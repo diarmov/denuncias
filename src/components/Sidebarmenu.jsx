@@ -1,15 +1,17 @@
 'use client';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Sidebar } from 'flowbite-react';
+import { Sidebar } from 'flowbite-react';
 import ListPages from '../routes/ListPages';
 import { HiMenu, HiArrowLeft } from 'react-icons/hi';
+import { useUiStore } from '../hooks/useUiStore';
 
 
 export default function Sidebarmenu() {
   const { list } = ListPages();
   const navigate = useNavigate('')
   const [isOpen, setIsOpen] = useState(true);
+  const { selectedLink } = useUiStore()
 
   return (
     <>
@@ -39,7 +41,7 @@ export default function Sidebarmenu() {
                   list.map((item) => (
                     <Sidebar.Item
                       key={item.title}
-                      className="cursor-pointer"
+                      className={`cursor-pointer ${selectedLink === item.link ? 'bg-gray-200' : ''}`}
                       onClick={() => navigate(item.link)}
                     >
                       <div className='md:visible'>

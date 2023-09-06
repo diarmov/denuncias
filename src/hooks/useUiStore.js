@@ -1,10 +1,10 @@
 import Swal from 'sweetalert2'
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading, setModal, setModalPwd, setSearch } from "../store/ui/uiSlice";
+import { setLoading, setModal, setModalPwd, setSearch, setSelectedLink } from "../store/ui/uiSlice";
 
 
 export const useUiStore = () => {
-    const { loading, modal, modalpwd, search } = useSelector(state => state.ui)
+    const { loading, modal, modalpwd, search, selectedLink } = useSelector(state => state.ui)
     const dispatch = useDispatch();
 
     const onLoading = ( status ) => {
@@ -51,16 +51,22 @@ export const useUiStore = () => {
         dispatch( setSearch( status) )
     }
 
+    const onSetSelectedLink = ( link ) => {
+        dispatch( setSelectedLink( link) )
+    }
+
     return {
         modal,
         loading, 
         search,
         modalpwd,
+        selectedLink,
 
         onLoading,
         onModal, 
         onNotification,
         onSetSearch,
-        onModalPwd
+        onModalPwd,
+        onSetSelectedLink
     }
 }

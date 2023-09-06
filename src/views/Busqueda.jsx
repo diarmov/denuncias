@@ -8,7 +8,7 @@ import { Details, TableBusqueda } from '../components/busqueda'
 import { useBusquedaStore } from '../hooks/useBusquedaStore'
 
 
-export default function Busqueda() {
+export default function Busqueda({ onSetSelectedLink, link }) {
   const { captacion, tipo, dependencia, clasificacion, onGetCatalogos, onGetEstatus  } = useCatalogoStore()
   const { paginate, search, onGetDenuncias, onResetSearch   } = useBusquedaStore()
 
@@ -20,6 +20,7 @@ export default function Busqueda() {
   });
 
   useEffect(() => {
+    onSetSelectedLink(link)
     if(paginate.length === 0) onGetDenuncias( values )
     if(captacion.length === 0) onGetCatalogos()
   },[])

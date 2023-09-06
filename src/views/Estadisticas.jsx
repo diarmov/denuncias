@@ -10,7 +10,7 @@ import { useEstadisticaStore } from '../hooks/useEstadisticaStore';
 
 
 
-export default function Estadisticas() {
+export default function Estadisticas({ onSetSelectedLink, link }) {
   const { tipo, estadistica, onGetEstadisticas, onResetEstadistica } = useEstadisticaStore()
 
   const { handleSubmit, values, handleChange, setValues } = useFormik({
@@ -21,6 +21,7 @@ export default function Estadisticas() {
   });
 
   useEffect(() => {
+     onSetSelectedLink(link)
      if(tipo.data.length === 0 ) onGetEstadisticas( values )
   }, [])
 

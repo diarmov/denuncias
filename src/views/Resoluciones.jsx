@@ -10,7 +10,7 @@ import { PopUp } from '../components/ui/PopUp';
 import { useUiStore } from '../hooks/useUiStore';
 import { FormRecursos, DetailResolucion } from '../components/resoluciones';
 
-const Resoluciones = () => {
+const Resoluciones = ({ onSetSelectedLink, link }) => {
   const { resoluciones, onGetResoluciones, onSetResolucion, onSearch  } = useResolucionStore()
   const { origen, estatus, onGetCatalogos, onGetEstatus} = useCatalogoStore()
   const [pageModal, setPageModal] = useState({option:0, title: ''})
@@ -23,6 +23,7 @@ const Resoluciones = () => {
   }
 
   useEffect(() => {
+    onSetSelectedLink(link)
     if(resoluciones.length === 0) onGetResoluciones()
     if(origen.length === 0) onGetCatalogos()
     if(estatus.length === 0) onGetEstatus(3)

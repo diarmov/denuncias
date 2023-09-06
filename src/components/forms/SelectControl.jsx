@@ -1,6 +1,5 @@
 import Select from 'react-select';
 
-
 export const SelectControl = ({ onChange, options, value, className }) => {
 
   const defaultValue = (options, value) => {

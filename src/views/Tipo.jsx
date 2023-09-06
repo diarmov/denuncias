@@ -9,12 +9,13 @@ const images = ['cohecho','desacato','nepotismo','abuso_funciones','desvio_recur
                 'simulacion_acto','contratacion_indebida','enriquecimiento_oculto','trafico_influencias','utilizacion_indebida_informaci','violaciones','omision','peculado'
                ]
 
-export default function Tipo() {
+export default function Tipo({ onSetSelectedLink, link }) {
   const { clasificacion, onGetDataClasificacion, onGetDataClasificacionById } = useDenunciasStore()
   const { onModal } = useUiStore()
   const [tipo, setTipo] = useState('')
 
   useEffect(() => {
+   onSetSelectedLink(link)
    if(clasificacion.length === 0) onGetDataClasificacion()
   },[])
 

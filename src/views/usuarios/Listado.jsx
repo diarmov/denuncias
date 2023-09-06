@@ -7,11 +7,12 @@ import { useUsersStore } from '../../hooks/useUsersStore';
 import { useUiStore } from '../../hooks/useUiStore';
 import { FormUsers } from '../../components/Users/FormUsers';
 
-export default function Listado() {
+export default function Listado({ onSetSelectedLink, link }) {
   const { users, onGetUser, onSetUser, onDestroy } = useUsersStore()
   const { onModal } = useUiStore()
 
   useEffect(() => {
+    onSetSelectedLink(link)
     if(users.length === 0) onGetUser()
   },[])
 

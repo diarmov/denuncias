@@ -12,7 +12,8 @@ import {
          resetAllDenuncia,
          resetAllResoluciones,
          resetAllCatalogos,
-         resetAllBusqueda
+         resetAllBusqueda,
+         resetEstadisticas
        } from '../store';
 import { useUiStore } from './useUiStore';
 

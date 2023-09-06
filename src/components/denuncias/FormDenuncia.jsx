@@ -18,7 +18,7 @@ import { useResolucionStore } from '../../hooks/useResolucionStore';
 import { roles } from '../../helpers/roles';
 
 
-export const FormDenuncia = () => {
+const FormDenuncia = () => {
     const { captacion, origen, etapa,  estatus, tipo, clasificacion, dependencia, ubicacion, onGetCatalogos, onGetEstatus  } = useCatalogoStore()
     const { denuncia, onStore, onUpdate, onResetDenuncia } = useDenunciasStore()
     const { open, onSetOpen } = useResolucionStore()
@@ -297,4 +297,6 @@ export const FormDenuncia = () => {
     </div>
   )
 }
+
+export default FormDenuncia
 

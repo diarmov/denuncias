@@ -6,7 +6,11 @@ export const estadisticaSlice = createSlice({
        tipo: { data:[], labels:[], color:[] },
        byDep: { data:[], labels:[], color:[] },
        byMonth: { data:[], labels:[], color:[] },
-       byOrigen: { data:[], labels:[], color:[] } 
+       byOrigen: { data:[], labels:[], color:[] } ,
+       estadistica: {
+        fecha_inicio: '',
+        fecha_fin: ''
+       }
     },
     reducers: {
         setEstadisticas: ( state, { payload }) => {
@@ -15,8 +19,29 @@ export const estadisticaSlice = createSlice({
             state.byDep = byDep;
             state.byMonth = byMonth;
             state.byOrigen = byOrigen;
-        }
+        },
+        setEstadistica: ( state, { payload }) => {           
+            state.estadistica = payload;
+        },
+        resetEstadistica: ( state ) => {           
+            state.estadistica= {
+                fecha_inicio: '',
+                fecha_fin: ''
+            }
+        },
+        resetEstadisticas: ( state ) => {
+            state.tipo = { data:[], labels:[], color:[] },
+            state.byDep = { data:[], labels:[], color:[] },
+            state.byMonth = { data:[], labels:[], color:[] },
+            state.byOrigen = { data:[], labels:[], color:[] } 
+            state.estadistica= {
+                fecha_inicio: '',
+                fecha_fin: ''
+            }
+        },
+        
+
     }
 });
 
-export const { setEstadisticas } = estadisticaSlice.actions;
+export const { setEstadisticas, setEstadistica, resetEstadistica, resetEstadisticas } = estadisticaSlice.actions;

@@ -17,7 +17,7 @@ export const FormResolucion = memo(({ idDenuncia }) => {
     const validations = object({
         folio: string().required('Ingrese el folio de la resolución'),
         fecha: string().required('Ingresela la fecha'),
-        idEstatus: string().required('Indicar el estatus de la denuncia'),
+        idEstatus: string().required('Indicar el estatus de la resolución'),
         idUbicacion: string().required('Indicar la ubicación actual'),
     });
 

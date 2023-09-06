@@ -58,9 +58,9 @@ export const TableBusqueda = () => {
           <Table.HeadCell>
             Etapa
           </Table.HeadCell>
-          <Table.HeadCell>          
+          {/* <Table.HeadCell>          
             Estatus          
-          </Table.HeadCell>          
+          </Table.HeadCell>           */}
           <Table.HeadCell>
             Clasificación          
           </Table.HeadCell>
@@ -72,10 +72,8 @@ export const TableBusqueda = () => {
           {
               paginate.data?.map((denuncia, index) => (
                   <Table.Row className="bg-white" key={ index }>
-                    <Table.Cell className='whitespace-nowrap'>
-                        <Tooltip content={ denuncia.dependencia }>
-                            { sizeText( denuncia.dependencia ) }
-                        </Tooltip>
+                    <Table.Cell className='whitespace-nowrap'>                        
+                            { denuncia.dependencia }
                     </Table.Cell>
 
                     <Table.Cell className="whitespace-nowrap text-gray-900 ">
@@ -89,15 +87,15 @@ export const TableBusqueda = () => {
                         </Tooltip>
                     </Table.Cell>                   
                     
-                    <Table.Cell className="whitespace-nowrap">
+                    {/* <Table.Cell className="whitespace-nowrap">
                         <Tooltip content={ denuncia.estatus }>
                             { sizeText( denuncia.estatus) }
                         </Tooltip>
-                    </Table.Cell>
+                    </Table.Cell> */}
 
                     <Table.Cell className='whitespace-nowrap'>
-                        <Tooltip content={ denuncia.idClasificacion }>
-                            { sizeText( denuncia.idClasificacion ) }
+                        <Tooltip content={ denuncia.clasificacion }>
+                            { sizeText( denuncia.clasificacion ) }
                         </Tooltip>
                     </Table.Cell>
 

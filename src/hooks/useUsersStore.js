@@ -32,8 +32,7 @@ export const useUsersStore = () => {
         try {
           const { data } = await api.post('/users', values);        
           const {success , user } = data 
-
-          console.log(user);
+          
           if( success ) {
             dispatch( createUser( user ) ) 
             onResetUser()
@@ -57,15 +56,15 @@ export const useUsersStore = () => {
           const formData = new FormData()
               Object.keys(values).forEach((key) => {
                 formData.append(key, values[key])
-            })
+          })
     
-            formData.append('_method', 'PUT');
+          formData.append('_method', 'PUT');
     
           const { data } = await api.post(`/users/${values.id}}`, formData)
           const { success, user } = data
 
           if( success ){
-            if(user.action === 'change-pass'){
+            if(values.action === 'change-pass'){
               onNotification({icon:'success', message:'Contraseña modificada correctamente'})  
             }else{
               dispatch( editUser( user ) )

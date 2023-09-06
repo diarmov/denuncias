@@ -225,7 +225,7 @@ export const useDenunciasStore = () => {
         try {
             const { data } = await api.get(`/clasificacion-id/${id}`);
             const { denuncias, success } = data
-            console.log(data);
+            
             if( success ){
                 dispatch( setClasificacionId( denuncias ) )
                 onLoading(false)

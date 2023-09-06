@@ -5,14 +5,14 @@ export const Details = () => {
   const { details } = useBusquedaStore()
   return (
     <div className='flex justify-around flex-wrap my-10'>
-      <div className='text-center'>
+      <div className='text-center mb-4'>
         <div className='flex justify-center'>
          <div className='p-3 bg-red-900 block w-12 h-12 rounded-lg text-center text-white text-2xl shadow-lg'>
             <HiFolderOpen />
           </div>
         </div>
 
-        <p className='mt-3 font-semibold text-gray-700'>Detalle de denuncias</p>
+        <p className='mt-3 font-semibold text-gray-700 '>Detalle de denuncias</p>
         <div className='mt-3 text-sm'>
             <p>Numero de denuncias a la fecha: <span className='font-semibold'>{ details.denuncias }</span></p>
             <p>En atención por los OIC: <span className='font-semibold'>{ details.oics }</span></p>

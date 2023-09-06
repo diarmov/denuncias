@@ -41,8 +41,8 @@ export default function Tipo() {
   return (
     <>
     <div className="md:flex md:p-3 p-1 flex-wrap">
-      <div className="w-full mb-3 text-sm font-black text-center md:text-3xl">Tipos de Denuncia</div>
-      <div className="w-full mb-3 text-xs font-semibold text-center md:text-lg">Resumen de denuncias captadas por tipo</div>
+      <div className="w-full mb-3 text-2xl font-black text-center md:text-3xl">Tipos de Denuncia</div>
+      <div className="w-full mb-3 text-1xl font-semibold text-center md:text-lg">Resumen de denuncias captadas por tipo</div>
       <div className="w-full p-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 text-sm md:text-md lg:text-lg">
 
         <PopUp 
@@ -56,10 +56,10 @@ export default function Tipo() {
             <div className="h-auto mt-2 mb-2 md:justify-center" key={item.id}>
               <a  onClick={() => onDetails( item.clasificacion, item.id, item.total )} className="flex items-center justify-center w-[70%] m-auto  rounded-xl shadow-lg h-min p-3 transition ease-in-out delay-150 bg-gray-50 hover:-translate-y-1 hover:scale-110 duration-300 cursor-pointer">
                 <div className="w-[30%]">
-                  <img src={`../img/${ images[ item.id -1 ]}.png`} alt=" Logo de Cohecho" className="rounded-full shadow-lg dark:shadow-black/30" />
+                  <img src={`../img/${ images[ item.id -1 ]}.png`} alt=" Logo de Cohecho" className="rounded-full shadow-lg" />
                 </div>
                 <div className="text-center w-[100%] grid grid-cols-1">
-                  <span className="ml-2 text-xs leading-none tracking-widest text-center md:text-xl">
+                  <span className="ml-2 leading-none tracking-widest text-center text-xl">
                     { item.total }
                   </span>
                   { sizeText( item.clasificacion ) }

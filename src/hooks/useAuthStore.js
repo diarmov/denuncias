@@ -14,9 +14,11 @@ import {
          resetAllCatalogos,
          resetAllBusqueda
        } from '../store';
+import { useUiStore } from './useUiStore';
 
 export const useAuthStore = () => {
   const { users, active, status } = useSelector(state => state.auth)
+  const { onNotification } = useUiStore()
   const dispatch = useDispatch();
 
   const onLogin = async({email, password}) => {    
@@ -31,6 +33,7 @@ export const useAuthStore = () => {
             
 
     } catch (error) {
+      onNotification({icon:'error', message:'Usuario o Contraseña Incorrectos'}) 
       dispatch( logout() );
       console.log(error);
     }
@@ -48,6 +51,7 @@ export const useAuthStore = () => {
         dispatch( resetAllUser() );
         dispatch( resetUi() );  
         dispatch( resetAllBusqueda() );       
+        dispatch( resetEstadisticas() );
   }
 
   const checkAuthToken = async() => {

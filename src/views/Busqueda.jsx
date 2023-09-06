@@ -12,7 +12,7 @@ export default function Busqueda() {
   const { captacion, tipo, dependencia, clasificacion, onGetCatalogos, onGetEstatus  } = useCatalogoStore()
   const { paginate, search, onGetDenuncias, onResetSearch   } = useBusquedaStore()
 
-  const { handleSubmit, values, setFieldValue, resetForm } = useFormik({
+  const { handleSubmit, values, setValues } = useFormik({
     initialValues: search,      
     onSubmit: async values => {
       await onGetDenuncias( values )
@@ -30,12 +30,17 @@ export default function Busqueda() {
 
 
   const filtersOff = async () => {
-    resetForm()
     await onGetDenuncias({
       idCaptacion: '',
       idTipoFalta:'',
       idDependencia:'',
-      asunto:''
+      idClasificacion:''
+    })
+    setValues({
+      idCaptacion: '',
+      idTipoFalta:'',
+      idDependencia:'',
+      idClasificacion:''
     })
     onResetSearch()
   }
@@ -43,14 +48,14 @@ export default function Busqueda() {
   return (
     <>
       <div className="md:p-9 p-3 ">
-        <div className="w-full text-center md:text-4xl text-sm mb-3">Búsqueda Avanzada</div>
-        <div className="w-full font-semibold text-center md:text-lg text-xs mb-3">Aquí podrás realizar búsquedas específicas</div>
+        <div className="w-full text-center md:text-4xl text-2xl mb-3">Búsqueda Avanzada</div>
+        <div className="w-full font-semibold text-center md:text-lg text-1xl mb-3">Aquí podrás realizar búsquedas específicas</div>
 
         
         
-        <div className="w-full md:text-base text-xs mb-3 p-6 rounded-md shadow-md mt-3">
+        <div className="w-full text-base  mb-3 p-6 rounded-md shadow-md mt-3">
             <form onSubmit={handleSubmit} className='mb-4'> 
-                  <div className='grid grid-cols-1 sm:grid-cols-3 gap-x-4 gap-y-2'>
+                  <div className='grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2'>
                       <div>
                         <Label htmlFor="idDependencia" value="Dependencia"/>
                         <SelectControl 

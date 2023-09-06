@@ -11,13 +11,10 @@ import { useEstadisticaStore } from '../hooks/useEstadisticaStore';
 
 
 export default function Estadisticas() {
-  const { tipo, onGetEstadisticas } = useEstadisticaStore()
+  const { tipo, estadistica, onGetEstadisticas, onResetEstadistica } = useEstadisticaStore()
 
-  const { handleSubmit, values, handleChange, resetForm } = useFormik({
-    initialValues: {
-      fecha_inicio: '',
-      fecha_fin: ''
-    },      
+  const { handleSubmit, values, handleChange, setValues } = useFormik({
+    initialValues: estadistica,      
     onSubmit: async values => {
       await onGetEstadisticas( values )
     }
@@ -28,11 +25,15 @@ export default function Estadisticas() {
   }, [])
 
   const filtersOff = async () => {
-    resetForm()
+    setValues({
+      fecha_inicio: '',
+      fecha_fin: ''
+    })
     await onGetEstadisticas({
       fecha_inicio: '',
       fecha_fin: ''
     })
+    onResetEstadistica()
   }
 
 
@@ -46,7 +47,7 @@ export default function Estadisticas() {
       <div className='container flex justify-center'>
         <form onSubmit={handleSubmit} className='mb-8'> 
             <div className='text-center font-semibold text-xl'>Periodo de busqueda:</div>
-            <div className='grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-x-4 gap-y-2'>
                   <div className='w-72'>
                     <Label htmlFor="fecha_inicio" value="Desde"/>
                     <TextInput      

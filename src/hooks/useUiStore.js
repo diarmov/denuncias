@@ -1,10 +1,10 @@
 import Swal from 'sweetalert2'
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading, setModal, setSearch } from "../store/ui/uiSlice";
+import { setLoading, setModal, setModalPwd, setSearch } from "../store/ui/uiSlice";
 
 
 export const useUiStore = () => {
-    const { loading, modal, search } = useSelector(state => state.ui)
+    const { loading, modal, modalpwd, search } = useSelector(state => state.ui)
     const dispatch = useDispatch();
 
     const onLoading = ( status ) => {
@@ -13,6 +13,10 @@ export const useUiStore = () => {
 
     const onModal = ( status ) => {
         dispatch( setModal( status ) );
+    }
+
+    const onModalPwd = ( status ) => {
+        dispatch( setModalPwd( status ) );
     }
 
     const onNotification = ({ icon, title
@@ -51,10 +55,12 @@ export const useUiStore = () => {
         modal,
         loading, 
         search,
+        modalpwd,
 
         onLoading,
         onModal, 
         onNotification,
         onSetSearch,
+        onModalPwd
     }
 }

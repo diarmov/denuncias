@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit"
-import { authSlice, denunciaSlice, uiSlice, catalogoSlice, resolucionSlice, userSlice, busquedaSlice, estadisticaSlice } from './'
+import { authSlice, denunciaSlice, uiSlice, catalogoSlice, resolucionSlice, userSlice, busquedaSlice, estadisticaSlice, tableroSlice } from './'
 
 export const store = configureStore({
-    reducer:{
+    reducer: {
         auth: authSlice.reducer,
         denuncias: denunciaSlice.reducer,
         ui: uiSlice.reducer,
@@ -11,6 +11,7 @@ export const store = configureStore({
         users: userSlice.reducer,
         busqueda: busquedaSlice.reducer,
         estadisticas: estadisticaSlice.reducer,
+        tableros: tableroSlice.reducer,
     },
     devTools: true,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({

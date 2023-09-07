@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const denunciaSlice = createSlice({
     name: 'denuncias',
-    initialState: {    
+    initialState: {
         denuncias: [],
         denuncia: {
             id: 0,
@@ -14,30 +14,25 @@ export const denunciaSlice = createSlice({
             idCaptacion: '',
             idOrigen: '',
             idEtapa: '',
-            idEstatus:'',
-            idTipoFalta:'',
-            idClasificacion:'',
-            idDependencia:'',
-            idUbicacion:'',
+            idEstatus: '',
+            idTipoFalta: '',
+            idClasificacion: '',
+            idDependencia: '',
+            idUbicacion: '',
             observacion: '',
         },
-        chart:[],
-        denunciastotal:[],
-        atencionsfp:[],
-        atencionoic:[],
-        atenciontja:[],
-        clasificacion:[],
-        clasificacionId:[],
+        clasificacion: [],
+        clasificacionId: [],
 
     },
     reducers: {
-        getDenuncias:  (state, { payload } ) => {
+        getDenuncias: (state, { payload }) => {
             state.denuncias = payload;
         },
-        setDenuncia: (state, { payload } ) => {
+        setDenuncia: (state, { payload }) => {
             state.denuncia = payload;
         },
-        resetDenuncia: ( state ) => {
+        resetDenuncia: (state) => {
             state.denuncia = {
                 id: 0,
                 numExpUif: '',
@@ -48,36 +43,21 @@ export const denunciaSlice = createSlice({
                 idCaptacion: '',
                 idOrigen: '',
                 idEtapa: '',
-                idEstatus:'',
-                idTipoFalta:'',
-                idClasificacion:'',
-                idDependencia:'',
-                idUbicacion:'',
+                idEstatus: '',
+                idTipoFalta: '',
+                idClasificacion: '',
+                idDependencia: '',
+                idUbicacion: '',
                 observacion: '',
             }
         },
-        getTotal:  (state, { payload } ) => {
-            state.denunciastotal = payload;
-        }, 
-        getChart:  (state, { payload } ) => {
-            state.chart = payload;
-        }, 
-        getAtenSFP:  (state, { payload } ) => {
-            state.atencionsfp = payload;
-        }, 
-        getAtenOIC:  (state, { payload } ) => {
-            state.atencionoic = payload;
-        }, 
-        getAtenTJA:  (state, { payload } ) => {
-            state.atenciontja = payload;
-        },
-        getClasificacion:  (state, { payload } ) => {
+        getClasificacion: (state, { payload }) => {
             state.clasificacion = payload;
         },
-        setClasificacionId:  (state, { payload } ) => {
+        setClasificacionId: (state, { payload }) => {
             state.clasificacionId = payload;
         },
-        resetAllDenuncia: ( state ) => {
+        resetAllDenuncia: (state) => {
             state.denuncias = []
             state.denuncia = {
                 id: 0,
@@ -89,14 +69,14 @@ export const denunciaSlice = createSlice({
                 idCaptacion: '',
                 idOrigen: '',
                 idEtapa: '',
-                idEstatus:'',
-                idTipoFalta:'',
-                idClasificacion:'',
-                idDependencia:'',
-                idUbicacion:'',
+                idEstatus: '',
+                idTipoFalta: '',
+                idClasificacion: '',
+                idDependencia: '',
+                idUbicacion: '',
                 observacion: '',
             },
-            state.chart = []
+                state.chart = []
             state.proceso = []
             state.improcedente = []
             state.concluida = []
@@ -104,10 +84,10 @@ export const denunciaSlice = createSlice({
             state.etapas = []
             state.clasificacion = []
             state.clasificacionId = []
-        }, 
+        },
     }
 });
 
-export const { getDenuncias, setDenuncia, resetDenuncia, getChart, getTotal, getAtenSFP, getAtenOIC, getAtenTJA, getClasificacion, setClasificacionId, resetAllDenuncia } = denunciaSlice.actions;
+export const { getDenuncias, setDenuncia, resetDenuncia, getClasificacion, setClasificacionId, resetAllDenuncia } = denunciaSlice.actions;
 
 

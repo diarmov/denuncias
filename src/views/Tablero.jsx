@@ -1,19 +1,15 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import LinesChartDenuncias from "../components/LinesChartDenuncias";
-import { useDenunciasStore } from "../hooks/useDenunciasStore";
-
-
+import { useTableroStore } from "../hooks/useTableroStore";
 
 export default function tablero() {
 
-  const { denunciastotal, onGetDenunciasTotal } = useDenunciasStore()
-  //console.log(denuncias);
+  const { denunciastotal, onGetDenunciasTotal } = useTableroStore()
+  console.log(denunciastotal);
   useEffect(() => {
     if (denunciastotal.length === 0) onGetDenunciasTotal()
   }, [])
-
-  //console.log(denunciastotal)
 
 
   const denunciasUIF = denunciastotal.filter(item => item.numExpUif != null)
@@ -169,7 +165,7 @@ export default function tablero() {
 
   return (
 
-    <><div className="grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-5 mb-5 p-10">
+    <><div className="grid w-full grid-cols-1 p-10 mb-5 md:grid-cols-2 lg:grid-cols-5">
       <div>
         <div className="p-3 m-2 transition duration-300 ease-in-out delay-150 rounded-lg shadow-lg shadow-gray-500 h-min bg-gray-50 hover:-translate-y-1 hover:scale-110 hover:bg-gray-200">
           <div className="flex justify-center w-full text-lg font-bold">
@@ -177,10 +173,10 @@ export default function tablero() {
           </div>
           <hr /><br />
           <div className="columns-2">
-            <div className="flex justify-end w-full items-center">
+            <div className="flex items-center justify-end w-full">
               <svg className="w-10 h-10 p-2 text-blue-500 bg-blue-300 rounded-md shadow-sm " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18"><path d="M18 0H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3.546l3.2 3.659a1 1 0 0 0 1.506 0L13.454 14H18a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-8 10H5a1 1 0 0 1 0-2h5a1 1 0 1 1 0 2Zm5-4H5a1 1 0 0 1 0-2h10a1 1 0 1 1 0 2Z" /></svg>
             </div>
-            <div className="flex justify-center w-full items-center">
+            <div className="flex items-center justify-center w-full">
               <p>{denunciastotal.length}</p>
             </div>
           </div>
@@ -251,7 +247,7 @@ export default function tablero() {
         </div>
       </div>
     </div>
-      <div className="flex w-full grid-cols-1 items-center justify-center">
+      <div className="flex items-center justify-center w-full grid-cols-1">
         <div className="justify-center w-full md:w-[80%] lg:w-[50%]">
           <div>
             <LinesChartDenuncias />
@@ -259,7 +255,7 @@ export default function tablero() {
         </div>
       </div>
       <div className="text-lg md:text-2xl lg:text-3xl font-bold bg-[#BF5854] mt-10 justify-center flex text-white p-3 w-full">Etapa Procesal</div>
-      <div className="grid w-full grid-cols-1 md:grid-cols-3 lg:grid-cols-6 p-10">
+      <div className="grid w-full grid-cols-1 p-10 md:grid-cols-3 lg:grid-cols-6">
         <div>
           <div className="p-3 m-2 transition duration-300 ease-in-out delay-150 rounded-lg shadow-lg shadow-gray-500 h-min bg-gray-50 hover:-translate-y-1 hover:scale-110 hover:bg-gray-200" onClick={() => setShowModal(true)}>
             <div className="flex flex-row w-full p-2">
@@ -276,42 +272,42 @@ export default function tablero() {
           {showModal ? (
             <>
               <div
-                className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+                className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
               >
                 <div className="relative w-auto my-6 mx-auto max-w-[50%]">
                   {/*content*/}
-                  <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                  <div className="relative flex flex-col w-full bg-white border-0 rounded-lg shadow-lg outline-none focus:outline-none">
                     {/*header*/}
-                    <div className="flex items-start justify-between p-2 border-b border-solid border-slate-200 rounded-t bg-slate-600">
+                    <div className="flex items-start justify-between p-2 border-b border-solid rounded-t border-slate-200 bg-slate-600">
                       <h3 className="text-xl font-semibold text-white">
                         Denuncias en Investigación
                       </h3>
                       <button
-                        className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                        className="float-right p-1 ml-auto text-3xl font-semibold leading-none text-black bg-transparent border-0 outline-none focus:outline-none"
                         onClick={() => setShowModal(false)}
                       >
-                        <span className="text-black h-6 w-6 text-2xl" title="Cerrar">
+                        <span className="w-6 h-6 text-2xl text-black" title="Cerrar">
                           X
                         </span>
                       </button>
                     </div>
                     {/*body*/}
-                    <div className="relative p-6 flex-auto">
-                      <div className="grid grid-cols-2 my-4 text-black text-md leading-relaxed  gap-3">
-                        <div className="rounded-lg shadow-xl text-sm">
-                          <div className="text-center font-bold p-2">Atendidas por UIF</div>
-                          <div className="text-center font-bold">{numRowsInvesUIF}</div>
+                    <div className="relative flex-auto p-6">
+                      <div className="grid grid-cols-2 gap-3 my-4 leading-relaxed text-black text-md">
+                        <div className="text-sm rounded-lg shadow-xl">
+                          <div className="p-2 font-bold text-center">Atendidas por UIF</div>
+                          <div className="font-bold text-center">{numRowsInvesUIF}</div>
                         </div>
-                        <div className="rounded-lg shadow-xl text-sm">
-                          <div className="text-center font-bold">Atendidas por OIC</div>
-                          <div className="text-center font-bold">{numRowsInvesOIC}</div>
+                        <div className="text-sm rounded-lg shadow-xl">
+                          <div className="font-bold text-center">Atendidas por OIC</div>
+                          <div className="font-bold text-center">{numRowsInvesOIC}</div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+              <div className="fixed inset-0 z-40 bg-black opacity-25"></div>
             </>
           ) : null}
         </div>
@@ -331,42 +327,42 @@ export default function tablero() {
           {showModaldos ? (
             <>
               <div
-                className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+                className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
               >
                 <div className="relative w-auto my-6 mx-auto max-w-[50%]">
                   {/*content*/}
-                  <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                  <div className="relative flex flex-col w-full bg-white border-0 rounded-lg shadow-lg outline-none focus:outline-none">
                     {/*header*/}
-                    <div className="flex items-start justify-between p-2 border-b border-solid border-slate-200 rounded-t bg-slate-600">
+                    <div className="flex items-start justify-between p-2 border-b border-solid rounded-t border-slate-200 bg-slate-600">
                       <h3 className="text-xl font-semibold text-white">
                         Denuncias en Substanciación
                       </h3>
                       <button
-                        className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                        className="float-right p-1 ml-auto text-3xl font-semibold leading-none text-black bg-transparent border-0 outline-none focus:outline-none"
                         onClick={() => setShowModaldos(false)}
                       >
-                        <span className="text-black h-6 w-6 text-2xl" title="Cerrar">
+                        <span className="w-6 h-6 text-2xl text-black" title="Cerrar">
                           X
                         </span>
                       </button>
                     </div>
                     {/*body*/}
-                    <div className="relative p-6 flex-auto">
-                      <div className="grid grid-cols-2 my-4 text-black text-md leading-relaxed  gap-3">
-                        <div className="rounded-lg shadow-xl text-sm">
-                          <div className="text-center font-bold p-2">Atendidas por UIF</div>
-                          <div className="text-center font-bold">{numRowsSubsUIF}</div>
+                    <div className="relative flex-auto p-6">
+                      <div className="grid grid-cols-2 gap-3 my-4 leading-relaxed text-black text-md">
+                        <div className="text-sm rounded-lg shadow-xl">
+                          <div className="p-2 font-bold text-center">Atendidas por UIF</div>
+                          <div className="font-bold text-center">{numRowsSubsUIF}</div>
                         </div>
-                        <div className="rounded-lg shadow-xl text-sm">
-                          <div className="text-center font-bold">Atendidas por OIC</div>
-                          <div className="text-center font-bold">{numRowsSubsOIC}</div>
+                        <div className="text-sm rounded-lg shadow-xl">
+                          <div className="font-bold text-center">Atendidas por OIC</div>
+                          <div className="font-bold text-center">{numRowsSubsOIC}</div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+              <div className="fixed inset-0 z-40 bg-black opacity-25"></div>
             </>
           ) : null}
         </div>
@@ -387,42 +383,42 @@ export default function tablero() {
         {showModal3 ? (
           <>
             <div
-              className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+              className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
             >
               <div className="relative w-auto my-6 mx-auto max-w-[50%]">
                 {/*content*/}
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div className="relative flex flex-col w-full bg-white border-0 rounded-lg shadow-lg outline-none focus:outline-none">
                   {/*header*/}
-                  <div className="flex items-start justify-between p-2 border-b border-solid border-slate-200 rounded-t bg-slate-600">
+                  <div className="flex items-start justify-between p-2 border-b border-solid rounded-t border-slate-200 bg-slate-600">
                     <h3 className="text-xl font-semibold text-white">
                       Denuncias en Resolución
                     </h3>
                     <button
-                      className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                      className="float-right p-1 ml-auto text-3xl font-semibold leading-none text-black bg-transparent border-0 outline-none focus:outline-none"
                       onClick={() => setShowModal3(false)}
                     >
-                      <span className="text-black h-6 w-6 text-2xl" title="Cerrar">
+                      <span className="w-6 h-6 text-2xl text-black" title="Cerrar">
                         X
                       </span>
                     </button>
                   </div>
                   {/*body*/}
-                  <div className="relative p-6 flex-auto">
-                    <div className="grid grid-cols-2 my-4 text-black text-md leading-relaxed  gap-3">
-                      <div className="rounded-lg shadow-xl text-sm">
-                        <div className="text-center font-bold p-2">Inconformidades</div>
-                        <div className="text-center font-bold">{numRowsResolINC}</div>
+                  <div className="relative flex-auto p-6">
+                    <div className="grid grid-cols-2 gap-3 my-4 leading-relaxed text-black text-md">
+                      <div className="text-sm rounded-lg shadow-xl">
+                        <div className="p-2 font-bold text-center">Inconformidades</div>
+                        <div className="font-bold text-center">{numRowsResolINC}</div>
                       </div>
-                      <div className="rounded-lg shadow-xl text-sm">
-                        <div className="text-center font-bold">Procesos administrativos<br /> sancionatorios</div>
-                        <div className="text-center font-bold">{numRowsResolPAS}</div>
+                      <div className="text-sm rounded-lg shadow-xl">
+                        <div className="font-bold text-center">Procesos administrativos<br /> sancionatorios</div>
+                        <div className="font-bold text-center">{numRowsResolPAS}</div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+            <div className="fixed inset-0 z-40 bg-black opacity-25"></div>
           </>
         ) : null}
         <div>
@@ -441,42 +437,42 @@ export default function tablero() {
           {showModal4 ? (
             <>
               <div
-                className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+                className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
               >
                 <div className="relative w-auto my-6 mx-auto max-w-[50%]">
                   {/*content*/}
-                  <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                  <div className="relative flex flex-col w-full bg-white border-0 rounded-lg shadow-lg outline-none focus:outline-none">
                     {/*header*/}
-                    <div className="flex items-start justify-between p-2 border-b border-solid border-slate-200 rounded-t bg-slate-600">
+                    <div className="flex items-start justify-between p-2 border-b border-solid rounded-t border-slate-200 bg-slate-600">
                       <h3 className="text-xl font-semibold text-white">
                         Denuncias con Resolución<br /> o Sentencia
                       </h3>
                       <button
-                        className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                        className="float-right p-1 ml-auto text-3xl font-semibold leading-none text-black bg-transparent border-0 outline-none focus:outline-none"
                         onClick={() => setShowModal4(false)}
                       >
-                        <span className="text-black h-6 w-6 text-2xl" title="Cerrar">
+                        <span className="w-6 h-6 text-2xl text-black" title="Cerrar">
                           X
                         </span>
                       </button>
                     </div>
                     {/*body*/}
-                    <div className="relative p-6 flex-auto">
-                      <div className="grid grid-cols-2 my-4 text-black text-md leading-relaxed  gap-3">
-                        <div className="rounded-lg shadow-xl text-sm">
-                          <div className="text-center font-bold p-2">Atendidas por UIF</div>
-                          <div className="text-center font-bold">{numRowsReSenUIF}</div>
+                    <div className="relative flex-auto p-6">
+                      <div className="grid grid-cols-2 gap-3 my-4 leading-relaxed text-black text-md">
+                        <div className="text-sm rounded-lg shadow-xl">
+                          <div className="p-2 font-bold text-center">Atendidas por UIF</div>
+                          <div className="font-bold text-center">{numRowsReSenUIF}</div>
                         </div>
-                        <div className="rounded-lg shadow-xl text-sm">
-                          <div className="text-center font-bold">Atendidas por OIC</div>
-                          <div className="text-center font-bold">{numRowsReSenOIC}</div>
+                        <div className="text-sm rounded-lg shadow-xl">
+                          <div className="font-bold text-center">Atendidas por OIC</div>
+                          <div className="font-bold text-center">{numRowsReSenOIC}</div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+              <div className="fixed inset-0 z-40 bg-black opacity-25"></div>
             </>
           ) : null}
         </div>
@@ -496,42 +492,42 @@ export default function tablero() {
           {showModal5 ? (
             <>
               <div
-                className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+                className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
               >
                 <div className="relative w-auto my-6 mx-auto max-w-[50%]">
                   {/*content*/}
-                  <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                  <div className="relative flex flex-col w-full bg-white border-0 rounded-lg shadow-lg outline-none focus:outline-none">
                     {/*header*/}
-                    <div className="flex items-start justify-between p-2 border-b border-solid border-slate-200 rounded-t bg-slate-600">
+                    <div className="flex items-start justify-between p-2 border-b border-solid rounded-t border-slate-200 bg-slate-600">
                       <h3 className="text-xl font-semibold text-white">
                         Denuncias en Impugnación
                       </h3>
                       <button
-                        className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                        className="float-right p-1 ml-auto text-3xl font-semibold leading-none text-black bg-transparent border-0 outline-none focus:outline-none"
                         onClick={() => setShowModal5(false)}
                       >
-                        <span className="text-black h-6 w-6 text-2xl" title="Cerrar">
+                        <span className="w-6 h-6 text-2xl text-black" title="Cerrar">
                           X
                         </span>
                       </button>
                     </div>
                     {/*body*/}
-                    <div className="relative p-6 flex-auto">
-                      <div className="grid grid-cols-2 my-4 text-black text-md leading-relaxed  gap-3">
-                        <div className="rounded-lg shadow-xl text-sm">
-                          <div className="text-center font-bold p-2">Atendidas por UIF</div>
-                          <div className="text-center font-bold">{numRowsImpugUIF}</div>
+                    <div className="relative flex-auto p-6">
+                      <div className="grid grid-cols-2 gap-3 my-4 leading-relaxed text-black text-md">
+                        <div className="text-sm rounded-lg shadow-xl">
+                          <div className="p-2 font-bold text-center">Atendidas por UIF</div>
+                          <div className="font-bold text-center">{numRowsImpugUIF}</div>
                         </div>
-                        <div className="rounded-lg shadow-xl text-sm">
-                          <div className="text-center font-bold">Atendidas por OIC</div>
-                          <div className="text-center font-bold">{numRowsImpugOIC}</div>
+                        <div className="text-sm rounded-lg shadow-xl">
+                          <div className="font-bold text-center">Atendidas por OIC</div>
+                          <div className="font-bold text-center">{numRowsImpugOIC}</div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+              <div className="fixed inset-0 z-40 bg-black opacity-25"></div>
             </>
           ) : null}
         </div>
@@ -551,42 +547,42 @@ export default function tablero() {
           {showModal6 ? (
             <>
               <div
-                className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+                className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
               >
                 <div className="relative w-auto my-6 mx-auto max-w-[50%]">
                   {/*content*/}
-                  <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                  <div className="relative flex flex-col w-full bg-white border-0 rounded-lg shadow-lg outline-none focus:outline-none">
                     {/*header*/}
-                    <div className="flex items-start justify-between p-2 border-b border-solid border-slate-200 rounded-t bg-slate-600">
+                    <div className="flex items-start justify-between p-2 border-b border-solid rounded-t border-slate-200 bg-slate-600">
                       <h3 className="text-xl font-semibold text-white">
                         Denuncias en Amparo
                       </h3>
                       <button
-                        className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                        className="float-right p-1 ml-auto text-3xl font-semibold leading-none text-black bg-transparent border-0 outline-none focus:outline-none"
                         onClick={() => setShowModal6(false)}
                       >
-                        <span className="text-black h-6 w-6 text-2xl" title="Cerrar">
+                        <span className="w-6 h-6 text-2xl text-black" title="Cerrar">
                           X
                         </span>
                       </button>
                     </div>
                     {/*body*/}
-                    <div className="relative p-6 flex-auto">
-                      <div className="grid grid-cols-2 my-4 text-black text-md leading-relaxed  gap-3">
-                        <div className="rounded-lg shadow-xl text-sm">
-                          <div className="text-center font-bold p-2">Atendidas por UIF</div>
-                          <div className="text-center font-bold">{numRowsAmpUIF}</div>
+                    <div className="relative flex-auto p-6">
+                      <div className="grid grid-cols-2 gap-3 my-4 leading-relaxed text-black text-md">
+                        <div className="text-sm rounded-lg shadow-xl">
+                          <div className="p-2 font-bold text-center">Atendidas por UIF</div>
+                          <div className="font-bold text-center">{numRowsAmpUIF}</div>
                         </div>
-                        <div className="rounded-lg shadow-xl text-sm">
-                          <div className="text-center font-bold">Atendidas por OIC</div>
-                          <div className="text-center font-bold">{numRowsAmpOIC}</div>
+                        <div className="text-sm rounded-lg shadow-xl">
+                          <div className="font-bold text-center">Atendidas por OIC</div>
+                          <div className="font-bold text-center">{numRowsAmpOIC}</div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+              <div className="fixed inset-0 z-40 bg-black opacity-25"></div>
             </>
           ) : null}
         </div>
@@ -606,42 +602,42 @@ export default function tablero() {
           {showModal7 ? (
             <>
               <div
-                className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+                className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
               >
                 <div className="relative w-auto my-6 mx-auto max-w-[50%]">
                   {/*content*/}
-                  <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                  <div className="relative flex flex-col w-full bg-white border-0 rounded-lg shadow-lg outline-none focus:outline-none">
                     {/*header*/}
-                    <div className="flex items-start justify-between p-2 border-b border-solid border-slate-200 rounded-t bg-slate-600">
+                    <div className="flex items-start justify-between p-2 border-b border-solid rounded-t border-slate-200 bg-slate-600">
                       <h3 className="text-xl font-semibold text-white">
                         Denuncias en Firme
                       </h3>
                       <button
-                        className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                        className="float-right p-1 ml-auto text-3xl font-semibold leading-none text-black bg-transparent border-0 outline-none focus:outline-none"
                         onClick={() => setShowModal7(false)}
                       >
-                        <span className="text-black h-6 w-6 text-2xl" title="Cerrar">
+                        <span className="w-6 h-6 text-2xl text-black" title="Cerrar">
                           X
                         </span>
                       </button>
                     </div>
                     {/*body*/}
-                    <div className="relative p-6 flex-auto">
-                      <div className="grid grid-cols-2 my-4 text-black text-md leading-relaxed  gap-3">
-                        <div className="rounded-lg shadow-xl text-sm">
-                          <div className="text-center font-bold p-2">Atendidas por UIF</div>
-                          <div className="text-center font-bold">{numRowsFirUIF}</div>
+                    <div className="relative flex-auto p-6">
+                      <div className="grid grid-cols-2 gap-3 my-4 leading-relaxed text-black text-md">
+                        <div className="text-sm rounded-lg shadow-xl">
+                          <div className="p-2 font-bold text-center">Atendidas por UIF</div>
+                          <div className="font-bold text-center">{numRowsFirUIF}</div>
                         </div>
-                        <div className="rounded-lg shadow-xl text-sm">
-                          <div className="text-center font-bold">Atendidas por OIC</div>
-                          <div className="text-center font-bold">{numRowsFirOIC}</div>
+                        <div className="text-sm rounded-lg shadow-xl">
+                          <div className="font-bold text-center">Atendidas por OIC</div>
+                          <div className="font-bold text-center">{numRowsFirOIC}</div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+              <div className="fixed inset-0 z-40 bg-black opacity-25"></div>
             </>
           ) : null}
         </div>
@@ -661,42 +657,42 @@ export default function tablero() {
           {showModal8 ? (
             <>
               <div
-                className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+                className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
               >
                 <div className="relative w-auto my-6 mx-auto max-w-[50%]">
                   {/*content*/}
-                  <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                  <div className="relative flex flex-col w-full bg-white border-0 rounded-lg shadow-lg outline-none focus:outline-none">
                     {/*header*/}
-                    <div className="flex items-start justify-between p-2 border-b border-solid border-slate-200 rounded-t bg-slate-600">
+                    <div className="flex items-start justify-between p-2 border-b border-solid rounded-t border-slate-200 bg-slate-600">
                       <h3 className="text-xl font-semibold text-white">
                         Denuncias en Conclusión<br /> y Archivo
                       </h3>
                       <button
-                        className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                        className="float-right p-1 ml-auto text-3xl font-semibold leading-none text-black bg-transparent border-0 outline-none focus:outline-none"
                         onClick={() => setShowModal8(false)}
                       >
-                        <span className="text-black h-6 w-6 text-2xl" title="Cerrar">
+                        <span className="w-6 h-6 text-2xl text-black" title="Cerrar">
                           X
                         </span>
                       </button>
                     </div>
                     {/*body*/}
-                    <div className="relative p-6 flex-auto">
-                      <div className="grid grid-cols-2 my-4 text-black text-md leading-relaxed  gap-3">
-                        <div className="rounded-lg shadow-xl text-sm">
-                          <div className="text-center font-bold p-2">Atendidas por UIF</div>
-                          <div className="text-center font-bold">{numRowsConcUIF}</div>
+                    <div className="relative flex-auto p-6">
+                      <div className="grid grid-cols-2 gap-3 my-4 leading-relaxed text-black text-md">
+                        <div className="text-sm rounded-lg shadow-xl">
+                          <div className="p-2 font-bold text-center">Atendidas por UIF</div>
+                          <div className="font-bold text-center">{numRowsConcUIF}</div>
                         </div>
-                        <div className="rounded-lg shadow-xl text-sm">
-                          <div className="text-center font-bold">Atendidas por OIC</div>
-                          <div className="text-center font-bold">{numRowsConcOIC}</div>
+                        <div className="text-sm rounded-lg shadow-xl">
+                          <div className="font-bold text-center">Atendidas por OIC</div>
+                          <div className="font-bold text-center">{numRowsConcOIC}</div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+              <div className="fixed inset-0 z-40 bg-black opacity-25"></div>
             </>
           ) : null}
         </div>
@@ -716,42 +712,42 @@ export default function tablero() {
           {showModal9 ? (
             <>
               <div
-                className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+                className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
               >
                 <div className="relative w-auto my-6 mx-auto max-w-[50%]">
                   {/*content*/}
-                  <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                  <div className="relative flex flex-col w-full bg-white border-0 rounded-lg shadow-lg outline-none focus:outline-none">
                     {/*header*/}
-                    <div className="flex items-start justify-between p-2 border-b border-solid border-slate-200 rounded-t bg-slate-600">
+                    <div className="flex items-start justify-between p-2 border-b border-solid rounded-t border-slate-200 bg-slate-600">
                       <h3 className="text-xl font-semibold text-white">
                         Denuncias Improcedentes
                       </h3>
                       <button
-                        className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                        className="float-right p-1 ml-auto text-3xl font-semibold leading-none text-black bg-transparent border-0 outline-none focus:outline-none"
                         onClick={() => setShowModal9(false)}
                       >
-                        <span className="text-black h-6 w-6 text-2xl" title="Cerrar">
+                        <span className="w-6 h-6 text-2xl text-black" title="Cerrar">
                           X
                         </span>
                       </button>
                     </div>
                     {/*body*/}
-                    <div className="relative p-6 flex-auto">
-                      <div className="grid grid-cols-2 my-4 text-black text-md leading-relaxed  gap-3">
-                        <div className="rounded-lg shadow-xl text-sm">
-                          <div className="text-center font-bold p-2">Inconformidades</div>
-                          <div className="text-center font-bold">{numRowsImproINC}</div>
+                    <div className="relative flex-auto p-6">
+                      <div className="grid grid-cols-2 gap-3 my-4 leading-relaxed text-black text-md">
+                        <div className="text-sm rounded-lg shadow-xl">
+                          <div className="p-2 font-bold text-center">Inconformidades</div>
+                          <div className="font-bold text-center">{numRowsImproINC}</div>
                         </div>
-                        <div className="rounded-lg shadow-xl text-sm">
-                          <div className="text-center font-bold">Procesos administrativos<br /> sancionatorios</div>
-                          <div className="text-center font-bold">{numRowsImproPAS}</div>
+                        <div className="text-sm rounded-lg shadow-xl">
+                          <div className="font-bold text-center">Procesos administrativos<br /> sancionatorios</div>
+                          <div className="font-bold text-center">{numRowsImproPAS}</div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+              <div className="fixed inset-0 z-40 bg-black opacity-25"></div>
             </>
           ) : null}
         </div>
@@ -771,42 +767,42 @@ export default function tablero() {
           {showModal10 ? (
             <>
               <div
-                className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+                className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
               >
                 <div className="relative w-auto my-6 mx-auto max-w-[50%]">
                   {/*content*/}
-                  <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                  <div className="relative flex flex-col w-full bg-white border-0 rounded-lg shadow-lg outline-none focus:outline-none">
                     {/*header*/}
-                    <div className="flex items-start justify-between p-2 border-b border-solid border-slate-200 rounded-t bg-slate-600">
+                    <div className="flex items-start justify-between p-2 border-b border-solid rounded-t border-slate-200 bg-slate-600">
                       <h3 className="text-xl font-semibold text-white">
                         Denuncias en Sobreseimiento
                       </h3>
                       <button
-                        className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                        className="float-right p-1 ml-auto text-3xl font-semibold leading-none text-black bg-transparent border-0 outline-none focus:outline-none"
                         onClick={() => setShowModal10(false)}
                       >
-                        <span className="text-black h-6 w-6 text-2xl" title="Cerrar">
+                        <span className="w-6 h-6 text-2xl text-black" title="Cerrar">
                           X
                         </span>
                       </button>
                     </div>
                     {/*body*/}
-                    <div className="relative p-6 flex-auto">
-                      <div className="grid grid-cols-2 my-4 text-black text-md leading-relaxed  gap-3">
-                        <div className="rounded-lg shadow-xl text-sm">
-                          <div className="text-center font-bold p-2">Atendidas por UIF</div>
-                          <div className="text-center font-bold">{numRowsSobreINC}</div>
+                    <div className="relative flex-auto p-6">
+                      <div className="grid grid-cols-2 gap-3 my-4 leading-relaxed text-black text-md">
+                        <div className="text-sm rounded-lg shadow-xl">
+                          <div className="p-2 font-bold text-center">Atendidas por UIF</div>
+                          <div className="font-bold text-center">{numRowsSobreINC}</div>
                         </div>
-                        <div className="rounded-lg shadow-xl text-sm">
-                          <div className="text-center font-bold">Atendidas por OIC</div>
-                          <div className="text-center font-bold">{numRowsSobrePAS}</div>
+                        <div className="text-sm rounded-lg shadow-xl">
+                          <div className="font-bold text-center">Atendidas por OIC</div>
+                          <div className="font-bold text-center">{numRowsSobrePAS}</div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+              <div className="fixed inset-0 z-40 bg-black opacity-25"></div>
             </>
           ) : null}
         </div>
@@ -826,42 +822,42 @@ export default function tablero() {
           {showModal11 ? (
             <>
               <div
-                className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+                className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
               >
                 <div className="relative w-auto my-6 mx-auto max-w-[50%]">
                   {/*content*/}
-                  <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                  <div className="relative flex flex-col w-full bg-white border-0 rounded-lg shadow-lg outline-none focus:outline-none">
                     {/*header*/}
-                    <div className="flex items-start justify-between p-2 border-b border-solid border-slate-200 rounded-t bg-slate-600">
+                    <div className="flex items-start justify-between p-2 border-b border-solid rounded-t border-slate-200 bg-slate-600">
                       <h3 className="text-xl font-semibold text-white">
                         Denuncias en Proceso
                       </h3>
                       <button
-                        className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                        className="float-right p-1 ml-auto text-3xl font-semibold leading-none text-black bg-transparent border-0 outline-none focus:outline-none"
                         onClick={() => setShowModal11(false)}
                       >
-                        <span className="text-black h-6 w-6 text-2xl" title="Cerrar">
+                        <span className="w-6 h-6 text-2xl text-black" title="Cerrar">
                           X
                         </span>
                       </button>
                     </div>
                     {/*body*/}
-                    <div className="relative p-6 flex-auto">
-                      <div className="grid grid-cols-2 my-4 text-black text-md leading-relaxed  gap-3">
-                        <div className="rounded-lg shadow-xl text-sm">
-                          <div className="text-center font-bold p-2">Atendidas por UIF</div>
-                          <div className="text-center font-bold">{numRowsProceUIF}</div>
+                    <div className="relative flex-auto p-6">
+                      <div className="grid grid-cols-2 gap-3 my-4 leading-relaxed text-black text-md">
+                        <div className="text-sm rounded-lg shadow-xl">
+                          <div className="p-2 font-bold text-center">Atendidas por UIF</div>
+                          <div className="font-bold text-center">{numRowsProceUIF}</div>
                         </div>
-                        <div className="rounded-lg shadow-xl text-sm">
-                          <div className="text-center font-bold">Atendidas por OIC</div>
-                          <div className="text-center font-bold">{numRowsProceOIC}</div>
+                        <div className="text-sm rounded-lg shadow-xl">
+                          <div className="font-bold text-center">Atendidas por OIC</div>
+                          <div className="font-bold text-center">{numRowsProceOIC}</div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+              <div className="fixed inset-0 z-40 bg-black opacity-25"></div>
             </>
           ) : null}
         </div>

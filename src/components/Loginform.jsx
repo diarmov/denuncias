@@ -8,8 +8,8 @@ import { useAuthStore } from '../hooks/useAuthStore';
 const Loginform = () => {
   const { onLogin } = useAuthStore()
   return (
-    <div className='w-full p-10'>
-    <h1 className='text-3xl font-bold text-center'>Inicio de sesión</h1>
+    <div className='w-full px-5 md:p-10'>
+    <h1 className='hidden md:block text-3xl font-bold text-center'>Inicio de sesión</h1>
 
       <Formik
         initialValues={{
@@ -28,7 +28,7 @@ const Loginform = () => {
       >
         {
           () => (
-            <div className='px-5 py-10 mt-10 bg-white'>
+            <div className='px-5 py-10 md:mt-10 bg-white'>
               <Form>
                 <div className='mb-2'>
                   <TextInput label="Email" name='email' placeholder='Email' type='email' icon={ <AlternateEmail /> } />

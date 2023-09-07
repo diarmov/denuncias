@@ -56,7 +56,7 @@ export default function Busqueda({ onSetSelectedLink, link }) {
         
         <div className="w-full text-base  mb-3 p-6 rounded-md shadow-md mt-3">
             <form onSubmit={handleSubmit} className='mb-4'> 
-                  <div className='grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2'>
+                  <div className='grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-2'>
                       <div>
                         <Label htmlFor="idDependencia" value="Dependencia"/>
                         <SelectControl 
@@ -93,7 +93,7 @@ export default function Busqueda({ onSetSelectedLink, link }) {
                         />                  
                       </div>                     
 
-                      <div className='mt-2'>
+                      <div className='mt-2 w-64'>
                         <div className="flex">
                         <Button 
                           type="submit" 
@@ -106,7 +106,8 @@ export default function Busqueda({ onSetSelectedLink, link }) {
                           className='mt-5 ml-2'
                           color="light"
                           onClick={ filtersOff }
-                         > Quitar filtros
+                         > 
+                         Quitar filtros
                         </Button>
                         </div>
                       </div>                    
@@ -117,7 +118,7 @@ export default function Busqueda({ onSetSelectedLink, link }) {
 
         <Details />
 
-        <div className="w-fulltext-center md:text-sm text-xs mb-3 mt-5">
+        <div className="overflow-x-auto text-center md:text-sm text-xs mb-3 mt-5">
           <TableBusqueda />
         </div>
       </div>

@@ -33,7 +33,7 @@ const ListPages = () => {
         ] : [],        
       
         ...isDenuncia(active)  ? [
-          {title: 'Denuncias', icon: <HiFolderAdd />, link:'denuncias', component: <Denuncias {...{onSetSelectedLink, link:'denuncias'}}/> },
+          {title: 'Denuncias', icon: <HiFolderOpen />, link:'denuncias', component: <Denuncias {...{onSetSelectedLink, link:'denuncias'}}/> },
         ] : [],
        
         ...isRoot(active) ? [
@@ -41,7 +41,7 @@ const ListPages = () => {
           {title: 'Busqueda', icon: <HiSearch />, link:'busqueda', component: <Busqueda {...{onSetSelectedLink, link:'busqueda'}}/> },
           {title: 'Tipo de Denuncia', icon: <HiAnnotation />, link:'tipo', component: <Tipo {...{onSetSelectedLink, link:'tipo'}}/> },
           {title: 'Estadisticas', icon: <HiChartSquareBar />, link:'estadisticas', component: <Estadisticas {...{onSetSelectedLink, link:'estadisticas'}}/> },
-          {title: 'Denuncias', icon: <HiFolderAdd />, link:'denuncias', component: <Denuncias {...{onSetSelectedLink, link:'denuncias'}}/> },
+          {title: 'Denuncias', icon: <HiFolderOpen />, link:'denuncias', component: <Denuncias {...{onSetSelectedLink, link:'denuncias'}}/> },
           {title: 'Resoluciones', icon: <HiFolderAdd />, link:'resoluciones', component: <Resoluciones {...{onSetSelectedLink, link:'resoluciones'}}/> },
           {title: 'Usuarios', icon: <HiUser />, link:'users', component: <Listado  {...{onSetSelectedLink, link:'users'}}/> },
         ] : [],

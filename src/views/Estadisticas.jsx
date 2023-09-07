@@ -43,7 +43,7 @@ export default function Estadisticas({ onSetSelectedLink, link }) {
   return (
     <>
     <div className="flex-wrap justify-center p-3 md:flex md:p-5">
-      <div className="w-full mb-3 text-sm font-black text-center md:text-3xl">Estadísticas</div>
+      <div className="w-full mb-3 text-2xl font-black text-center md:text-3xl">Estadísticas</div>
       
       <div className='container flex justify-center'>
         <form onSubmit={handleSubmit} className='mb-8'> 
@@ -87,24 +87,24 @@ export default function Estadisticas({ onSetSelectedLink, link }) {
             </div>
         </form>
       </div>
-
-      <div className='justify-center w-full text-center md:flex h-96'>
-          <div className='w-[50%]  justify-center font-semibold text-center text-xs md:text-xl'>
-              <PieChartEstadistica/>
-          </div>
-          <div className='w-[50%] justify-center font-semibold text-center text-xs md:text-xl'>
-              <DenunciasxMesChart />
-          </div>
-      </div>
-      <div className='justify-center w-full text-center md:flex h-96'>
-          <div className='w-[50%]  justify-center font-semibold text-center text-xs md:text-xl'>
-              <OrigenDenunciasChart />
-          </div>
-          <div className='w-[50%]  justify-center font-semibold text-center text-xs md:text-xl'>
-              <DependenciasMasChart />
-          </div>
-      </div>
     </div>
+
+    <div className='grid grid-cols-1 md:grid-cols-2 gap-x-2 gap-y-5 p-10'>
+      <div className='h-96'>
+          <PieChartEstadistica/>
+      </div>
+      <div>
+          <DenunciasxMesChart />
+      </div> 
+
+      <div>
+          <OrigenDenunciasChart />
+      </div>
+      <div>
+          <DependenciasMasChart />        
+      </div>   
+    </div>    
+  
     </>
   )
 }

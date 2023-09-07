@@ -1,3 +1,4 @@
+export * from './tableros/tableroSlice'
 export * from './estadisticas/estadisticaSlice'
 export * from './busqueda/busquedaSlice'
 export * from './users/userSlice'

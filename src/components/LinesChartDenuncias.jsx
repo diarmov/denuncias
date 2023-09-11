@@ -11,7 +11,7 @@ export const LinesChartDenuncias = () => {
 
     const { atencionsfp, atencionoic, onGetDataAtencionSFP, onGetDataAtencionOIC } = useTableroStore()
 
-    console.log(atencionoic);
+    //console.log(atencionoic);
 
     useEffect(() => {
         if (atencionsfp.length === 0) onGetDataAtencionSFP()
@@ -141,7 +141,7 @@ export const LinesChartDenuncias = () => {
             },
             title: {
                 display: true,
-                text: 'Seguimiento a Denuncias',
+                text: '',
                 font: {
                     size: 24
                 }

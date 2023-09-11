@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getChart, getAtenOIC, getAtenSFP, getAtenTJA, getTotal } from "../store";
+import { getChart, getAtenOIC, getAtenSFP, getAtenTJA, getTotal, getDepenUIF, getDepenOIC, setDataModal } from "../store";
 import api from "../config/api";
 import { useUiStore } from "./useUiStore";
 
 export const useTableroStore = () => {
-    const { chart, denunciastotal, atencionsfp, atencionoic, atenciontja } = useSelector(state => state.tableros)
+    const { chart, denunciastotal, atencionsfp, atencionoic, atenciontja, dependenciasUIF, dependenciasOIC, datamodal } = useSelector(state => state.tableros)
     const { onLoading, onNotification, onSetSearch, onModal } = useUiStore()
     const dispatch = useDispatch();
 
@@ -93,6 +93,47 @@ export const useTableroStore = () => {
         }
     }
 
+    const onGetDataDepenUIF = async (id) => {
+        onLoading(true)
+
+        try {
+            const { data } = await api.get(`/denunciasdependenciaUIF/${id}`);
+            const { tableros, success } = data
+            //console.log('data:', data);
+
+            if (success) {
+                dispatch(getDepenUIF(tableros))
+                onLoading(false)
+            }
+
+        } catch (error) {
+            console.log(error);
+            onLoading(false)
+        }
+    }
+    const onGetDataDepenOIC = async (id) => {
+        onLoading(true)
+
+        try {
+            const { data } = await api.get(`/denunciasdependenciaOIC/${id}`);
+            const { tableros, success } = data
+            //console.log('data:', data);
+
+            if (success) {
+                dispatch(getDepenOIC(tableros))
+                onLoading(false)
+            }
+
+        } catch (error) {
+            console.log(error);
+            onLoading(false)
+        }
+    }
+
+    const onSetDataModal = (datamodal) => {
+        dispatch(setDataModal(datamodal))
+    }
+
     //const onGetDataChart = () => {}
 
     return {
@@ -101,10 +142,17 @@ export const useTableroStore = () => {
         atencionsfp,
         atencionoic,
         atenciontja,
+        dependenciasUIF,
+        dependenciasOIC,
+        datamodal,
         onGetDataChart,
         onGetDenunciasTotal,
         onGetDataAtencionSFP,
         onGetDataAtencionOIC,
-        onGetDataAtencionTJA
+        onGetDataAtencionTJA,
+        onGetDataDepenUIF,
+        onGetDataDepenOIC,
+        onSetDataModal
     }
 }
+

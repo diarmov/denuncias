@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import LinesChartDenuncias from "../components/LinesChartDenuncias";
 import { useTableroStore } from "../hooks/useTableroStore";
+import { Table } from 'flowbite-react';
+import { useDenunciasStore } from "../hooks/useDenunciasStore";
+import { HiOfficeBuilding, HiOutlineClipboardList } from 'react-icons/hi';
 
 export default function tablero() {
 
-  const { denunciastotal, onGetDenunciasTotal } = useTableroStore()
+  const { denunciastotal, onGetDenunciasTotal, dependencias} = useTableroStore()
   console.log(denunciastotal);
   useEffect(() => {
     if (denunciastotal.length === 0) onGetDenunciasTotal()
@@ -22,10 +25,10 @@ export default function tablero() {
 
   //************************************************************************* */
 
-  const denunciasINC = denunciastotal.filter(item => item.idOrigen == '16')
+  const denunciasINC = denunciastotal.filter(item => item.idCaptacion == '16')
   const numRowsINC = denunciasINC.length
 
-  const denunciasPAS = denunciastotal.filter(item => item.idOrigen == '17')
+  const denunciasPAS = denunciastotal.filter(item => item.idCaptacion == '17')
   const numRowsPAS = denunciasPAS.length
 
   //************************************************************************* */
@@ -763,6 +766,10 @@ export default function tablero() {
             <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mb-3">
               <div className="bg-[#70D3FF] h-2.5 rounded-full" style={{ width: ((numRowsSobreseimiento * 100) / denunciastotal.length) + '%' }}></div>
             </div>
+            <div className="flex w-full h-16">
+              <div className="flex justify-center items-center"><HiOfficeBuilding className="h-16"/></div>
+              <div className="flex justify-center items-center"><HiOutlineClipboardList className="h-16"/></div>
+            </div>
           </div>
           {showModal10 ? (
             <>
@@ -861,6 +868,30 @@ export default function tablero() {
             </>
           ) : null}
         </div>
+      </div>
+      <div className="text-lg md:text-2xl lg:text-3xl font-bold bg-[#BF5854] mt-10 justify-center flex text-white p-3 w-full">Denuncias por Dependencias</div>
+      <div className="grid w-full grid-cols-1 p-10 md:grid-cols-3 lg:grid-cols-6">
+            <Table className="w-full">
+                <Table.Head>
+                <Table.HeadCell>
+                  Dependencia
+                </Table.HeadCell>
+                <Table.HeadCell>
+                  Total de denuncias
+                </Table.HeadCell>
+              </Table.Head>
+              <Table.Body className="divide-y">
+                        <Table.Row className="bg-white" >                           
+                          
+                          <Table.Cell className="whitespace-nowrap">                       
+                          Depedencia fulana de tal
+                          </Table.Cell>
+                          <Table.Cell className='whitespace-nowrap text-center'>
+                            Total de denuncias
+                          </Table.Cell>
+                        </Table.Row>
+              </Table.Body>
+            </Table>
       </div>
     </>
   )

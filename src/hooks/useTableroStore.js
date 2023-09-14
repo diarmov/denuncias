@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getChart, getAtenOIC, getAtenSFP, getAtenTJA, getTotal, getDepenUIF, getDepenOIC, setDataModal } from "../store";
+import { getChart, getAtenOIC, getAtenSFP, getAtenTJA, getTotal, setDataModal, getDependencias } from "../store";
 import api from "../config/api";
 import { useUiStore } from "./useUiStore";
 
 export const useTableroStore = () => {
-    const { chart, denunciastotal, atencionsfp, atencionoic, atenciontja, dependenciasUIF, dependenciasOIC, datamodal } = useSelector(state => state.tableros)
+    const { chart, denunciastotal, atencionsfp, atencionoic, atenciontja, dependencias, datamodal } = useSelector(state => state.tableros)
     const { onLoading, onNotification, onSetSearch, onModal } = useUiStore()
     const dispatch = useDispatch();
 
@@ -12,7 +12,7 @@ export const useTableroStore = () => {
         try {
             const { data } = await api.get('/denunciastotal');
             const { tableros, success } = data
-            console.log(data)
+            // console.log(data)
 
             if (success) {
                 dispatch(getTotal(tableros))
@@ -93,16 +93,17 @@ export const useTableroStore = () => {
         }
     }
 
-    const onGetDataDepenUIF = async (id) => {
+    const onGetDataDependencias = async (page = 1) => {
         onLoading(true)
 
         try {
-            const { data } = await api.get(`/denunciasdependenciaUIF/${id}`);
+            const { data } = await api.get(`/denunciasdependencias?page=${page}`);
             const { tableros, success } = data
             //console.log('data:', data);
 
             if (success) {
-                dispatch(getDepenUIF(tableros))
+                dispatch(getDependencias({ current_page: tableros.current_page, data: tableros.data, last_page: tableros.last_page }))
+                //dispatch(getDependencias(tableros))
                 onLoading(false)
             }
 
@@ -111,24 +112,7 @@ export const useTableroStore = () => {
             onLoading(false)
         }
     }
-    const onGetDataDepenOIC = async (id) => {
-        onLoading(true)
 
-        try {
-            const { data } = await api.get(`/denunciasdependenciaOIC/${id}`);
-            const { tableros, success } = data
-            //console.log('data:', data);
-
-            if (success) {
-                dispatch(getDepenOIC(tableros))
-                onLoading(false)
-            }
-
-        } catch (error) {
-            console.log(error);
-            onLoading(false)
-        }
-    }
 
     const onSetDataModal = (datamodal) => {
         dispatch(setDataModal(datamodal))
@@ -142,16 +126,14 @@ export const useTableroStore = () => {
         atencionsfp,
         atencionoic,
         atenciontja,
-        dependenciasUIF,
-        dependenciasOIC,
+        dependencias,
         datamodal,
         onGetDataChart,
         onGetDenunciasTotal,
         onGetDataAtencionSFP,
         onGetDataAtencionOIC,
         onGetDataAtencionTJA,
-        onGetDataDepenUIF,
-        onGetDataDepenOIC,
+        onGetDataDependencias,
         onSetDataModal
     }
 }

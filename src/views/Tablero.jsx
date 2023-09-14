@@ -5,153 +5,124 @@ import { PopUp } from "../components/ui";
 import { useTableroStore } from "../hooks/useTableroStore";
 import { HiOutlineOfficeBuilding, HiOutlineClipboardList } from 'react-icons/hi';
 import { useUiStore } from "../hooks/useUiStore";
+import { Table } from "flowbite-react";
+import { TableDependencias } from "../components/tablero/TableDependencias";
 
-export default function tablero() {
+export default function tablero({ onSetSelectedLink, link }) {
 
   const { denunciastotal, datamodal, onGetDenunciasTotal, onSetDataModal } = useTableroStore()
+
   // console.log(denunciastotal);
   useEffect(() => {
+    onSetSelectedLink(link)
     if (denunciastotal.length === 0) onGetDenunciasTotal()
   }, [])
-
-  const denunciasUIF = denunciastotal.filter(item => item.numExpUif != null)
-  const numRowsIniUIF = denunciasUIF.length
-
-
-  const denunciasiniOIC = denunciastotal.filter(item => item.numExpOic != null)
-  const numRowsIniOIC = denunciasiniOIC.length
-
+  const numRowsIniUIF = denunciastotal.filter(item => item.idOrigen == '2').length
+  const numRowsIniOIC = denunciastotal.filter(item => item.idOrigen == '1').length
 
   //************************************************************************* */
 
-
-  const denunciasINC = denunciastotal.filter(item => item.idCaptacion == '16')
-  //console.log('denunciasINC: ', denunciasINC)
-  const numRowsINC = denunciasINC.length
-
-  const denunciasPAS = denunciastotal.filter(item => item.idCaptacion == '17')
-  const numRowsPAS = denunciasPAS.length
-
+  const numRowsINC = denunciastotal.filter(item => item.idCaptacion == '16').length
+  const numRowsPAS = denunciastotal.filter(item => item.idCaptacion == '17').length
   //************************************************************************* */
 
   const etapaInvestigacion = denunciastotal.filter(item => item.idEtapa == '1')
   const numRowsInvestigacion = etapaInvestigacion.length
-
-  const denunciasInvesUIF = etapaInvestigacion.filter(item => item.numExpUif != null)
-  const numRowsInvesUIF = denunciasInvesUIF.length
-
-  const denunciasInvesOIC = etapaInvestigacion.filter(item => item.numExpOic != null)
-  const numRowsInvesOIC = denunciasInvesOIC.length
-
+  const numRowsInvesUIF = etapaInvestigacion.filter(item => item.idUbicacion != '1').length
+  const totInvesUIF = etapaInvestigacion.filter(item => item.idUbicacion != '1')
+  const numRowsInvesOIC = etapaInvestigacion.filter(item => item.idUbicacion == '1').length
+  const totInvesOIC = etapaInvestigacion.filter(item => item.idUbicacion == '1')
   //************************************************************************* */
 
   const etapaSubstanciacion = denunciastotal.filter(item => item.idEtapa == '2')
   const numRowsSubstanciacion = etapaSubstanciacion.length
-
-  const denunciasSubsUIF = etapaSubstanciacion.filter(item => item.numExpUif != null)
-  const numRowsSubsUIF = denunciasSubsUIF.length
-
-  const denunciasSubsOIC = etapaSubstanciacion.filter(item => item.numExpOic != null)
-  const numRowsSubsOIC = denunciasSubsOIC.length
-
+  const numRowsSubsUIF = etapaSubstanciacion.filter(item => item.idOrigen != '1').length
+  const numRowsSubsOIC = etapaSubstanciacion.filter(item => item.idOrigen == '1').length
   //************************************************************************* */
 
   const etapaResolucion = denunciastotal.filter(item => item.idEtapa == '3')
   const numRowsResolucion = etapaResolucion.length
-
-  const denunciasResolINC = etapaResolucion.filter(item => item.numExpUif != null)
-  const numRowsResolINC = denunciasResolINC.length
-
-  const denunciasResolPAS = etapaResolucion.filter(item => item.numExpOic != null)
-  const numRowsResolPAS = denunciasResolPAS.length
-
+  const numRowsResolINC = etapaResolucion.filter(item => item.idOrigen != '1').length
+  const numRowsResolPAS = etapaResolucion.filter(item => item.idOrigen == '1').length
   //************************************************************************* */
 
   const etapaResoSen = denunciastotal.filter(item => item.idEtapa == '4')
   const numRowsResoSen = etapaResoSen.length
-
-  const denunciasReSenUIF = etapaResoSen.filter(item => item.numExpUif != null)
-  const numRowsReSenUIF = denunciasReSenUIF.length
-
-  const denunciasReSenOIC = etapaResoSen.filter(item => item.numExpOic != null)
-  const numRowsReSenOIC = denunciasReSenOIC.length
-
+  const numRowsReSenUIF = etapaResoSen.filter(item => item.idOrigen != '1').length
+  const numRowsReSenOIC = etapaResoSen.filter(item => item.idOrigen == '1').length
   //************************************************************************* */
 
   const etapaImpugnacion = denunciastotal.filter(item => item.idEtapa == '5')
   const numRowsImpugnacion = etapaImpugnacion.length
-
-  const denunciasImpugUIF = etapaImpugnacion.filter(item => item.numExpUif != null)
-  const numRowsImpugUIF = denunciasImpugUIF.length
-
-  const denunciasImpugOIC = etapaImpugnacion.filter(item => item.numExpOic != null)
-  const numRowsImpugOIC = denunciasImpugOIC.length
-
+  const numRowsImpugUIF = etapaImpugnacion.filter(item => item.idOrigen != '1').length
+  const numRowsImpugOIC = etapaImpugnacion.filter(item => item.idOrigen == '1').length
   //************************************************************************* */
 
   const etapaAmparo = denunciastotal.filter(item => item.idEtapa == '6')
   const numRowsAmparo = etapaAmparo.length
-
-  const denunciasAmpUIF = etapaAmparo.filter(item => item.numExpUif != null)
-  const numRowsAmpUIF = denunciasAmpUIF.length
-
-  const denunciasAmpOIC = etapaAmparo.filter(item => item.numExpOic != null)
-  const numRowsAmpOIC = denunciasAmpOIC.length
-
+  const numRowsAmpUIF = etapaAmparo.filter(item => item.idOrigen != '1').length
+  const numRowsAmpOIC = etapaAmparo.filter(item => item.idOrigen == '1').length
   //************************************************************************* */
 
   const etapaFirme = denunciastotal.filter(item => item.idEtapa == '7')
   const numRowsFirme = etapaFirme.length
-
-  const denunciasFirUIF = etapaFirme.filter(item => item.numExpUif != null)
-  const numRowsFirUIF = denunciasFirUIF.length
-
-  const denunciasFirOIC = etapaFirme.filter(item => item.numExpOic != null)
-  const numRowsFirOIC = denunciasFirOIC.length
-
+  const numRowsFirUIF = etapaFirme.filter(item => item.idOrigen != '1').length
+  const numRowsFirOIC = etapaFirme.filter(item => item.idOrigen == '1').length
   //************************************************************************* */
 
   const etapaConcluidas = denunciastotal.filter(item => item.idEtapa == '8')
   const numRowsConcluidas = etapaConcluidas.length
+  const numRowsConcUIF = etapaConcluidas.filter(item => item.idOrigen != '1').length
+  const numRowsConcOIC = etapaConcluidas.filter(item => item.idOrigen == '1').length
 
-  const numRowsConcUIF = etapaConcluidas.filter(item => item.numExpUif != null).length
-
-
-  const numRowsConcOIC = etapaConcluidas.filter(item => item.numExpOic != null).length
-
-  console.log(numRowsConcUIF)
   //************************************************************************* */
 
   const etapaImprocedente = denunciastotal.filter(item => item.idEtapa == '9')
   const numRowsImprocedente = etapaImprocedente.length
-
-  const denunciasImproINC = etapaImprocedente.filter(item => item.idCaptacion == '16')
-  const numRowsImproINC = denunciasImproINC.length
-
-  const denunciasImproPAS = etapaImprocedente.filter(item => item.idCaptacion == '17')
-  const numRowsImproPAS = denunciasImproPAS.length
-
+  const numRowsImproINC = etapaImprocedente.filter(item => item.idCaptacion == '16').length
+  const numRowsImproPAS = etapaImprocedente.filter(item => item.idCaptacion == '17').length
   //************************************************************************* */
 
   const etapaSobreseimiento = denunciastotal.filter(item => item.idEtapa == '10')
   const numRowsSobreseimiento = etapaSobreseimiento.length
-
-  const denunciasSobreINC = etapaSobreseimiento.filter(item => item.idOrigen == '16')
-  const numRowsSobreINC = denunciasSobreINC.length
-
-  const denunciasSobrePAS = etapaSobreseimiento.filter(item => item.idCaptacion == '17')
-  const numRowsSobrePAS = denunciasSobrePAS.length
-
+  const numRowsSobreINC = etapaSobreseimiento.filter(item => item.idOrigen == '16').length
+  const numRowsSobrePAS = etapaSobreseimiento.filter(item => item.idCaptacion == '17').length
   //************************************************************************* */
 
   const etapaProceso = denunciastotal.filter(item => item.idEtapa == '11')
   const numRowsProceso = etapaProceso.length
+  const numRowsProceUIF = etapaProceso.filter(item => item.idOrigen != '1').length
+  const numRowsProceOIC = etapaProceso.filter(item => item.idOrigen == '1').length
+  //************************************************************************* *
 
-  const denunciasProceUIF = etapaProceso.filter(item => item.numExpUif != null)
-  const numRowsProceUIF = denunciasProceUIF.length
 
-  const denunciasProceOIC = etapaProceso.filter(item => item.numExpOic != null)
-  const numRowsProceOIC = denunciasProceOIC.length
+
+
+
+  const denUIFcount = [];
+  totInvesUIF.forEach(entry => {
+    const { dependencia } = entry;
+    const data = { dependencia };
+    const exists = denUIFcount.find(y => y.dependencia === entry.dependencia)
+    if (!exists) {
+      denUIFcount.push({ dependencia, data: [data] })
+    } else {
+      exists.data.push(data)
+    }
+  })
+
+
+  const denOICcount = [];
+  totInvesOIC.forEach(entry => {
+    const { dependencia } = entry;
+    const data = { dependencia };
+    const exists = denOICcount.find(y => y.dependencia === entry.dependencia)
+    if (!exists) {
+      denOICcount.push({ dependencia, data: [data] })
+    } else {
+      exists.data.push(data)
+    }
+  })
 
   //************************************************************************* *
   const { onModal } = useUiStore()
@@ -259,8 +230,83 @@ export default function tablero() {
       </div>
       <div className="text-lg md:text-2xl lg:text-3xl font-bold bg-[#BF5854] mt-10 justify-center flex text-white p-3 w-full">Etapa Procesal</div>
       <div className="grid w-full grid-cols-1 p-10 md:grid-cols-3 lg:grid-cols-6">
+        <PopUp title={datamodal.titulo}>
+          <div className="relative flex-auto p-6">
+            <div className="grid grid-cols-2 gap-3 my-4 leading-relaxed text-black text-md">
+              <div className="text-sm rounded-lg shadow-xl">
+                <div className="p-2 font-bold text-center">{datamodal.UIF}</div>
+                <div className="font-bold text-center">{datamodal.totalUIF}</div>
+              </div>
+              <div className="text-sm rounded-lg shadow-xl">
+                <div className="font-bold text-center">{datamodal.OIC}</div>
+                <div className="font-bold text-center">{datamodal.totalOIC}</div>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 gap-3 my-4 text-xs leading-relaxed text-black text-md">
+              <div className="w-full">
+                <div className="flex justify-center w-full p-3 text-lg bg-red-500">
+                  <span><b>Total de UIF:</b></span>&nbsp;&nbsp;{datamodal.totalUIF}</div>
+                <Table hoverable className="text-sm">
+                  <Table.Head>
+                    <Table.HeadCell>
+                      Dependencia
+                    </Table.HeadCell>
+                    <Table.HeadCell>
+                      Total
+                    </Table.HeadCell>
+                  </Table.Head>
+                  <Table.Body className="divide-y">
+                    {
+                      denUIFcount.map((denuncia, index) => (
+                        <Table.Row className="bg-white" key={index}>
+
+                          <Table.Cell className="whitespace-nowrap">
+                            {denuncia.dependencia}
+                          </Table.Cell>
+                          <Table.Cell className='text-center whitespace-nowrap'>
+                            {denuncia.dependencia.length}
+                          </Table.Cell>
+                        </Table.Row>
+                      ))
+                    }
+                  </Table.Body>
+                </Table>
+              </div>
+              <div className="w-full">
+                <div className="flex justify-center w-full p-3 text-lg bg-red-500">
+                  <span><b>Total de OIC:</b></span>&nbsp;&nbsp;{datamodal.totalOIC}
+                </div>
+                <Table hoverable className="text-sm">
+                  <Table.Head>
+                    <Table.HeadCell>
+                      Dependencia
+                    </Table.HeadCell>
+                    <Table.HeadCell>
+                      Total
+                    </Table.HeadCell>
+                  </Table.Head>
+                  <Table.Body className="divide-y">
+                    {
+                      denOICcount.map((denuncia, index) => (
+                        <Table.Row className="bg-white" key={index}>
+
+                          <Table.Cell className="whitespace-nowrap">
+                            {denuncia.dependencia}
+                          </Table.Cell>
+                          <Table.Cell className='text-center whitespace-nowrap'>
+                            {denuncia.dependencia.length}
+                          </Table.Cell>
+                        </Table.Row>
+                      ))
+                    }
+                  </Table.Body>
+                </Table>
+              </div>
+            </div>
+          </div>
+        </PopUp>
         <div>
-          <div className="p-3 m-2 transition duration-300 ease-in-out delay-150 rounded-lg shadow-lg shadow-gray-500 h-min bg-gray-50 hover:-translate-y-1 hover:scale-110 hover:bg-gray-200" onClick={() => handleModal({ titulo: 'Denuncias en Investigacion', UIF: 'UIF', totalUIF: numRowsInvesUIF, OIC: 'OIC', totalOIC: numRowsInvesOIC })}>
+          <div className="p-3 m-2 rounded-lg shadow-lg shadow-gray-500 h-min">
             <div className="flex flex-row w-full p-2">
               <div className="font-semibold text-center">
                 Investigación <br />
@@ -271,21 +317,11 @@ export default function tablero() {
             <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mb-3">
               <div className="bg-[#FFBF00] h-2.5 rounded-full" style={{ width: ((numRowsInvestigacion * 100) / denunciastotal.length) + '%' }}></div>
             </div>
-          </div>
-          <PopUp title={datamodal.titulo}>
-            <div className="relative flex-auto p-6">
-              <div className="grid grid-cols-2 gap-3 my-4 leading-relaxed text-black text-md">
-                <div className="text-sm rounded-lg shadow-xl">
-                  <div className="p-2 font-bold text-center">{datamodal.UIF}</div>
-                  <div className="font-bold text-center">{datamodal.totalUIF}</div>
-                </div>
-                <div className="text-sm rounded-lg shadow-xl">
-                  <div className="font-bold text-center">{datamodal.OIC}</div>
-                  <div className="font-bold text-center">{datamodal.totalOIC}</div>
-                </div>
-              </div>
+            <div className="grid w-full grid-cols-1 md:grid-cols-2">
+              <div className="flex justify-center transition duration-300 ease-in-out delay-150 rounded-full cursor-pointer hover:-translate-y-1 hover:scale-110 hover:bg-gray-200" title="Dependencias" onClick={() => handleModal({ titulo: 'Denuncias en Investigacion por Dependencia', UIF: 'UIF', totalUIF: numRowsInvesUIF, OIC: 'OIC', totalOIC: numRowsInvesOIC, depens: denUIFcount })} ><HiOutlineOfficeBuilding /></div>
+              <div className="flex justify-center transition duration-300 ease-in-out delay-150 rounded-full cursor-pointer hover:-translate-y-1 hover:scale-110 hover:bg-gray-200" title="Estatus" onClick={() => handleModal({ titulo: 'Denuncias en Investigacion por Estatus', UIF: 'UIF', totalUIF: numRowsInvesUIF, OIC: 'OIC', totalOIC: numRowsInvesOIC, depens: denOICcount })} ><HiOutlineClipboardList /></div>
             </div>
-          </PopUp>
+          </div>
         </div>
         <div>
           <div className="p-3 m-2 transition duration-300 ease-in-out delay-150 rounded-lg shadow-lg shadow-gray-500 h-min bg-gray-50 hover:-translate-y-1 hover:scale-110 hover:bg-gray-200" onClick={() => handleModal({ titulo: 'Denuncias en Substanciación', UIF: 'UIF', totalUIF: numRowsSubsUIF, OIC: 'OIC', totalOIC: numRowsSubsOIC })}>
@@ -428,6 +464,12 @@ export default function tablero() {
           </div>
         </div>
       </div >
+      <div className="text-lg md:text-2xl lg:text-3xl font-bold bg-[#BF5854] mt-10 justify-center flex text-white p-3 w-full">Denuncias por Dependencia</div>
+      <div className="flex justify-center w-full p-5">
+        <TableDependencias />
+      </div>
     </>
   )
 }
+
+

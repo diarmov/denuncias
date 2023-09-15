@@ -9,6 +9,7 @@ export const tableroSlice = createSlice({
         atencionoic: [],
         atenciontja: [],
         dependencias: [],
+        depcountuif: [],
         datamodal: {
             titulo: '',
             UIF: '',
@@ -39,12 +40,15 @@ export const tableroSlice = createSlice({
         getDependencias: (state, { payload }) => {
             state.dependencias = payload;
         },
+        getDepcUIF: (state, { payload }) => {
+            state.depcountuif = payload;
+        },
         setDataModal: (state, { payload }) => {
             state.datamodal = payload;
         }
     }
 });
 
-export const { getChart, getTotal, getAtenSFP, getAtenOIC, getAtenTJA, getDependencias, getDepenOIC, setDataModal } = tableroSlice.actions;
+export const { getChart, getTotal, getAtenSFP, getAtenOIC, getAtenTJA, getDependencias, setDataModal, getDepcUIF } = tableroSlice.actions;
 
 

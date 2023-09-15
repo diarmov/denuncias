@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getChart, getAtenOIC, getAtenSFP, getAtenTJA, getTotal, setDataModal, getDependencias } from "../store";
+import { getChart, getAtenOIC, getAtenSFP, getAtenTJA, getTotal, setDataModal, getDependencias, getDepcUIF } from "../store";
 import api from "../config/api";
 import { useUiStore } from "./useUiStore";
 
 export const useTableroStore = () => {
-    const { chart, denunciastotal, atencionsfp, atencionoic, atenciontja, dependencias, datamodal } = useSelector(state => state.tableros)
+    const { chart, denunciastotal, atencionsfp, atencionoic, atenciontja, dependencias, depcountuif, datamodal } = useSelector(state => state.tableros)
     const { onLoading, onNotification, onSetSearch, onModal } = useUiStore()
     const dispatch = useDispatch();
 
@@ -113,6 +113,26 @@ export const useTableroStore = () => {
         }
     }
 
+    const onGetDataDepenCount = async () => {
+        onLoading(true)
+
+        try {
+            const { data } = await api.get(`/dendepcount`);
+            const { tableros, success } = data
+            //console.log('data:', data);
+
+            if (success) {
+                dispatch(getDepcUIF(tableros))
+                //dispatch(getDependencias(tableros))
+                onLoading(false)
+            }
+
+        } catch (error) {
+            console.log(error);
+            onLoading(false)
+        }
+    }
+
 
     const onSetDataModal = (datamodal) => {
         dispatch(setDataModal(datamodal))
@@ -127,6 +147,7 @@ export const useTableroStore = () => {
         atencionoic,
         atenciontja,
         dependencias,
+        depcountuif,
         datamodal,
         onGetDataChart,
         onGetDenunciasTotal,
@@ -134,6 +155,7 @@ export const useTableroStore = () => {
         onGetDataAtencionOIC,
         onGetDataAtencionTJA,
         onGetDataDependencias,
+        onGetDataDepenCount,
         onSetDataModal
     }
 }

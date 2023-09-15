@@ -8,7 +8,7 @@ export const TableDependencias = () => {
     const { dependencias, onGetDataDependencias } = useTableroStore()
     const { search } = useUiStore();
 
-    console.log(dependencias)
+    //console.log(dependencias)
 
 
 
@@ -65,8 +65,8 @@ export const TableDependencias = () => {
                                         </Tooltip>
                                     </Table.Cell>
                                     <Table.Cell className='whitespace-nowrap'>
-                                        <Tooltip content={denuncia.Remitidas}>
-                                            {denuncia.Remitidas}
+                                        <Tooltip content={denuncia.Tramite}>
+                                            {denuncia.Tramite}
                                         </Tooltip>
                                     </Table.Cell>
                                 </Table.Row>

@@ -10,12 +10,13 @@ import { TableDependencias } from "../components/tablero/TableDependencias";
 
 export default function tablero({ onSetSelectedLink, link }) {
 
-  const { denunciastotal, datamodal, onGetDenunciasTotal, onSetDataModal } = useTableroStore()
+  const { denunciastotal, datamodal, depcountuif, onGetDenunciasTotal, onSetDataModal, onGetDataDepenCount } = useTableroStore()
 
   // console.log(denunciastotal);
   useEffect(() => {
     onSetSelectedLink(link)
     if (denunciastotal.length === 0) onGetDenunciasTotal()
+    if (depcountuif.length === 0) onGetDataDepenCount()
   }, [])
   const numRowsIniUIF = denunciastotal.filter(item => item.idOrigen == '2').length
   const numRowsIniOIC = denunciastotal.filter(item => item.idOrigen == '1').length
@@ -95,34 +96,9 @@ export default function tablero({ onSetSelectedLink, link }) {
   const numRowsProceOIC = etapaProceso.filter(item => item.idOrigen == '1').length
   //************************************************************************* *
 
+  const investigation = depcountuif.filter(item => item.Investigacion != '0')
+  const investigationoic = depcountuif.filter(item => item.Investigacion != '0')
 
-
-
-
-  const denUIFcount = [];
-  totInvesUIF.forEach(entry => {
-    const { dependencia } = entry;
-    const data = { dependencia };
-    const exists = denUIFcount.find(y => y.dependencia === entry.dependencia)
-    if (!exists) {
-      denUIFcount.push({ dependencia, data: [data] })
-    } else {
-      exists.data.push(data)
-    }
-  })
-
-
-  const denOICcount = [];
-  totInvesOIC.forEach(entry => {
-    const { dependencia } = entry;
-    const data = { dependencia };
-    const exists = denOICcount.find(y => y.dependencia === entry.dependencia)
-    if (!exists) {
-      denOICcount.push({ dependencia, data: [data] })
-    } else {
-      exists.data.push(data)
-    }
-  })
 
   //************************************************************************* *
   const { onModal } = useUiStore()
@@ -257,14 +233,14 @@ export default function tablero({ onSetSelectedLink, link }) {
                   </Table.Head>
                   <Table.Body className="divide-y">
                     {
-                      denUIFcount.map((denuncia, index) => (
+                      investigation.map((denuncia, index) => (
                         <Table.Row className="bg-white" key={index}>
 
                           <Table.Cell className="whitespace-nowrap">
-                            {denuncia.dependencia}
+                            {denuncia.dependencia}as
                           </Table.Cell>
                           <Table.Cell className='text-center whitespace-nowrap'>
-                            {denuncia.dependencia.length}
+                            {denuncia.Investigacion}
                           </Table.Cell>
                         </Table.Row>
                       ))
@@ -287,14 +263,14 @@ export default function tablero({ onSetSelectedLink, link }) {
                   </Table.Head>
                   <Table.Body className="divide-y">
                     {
-                      denOICcount.map((denuncia, index) => (
+                      investigationoic.map((denuncia, index) => (
                         <Table.Row className="bg-white" key={index}>
 
                           <Table.Cell className="whitespace-nowrap">
                             {denuncia.dependencia}
                           </Table.Cell>
                           <Table.Cell className='text-center whitespace-nowrap'>
-                            {denuncia.dependencia.length}
+                            {denuncia.Investigacion}
                           </Table.Cell>
                         </Table.Row>
                       ))
@@ -318,8 +294,8 @@ export default function tablero({ onSetSelectedLink, link }) {
               <div className="bg-[#FFBF00] h-2.5 rounded-full" style={{ width: ((numRowsInvestigacion * 100) / denunciastotal.length) + '%' }}></div>
             </div>
             <div className="grid w-full grid-cols-1 md:grid-cols-2">
-              <div className="flex justify-center transition duration-300 ease-in-out delay-150 rounded-full cursor-pointer hover:-translate-y-1 hover:scale-110 hover:bg-gray-200" title="Dependencias" onClick={() => handleModal({ titulo: 'Denuncias en Investigacion por Dependencia', UIF: 'UIF', totalUIF: numRowsInvesUIF, OIC: 'OIC', totalOIC: numRowsInvesOIC, depens: denUIFcount })} ><HiOutlineOfficeBuilding /></div>
-              <div className="flex justify-center transition duration-300 ease-in-out delay-150 rounded-full cursor-pointer hover:-translate-y-1 hover:scale-110 hover:bg-gray-200" title="Estatus" onClick={() => handleModal({ titulo: 'Denuncias en Investigacion por Estatus', UIF: 'UIF', totalUIF: numRowsInvesUIF, OIC: 'OIC', totalOIC: numRowsInvesOIC, depens: denOICcount })} ><HiOutlineClipboardList /></div>
+              <div className="flex justify-center transition duration-300 ease-in-out delay-150 rounded-full cursor-pointer hover:-translate-y-1 hover:scale-110 hover:bg-gray-200" title="Dependencias" onClick={() => handleModal({ titulo: 'Denuncias en Investigacion por Dependencia', UIF: 'UIF', totalUIF: numRowsInvesUIF, OIC: 'OIC', totalOIC: numRowsInvesOIC })} ><HiOutlineOfficeBuilding /></div>
+              <div className="flex justify-center transition duration-300 ease-in-out delay-150 rounded-full cursor-pointer hover:-translate-y-1 hover:scale-110 hover:bg-gray-200" title="Estatus" onClick={() => handleModal({ titulo: 'Denuncias en Investigacion por Estatus', UIF: 'UIF', totalUIF: numRowsInvesUIF, OIC: 'OIC', totalOIC: numRowsInvesOIC })} ><HiOutlineClipboardList /></div>
             </div>
           </div>
         </div>

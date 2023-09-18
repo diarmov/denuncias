@@ -10,6 +10,8 @@ export const busquedaSlice = createSlice({
         idTipoFalta:'',
         idDependencia:'',
         idClasificacion:'',
+        fecha_inicio:'',
+        fecha_fin:''
       }
     },
     reducers: {

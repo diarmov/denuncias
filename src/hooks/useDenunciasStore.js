@@ -15,7 +15,7 @@ export const useDenunciasStore = () => {
 
             const { data } = await api.get(`/denuncias?page=${page}`);
             const { denuncias, success } = data
-
+          
             if (success) {
                 dispatch(getDenuncias({ current_page: denuncias.current_page, data: denuncias.data, last_page: denuncias.last_page }))
                 onLoading(false)

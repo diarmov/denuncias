@@ -24,7 +24,7 @@ export const fncBusqueda = () => {
    }
 
    const onGetData = ( tipo ) => {
-      var color = ['#7E212C','skyblue','purple','green','pink','green','orange','aqua','red']
+      var color = ['green','#7E212C','skyblue','purple','pink','green','orange','aqua','red']
       let data = []
       let labels = []
 

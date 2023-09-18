@@ -13,7 +13,7 @@ const Estadisticas = lazy(() => import("../views/Estadisticas"));
 const Denuncias = lazy(() => import("../views/Denuncias"));
 const Resoluciones = lazy(() => import("../views/Resoluciones"));
 const Listado = lazy(() => import("../views/usuarios/Listado"));
-const FormDenuncia = lazy(() => import("../components/denuncias"));
+const FormDenuncia = lazy(() => import("../components/denuncias/FormDenuncia"));
 
 
 

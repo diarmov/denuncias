@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useFormik} from 'formik'
-import { Button, Label } from 'flowbite-react'
+import { Button, Label, TextInput } from 'flowbite-react'
 
 import { useCatalogoStore } from '../hooks/useCatalogoStore'
 import { SelectControl } from '../components/forms'
@@ -12,7 +12,7 @@ export default function Busqueda({ onSetSelectedLink, link }) {
   const { captacion, tipo, dependencia, clasificacion, onGetCatalogos, onGetEstatus  } = useCatalogoStore()
   const { paginate, search, onGetDenuncias, onResetSearch   } = useBusquedaStore()
 
-  const { handleSubmit, values, setValues, setFieldValue  } = useFormik({
+  const { handleSubmit, values, setValues, handleChange, setFieldValue  } = useFormik({
     initialValues: search,      
     onSubmit: async values => {
       await onGetDenuncias( values )
@@ -35,13 +35,17 @@ export default function Busqueda({ onSetSelectedLink, link }) {
       idCaptacion: '',
       idTipoFalta:'',
       idDependencia:'',
-      idClasificacion:''
+      idClasificacion:'',
+      fecha_inicio:'',
+      fecha_fin:''
     })
     setValues({
       idCaptacion: '',
       idTipoFalta:'',
       idDependencia:'',
-      idClasificacion:''
+      idClasificacion:'',
+      fecha_inicio:'',
+      fecha_fin:''
     })
     onResetSearch()
   }
@@ -91,7 +95,27 @@ export default function Busqueda({ onSetSelectedLink, link }) {
                           value={values.idClasificacion}
                           onChange={value=>setFieldValue('idClasificacion', value.value)}
                         />                  
-                      </div>                     
+                      </div>
+
+                      <div>
+                        <Label htmlFor="fecha_inicio" value="Desde"/>
+                        <TextInput      
+                            type="date"
+                            name='fecha_inicio'
+                            onChange={handleChange}
+                            value={values.fecha_inicio}
+                        />
+                      </div>          
+
+                      <div >
+                        <Label htmlFor="fecha_fin" value="Hasta"/>
+                        <TextInput      
+                            type="date"
+                            name='fecha_fin'
+                            onChange={handleChange}
+                            value={values.fecha_fin}
+                        />
+                      </div>           
 
                       <div className='mt-2 w-64'>
                         <div className="flex">

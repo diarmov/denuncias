@@ -38,8 +38,6 @@ export default function Estadisticas({ onSetSelectedLink, link }) {
   }
 
 
-  
-
   return (
     <>
     <div className="flex-wrap justify-center p-3 md:flex md:p-5">
@@ -107,4 +105,5 @@ export default function Estadisticas({ onSetSelectedLink, link }) {
   
     </>
   )
+  
 }

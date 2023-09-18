@@ -71,7 +71,7 @@ const ChangePwd = () => {
      <div className='mt-3'>
        <Button 
          type="submit" 
-         className='ml-2'>
+         className='bg-red-900 hover:bg-red-950 ml-2'>
              Guardar
          </Button>
      </div>

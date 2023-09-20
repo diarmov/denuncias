@@ -1,21 +1,24 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getChart, getAtenOIC, getAtenSFP, getAtenTJA, getTotal, setDataModal, getDependencias, getDepcount, getStatcount } from "../store";
+import { setDataModal, getDependencias, getDataTablero, getDenunciasEtapa, getDenunciasEstatus, getAtenciones } from "../store";
 import api from "../config/api";
 import { useUiStore } from "./useUiStore";
+import { fncTablero } from "../helpers/fncTablero";
+import { fncBusqueda } from "../helpers/fncBusqueda";
 
 export const useTableroStore = () => {
-    const { chart, denunciastotal, atencionsfp, atencionoic, atenciontja, dependencias, depcount, statcount, datamodal } = useSelector(state => state.tableros)
+    const { chart, denunciastotal, atencionsfp, atencionoic, atenciontja, dependencias, depcount, statcount, datamodal, tablero, denunciasEtapa, denunciasEstatus, statusTotales } = useSelector(state => state.tableros)
     const { onLoading } = useUiStore()
+    const { onDataTablero }  = fncTablero()
+    const { onGetData } = fncBusqueda()
     const dispatch = useDispatch();
 
     const onGetDenunciasTotal = async () => {
         try {
             const { data } = await api.get('/denunciastotal');
             const { tableros, success } = data
-            // console.log(data)
 
-            if (success) {
-                dispatch(getTotal(tableros))
+            if (success) {             
+                dispatch( getDataTablero( onDataTablero( tableros )))
                 onLoading(false)
             }
 
@@ -25,14 +28,14 @@ export const useTableroStore = () => {
         }
     }
 
-    const onGetDataChart = async () => {
+
+    const onGetDataAtenciones = async () => {
         try {
-            const { data } = await api.get('/denunciasradicadassfp');
-            const { tableros, success } = data
-            //console.log(denuncias);
-
+            const { data } = await api.get('/atenciones');
+            const { sfp, oic, success } = data
+         
             if (success) {
-                dispatch(getChart(tableros))
+                dispatch( getAtenciones({ sfp: onGetData( sfp ), oic: onGetData( oic ) }) )
                 onLoading(false)
             }
 
@@ -42,56 +45,6 @@ export const useTableroStore = () => {
         }
     }
 
-    const onGetDataAtencionSFP = async () => {
-        try {
-            const { data } = await api.get('/atencionsfp');
-            const { tableros, success } = data
-            //.log('data:', data);
-
-            if (success) {
-                dispatch(getAtenSFP(tableros))
-                onLoading(false)
-            }
-
-        } catch (error) {
-            console.log(error);
-            onLoading(false)
-        }
-    }
-
-    const onGetDataAtencionOIC = async () => {
-        try {
-            const { data } = await api.get('/atencionoic');
-            const { tableros, success } = data
-            //console.log('data:', data);
-
-            if (success) {
-                dispatch(getAtenOIC(tableros))
-                onLoading(false)
-            }
-
-        } catch (error) {
-            console.log(error);
-            onLoading(false)
-        }
-    }
-
-    const onGetDataAtencionTJA = async () => {
-        try {
-            const { data } = await api.get('/atenciontja');
-            const { tableros, success } = data
-            //console.log('data:', data);
-
-            if (success) {
-                dispatch(getAtenTJA(tableros))
-                onLoading(false)
-            }
-
-        } catch (error) {
-            console.log(error);
-            onLoading(false)
-        }
-    }
 
     const onGetDataDependencias = async (page = 1) => {
         onLoading(true)
@@ -113,17 +66,16 @@ export const useTableroStore = () => {
         }
     }
 
-    const onGetDataDepenCount = async (id) => {
+    
+    //funcional
+    const onGetDataDepenCount = async ( id ) => {
         onLoading(true)
-
         try {
             const { data } = await api.get(`/dendepcount/${id}`);
-            const { tableros, success } = data
-            //console.log('data:', data);
+            const { denuncias, success } = data           
 
             if (success) {
-                dispatch(getDepcount(tableros))
-                //dispatch(getDependencias(tableros))
+                dispatch(getDenunciasEtapa(denuncias))
                 onLoading(false)
             }
 
@@ -133,17 +85,17 @@ export const useTableroStore = () => {
         }
     }
 
+    
+    //funcional
     const onGetDataStatCount = async (id) => {
         onLoading(true)
 
         try {
             const { data } = await api.get(`/denestatcount/${id}`);
-            const { tableros, success } = data
-            console.log('data:', data);
+            const { denuncias, totales, success } = data
 
             if (success) {
-                dispatch(getStatcount(tableros))
-                //dispatch(getDependencias(tableros))
+                dispatch(getDenunciasEstatus({denuncias, totales}))
                 onLoading(false)
             }
 
@@ -171,11 +123,16 @@ export const useTableroStore = () => {
         depcount,
         statcount,
         datamodal,
-        onGetDataChart,
+        //
+        tablero,
+        denunciasEtapa,
+        denunciasEstatus,
+        statusTotales,
+
+        //onGetDataChart,
         onGetDenunciasTotal,
-        onGetDataAtencionSFP,
-        onGetDataAtencionOIC,
-        onGetDataAtencionTJA,
+        onGetDataAtenciones,
+        //onGetDataAtencionTJA,
         onGetDataDependencias,
         onGetDataDepenCount,
         onGetDataStatCount,

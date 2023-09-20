@@ -2,14 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const tableroSlice = createSlice({
     name: 'tableros',
-    initialState: {
-        chart: [],
-        denunciastotal: [],
-        atencionsfp: [],
-        atencionoic: [],
-        atenciontja: [],
+    initialState: {  
         dependencias: [],
-        depcount: [],
         datamodal: {
             titulo: '',
             tipo: '',
@@ -17,46 +11,40 @@ export const tableroSlice = createSlice({
             idEtapa: '',
 
         },
-        datamodalstat: {
-            titulo: '',
-            tipo: '',
-            idUbicacion: '',
-            idEtapa: '',
-
-        }
-
+        tablero:{},
+        denunciasEtapa:[],
+        denunciasEstatus:[],
+        statusTotales: {},
+        atencionsfp: [],
+        atencionoic: [],
     },
-    reducers: {
-        getTotal: (state, { payload }) => {
-            state.denunciastotal = payload;
-        },
-        getChart: (state, { payload }) => {
-            state.chart = payload;
-        },
-        getAtenSFP: (state, { payload }) => {
-            state.atencionsfp = payload;
-        },
-        getAtenOIC: (state, { payload }) => {
-            state.atencionoic = payload;
-        },
-        getAtenTJA: (state, { payload }) => {
-            state.atenciontja = payload;
-        },
+    reducers: {        
         getDependencias: (state, { payload }) => {
             state.dependencias = payload;
         },
-        getDepcount: (state, { payload }) => {
-            state.depcount = payload;
-        },
-        getStatcount: (state, { payload }) => {
-            state.statcount = payload;
-        },
         setDataModal: (state, { payload }) => {
             state.datamodal = payload;
-        }
+        },
+        getDataTablero: (state, { payload }) => {
+            state.tablero = payload;
+        },
+        getDenunciasEtapa: (state, { payload }) => {
+            state.denunciasEtapa = payload;
+        },
+        getDenunciasEstatus: (state, { payload }) => {
+            const { denuncias, totales } = payload
+            state.denunciasEstatus = denuncias;
+            state.statusTotales = totales;
+        },
+        getAtenciones: (state, { payload }) => {
+            const { sfp, oic } = payload;
+            state.atencionsfp = sfp;
+            state.atencionoic = oic;
+        },
+
     }
 });
 
-export const { getChart, getTotal, getAtenSFP, getAtenOIC, getAtenTJA, getDependencias, setDataModal, getDepcount, getEstadocount, getStatcount } = tableroSlice.actions;
+export const { getDependencias, setDataModal,  getDataTablero, getDenunciasEtapa, getDenunciasEstatus, getAtenciones } = tableroSlice.actions;
 
 

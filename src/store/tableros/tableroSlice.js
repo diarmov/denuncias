@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const tableroSlice = createSlice({
     name: 'tableros',
-    initialState: {  
+    initialState: {
         dependencias: [],
         datamodal: {
             titulo: '',
@@ -11,14 +11,14 @@ export const tableroSlice = createSlice({
             idEtapa: '',
 
         },
-        tablero:{},
-        denunciasEtapa:[],
-        denunciasEstatus:[],
+        tablero: {},
+        denunciasEtapa: [],
+        denunciasEstatus: [],
         statusTotales: {},
         atencionsfp: [],
         atencionoic: [],
     },
-    reducers: {        
+    reducers: {
         getDependencias: (state, { payload }) => {
             state.dependencias = payload;
         },
@@ -29,7 +29,9 @@ export const tableroSlice = createSlice({
             state.tablero = payload;
         },
         getDenunciasEtapa: (state, { payload }) => {
-            state.denunciasEtapa = payload;
+            const { denuncias, totales } = payload
+            state.denunciasEtapa = denuncias;
+            state.etapaTotales = totales;
         },
         getDenunciasEstatus: (state, { payload }) => {
             const { denuncias, totales } = payload
@@ -45,6 +47,6 @@ export const tableroSlice = createSlice({
     }
 });
 
-export const { getDependencias, setDataModal,  getDataTablero, getDenunciasEtapa, getDenunciasEstatus, getAtenciones } = tableroSlice.actions;
+export const { getDependencias, setDataModal, getDataTablero, getDenunciasEtapa, getDenunciasEstatus, getAtenciones } = tableroSlice.actions;
 
 

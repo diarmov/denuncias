@@ -6,9 +6,9 @@ import { fncTablero } from "../helpers/fncTablero";
 import { fncBusqueda } from "../helpers/fncBusqueda";
 
 export const useTableroStore = () => {
-    const { chart, denunciastotal, atencionsfp, atencionoic, atenciontja, dependencias, depcount, statcount, datamodal, tablero, denunciasEtapa, denunciasEstatus, statusTotales } = useSelector(state => state.tableros)
+    const { chart, denunciastotal, atencionsfp, atencionoic, atenciontja, dependencias, depcount, statcount, datamodal, tablero, denunciasEtapa, etapaTotales, denunciasEstatus, statusTotales } = useSelector(state => state.tableros)
     const { onLoading } = useUiStore()
-    const { onDataTablero }  = fncTablero()
+    const { onDataTablero } = fncTablero()
     const { onGetData } = fncBusqueda()
     const dispatch = useDispatch();
 
@@ -17,8 +17,8 @@ export const useTableroStore = () => {
             const { data } = await api.get('/denunciastotal');
             const { tableros, success } = data
 
-            if (success) {             
-                dispatch( getDataTablero( onDataTablero( tableros )))
+            if (success) {
+                dispatch(getDataTablero(onDataTablero(tableros)))
                 onLoading(false)
             }
 
@@ -33,9 +33,9 @@ export const useTableroStore = () => {
         try {
             const { data } = await api.get('/atenciones');
             const { sfp, oic, success } = data
-         
+
             if (success) {
-                dispatch( getAtenciones({ sfp: onGetData( sfp ), oic: onGetData( oic ) }) )
+                dispatch(getAtenciones({ sfp: onGetData(sfp), oic: onGetData(oic) }))
                 onLoading(false)
             }
 
@@ -66,16 +66,16 @@ export const useTableroStore = () => {
         }
     }
 
-    
+
     //funcional
-    const onGetDataDepenCount = async ( id ) => {
+    const onGetDataDepenCount = async (id) => {
         onLoading(true)
         try {
             const { data } = await api.get(`/dendepcount/${id}`);
-            const { denuncias, success } = data           
+            const { denuncias, totales, success } = data
 
             if (success) {
-                dispatch(getDenunciasEtapa(denuncias))
+                dispatch(getDenunciasEtapa({ denuncias, totales }))
                 onLoading(false)
             }
 
@@ -85,7 +85,7 @@ export const useTableroStore = () => {
         }
     }
 
-    
+
     //funcional
     const onGetDataStatCount = async (id) => {
         onLoading(true)
@@ -95,7 +95,7 @@ export const useTableroStore = () => {
             const { denuncias, totales, success } = data
 
             if (success) {
-                dispatch(getDenunciasEstatus({denuncias, totales}))
+                dispatch(getDenunciasEstatus({ denuncias, totales }))
                 onLoading(false)
             }
 
@@ -126,6 +126,7 @@ export const useTableroStore = () => {
         //
         tablero,
         denunciasEtapa,
+        etapaTotales,
         denunciasEstatus,
         statusTotales,
 

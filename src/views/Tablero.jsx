@@ -7,17 +7,20 @@ import { HiOutlineOfficeBuilding, HiOutlineClipboardList } from 'react-icons/hi'
 import { useUiStore } from "../hooks/useUiStore";
 import { Table } from "flowbite-react";
 import { TableDependencias } from "../components/tablero/TableDependencias";
+import TablaDependenciasPopup from "../components/tablero/TablaDependenciasPopup";
+import TablaEstadosPopup from "../components/tablero/TablaEstadosPopup";
 
 export default function tablero({ onSetSelectedLink, link }) {
 
-  const { denunciastotal, datamodal, depcountuif, onGetDenunciasTotal, onSetDataModal, onGetDataDepenCount } = useTableroStore()
+  const { denunciastotal, datamodal, onGetDenunciasTotal, onSetDataModal } = useTableroStore()
 
   // console.log(denunciastotal);
   useEffect(() => {
     onSetSelectedLink(link)
     if (denunciastotal.length === 0) onGetDenunciasTotal()
-    if (depcountuif.length === 0) onGetDataDepenCount()
   }, [])
+
+
   const numRowsIniUIF = denunciastotal.filter(item => item.idOrigen == '2').length
   const numRowsIniOIC = denunciastotal.filter(item => item.idOrigen == '1').length
 
@@ -30,9 +33,7 @@ export default function tablero({ onSetSelectedLink, link }) {
   const etapaInvestigacion = denunciastotal.filter(item => item.idEtapa == '1')
   const numRowsInvestigacion = etapaInvestigacion.length
   const numRowsInvesUIF = etapaInvestigacion.filter(item => item.idUbicacion != '1').length
-  const totInvesUIF = etapaInvestigacion.filter(item => item.idUbicacion != '1')
   const numRowsInvesOIC = etapaInvestigacion.filter(item => item.idUbicacion == '1').length
-  const totInvesOIC = etapaInvestigacion.filter(item => item.idUbicacion == '1')
   //************************************************************************* */
 
   const etapaSubstanciacion = denunciastotal.filter(item => item.idEtapa == '2')
@@ -96,9 +97,11 @@ export default function tablero({ onSetSelectedLink, link }) {
   const numRowsProceOIC = etapaProceso.filter(item => item.idOrigen == '1').length
   //************************************************************************* *
 
-  const investigation = depcountuif.filter(item => item.Investigacion != '0')
-  const investigationoic = depcountuif.filter(item => item.Investigacion != '0')
+  //const investigation = depcount.filter(item => item.Investigacion != '0')
+  //const investigationoic = depcount.filter(item => item.Investigacion != '0')
 
+
+  //console.log(investado, investadonoic)
 
   //************************************************************************* *
   const { onModal } = useUiStore()
@@ -108,6 +111,7 @@ export default function tablero({ onSetSelectedLink, link }) {
     onModal('default')
 
   }
+
 
   return (
 
@@ -207,79 +211,22 @@ export default function tablero({ onSetSelectedLink, link }) {
       <div className="text-lg md:text-2xl lg:text-3xl font-bold bg-[#BF5854] mt-10 justify-center flex text-white p-3 w-full">Etapa Procesal</div>
       <div className="grid w-full grid-cols-1 p-10 md:grid-cols-3 lg:grid-cols-6">
         <PopUp title={datamodal.titulo}>
-          <div className="relative flex-auto p-6">
-            <div className="grid grid-cols-2 gap-3 my-4 leading-relaxed text-black text-md">
-              <div className="text-sm rounded-lg shadow-xl">
-                <div className="p-2 font-bold text-center">{datamodal.UIF}</div>
-                <div className="font-bold text-center">{datamodal.totalUIF}</div>
-              </div>
-              <div className="text-sm rounded-lg shadow-xl">
-                <div className="font-bold text-center">{datamodal.OIC}</div>
-                <div className="font-bold text-center">{datamodal.totalOIC}</div>
-              </div>
-            </div>
-            <div className="grid grid-cols-1 gap-3 my-4 text-xs leading-relaxed text-black text-md">
-              <div className="w-full">
-                <div className="flex justify-center w-full p-3 text-lg bg-red-500">
-                  <span><b>Total de UIF:</b></span>&nbsp;&nbsp;{datamodal.totalUIF}</div>
-                <Table hoverable className="text-sm">
-                  <Table.Head>
-                    <Table.HeadCell>
-                      Dependencia
-                    </Table.HeadCell>
-                    <Table.HeadCell>
-                      Total
-                    </Table.HeadCell>
-                  </Table.Head>
-                  <Table.Body className="divide-y">
-                    {
-                      investigation.map((denuncia, index) => (
-                        <Table.Row className="bg-white" key={index}>
 
-                          <Table.Cell className="whitespace-nowrap">
-                            {denuncia.dependencia}as
-                          </Table.Cell>
-                          <Table.Cell className='text-center whitespace-nowrap'>
-                            {denuncia.Investigacion}
-                          </Table.Cell>
-                        </Table.Row>
-                      ))
-                    }
-                  </Table.Body>
-                </Table>
-              </div>
-              <div className="w-full">
-                <div className="flex justify-center w-full p-3 text-lg bg-red-500">
-                  <span><b>Total de OIC:</b></span>&nbsp;&nbsp;{datamodal.totalOIC}
-                </div>
-                <Table hoverable className="text-sm">
-                  <Table.Head>
-                    <Table.HeadCell>
-                      Dependencia
-                    </Table.HeadCell>
-                    <Table.HeadCell>
-                      Total
-                    </Table.HeadCell>
-                  </Table.Head>
-                  <Table.Body className="divide-y">
-                    {
-                      investigationoic.map((denuncia, index) => (
-                        <Table.Row className="bg-white" key={index}>
+          {
+            datamodal.tipo === 1
+              ? (
+                <TablaDependenciasPopup
+                  data={datamodal}
+                />
+              )
+              : (
+                <TablaEstadosPopup
+                  data={datamodal}
+                />
+              )
+          }
 
-                          <Table.Cell className="whitespace-nowrap">
-                            {denuncia.dependencia}
-                          </Table.Cell>
-                          <Table.Cell className='text-center whitespace-nowrap'>
-                            {denuncia.Investigacion}
-                          </Table.Cell>
-                        </Table.Row>
-                      ))
-                    }
-                  </Table.Body>
-                </Table>
-              </div>
-            </div>
-          </div>
+
         </PopUp>
         <div>
           <div className="p-3 m-2 rounded-lg shadow-lg shadow-gray-500 h-min">
@@ -294,13 +241,13 @@ export default function tablero({ onSetSelectedLink, link }) {
               <div className="bg-[#FFBF00] h-2.5 rounded-full" style={{ width: ((numRowsInvestigacion * 100) / denunciastotal.length) + '%' }}></div>
             </div>
             <div className="grid w-full grid-cols-1 md:grid-cols-2">
-              <div className="flex justify-center transition duration-300 ease-in-out delay-150 rounded-full cursor-pointer hover:-translate-y-1 hover:scale-110 hover:bg-gray-200" title="Dependencias" onClick={() => handleModal({ titulo: 'Denuncias en Investigacion por Dependencia', UIF: 'UIF', totalUIF: numRowsInvesUIF, OIC: 'OIC', totalOIC: numRowsInvesOIC })} ><HiOutlineOfficeBuilding /></div>
-              <div className="flex justify-center transition duration-300 ease-in-out delay-150 rounded-full cursor-pointer hover:-translate-y-1 hover:scale-110 hover:bg-gray-200" title="Estatus" onClick={() => handleModal({ titulo: 'Denuncias en Investigacion por Estatus', UIF: 'UIF', totalUIF: numRowsInvesUIF, OIC: 'OIC', totalOIC: numRowsInvesOIC })} ><HiOutlineClipboardList /></div>
+              <div className="flex justify-center transition duration-300 ease-in-out delay-150 rounded-full cursor-pointer hover:-translate-y-1 hover:scale-110 hover:bg-gray-200" title="Dependencias" onClick={() => handleModal({ titulo: 'Denuncias en Investigacion por Dependencia', tipo: 1, id: 1 })} ><HiOutlineOfficeBuilding /></div>
+              <div className="flex justify-center transition duration-300 ease-in-out delay-150 rounded-full cursor-pointer hover:-translate-y-1 hover:scale-110 hover:bg-gray-200" title="Estatus" onClick={() => handleModal({ titulo: 'Denuncias en Investigacion por Estatus', tipo: 2, id: 1 })} ><HiOutlineClipboardList /></div>
             </div>
           </div>
         </div>
         <div>
-          <div className="p-3 m-2 transition duration-300 ease-in-out delay-150 rounded-lg shadow-lg shadow-gray-500 h-min bg-gray-50 hover:-translate-y-1 hover:scale-110 hover:bg-gray-200" onClick={() => handleModal({ titulo: 'Denuncias en Substanciación', UIF: 'UIF', totalUIF: numRowsSubsUIF, OIC: 'OIC', totalOIC: numRowsSubsOIC })}>
+          <div className="p-3 m-2 transition duration-300 ease-in-out delay-150 rounded-lg shadow-lg shadow-gray-500 h-min bg-gray-50 hover:-translate-y-1 hover:scale-110 hover:bg-gray-200" onClick={() => handleModal({ titulo: 'Denuncias en Substanciación por Dependencia', tipo: 1, id: 2 })}>
             <div className="flex flex-row w-full p-2">
               <div className="font-semibold text-center">
                 Substanciación <br />

@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getChart, getAtenOIC, getAtenSFP, getAtenTJA, getTotal, setDataModal, getDependencias, getDepcUIF } from "../store";
+import { getChart, getAtenOIC, getAtenSFP, getAtenTJA, getTotal, setDataModal, getDependencias, getDepcount, getStatcount } from "../store";
 import api from "../config/api";
 import { useUiStore } from "./useUiStore";
 
 export const useTableroStore = () => {
-    const { chart, denunciastotal, atencionsfp, atencionoic, atenciontja, dependencias, depcountuif, datamodal } = useSelector(state => state.tableros)
-    const { onLoading, onNotification, onSetSearch, onModal } = useUiStore()
+    const { chart, denunciastotal, atencionsfp, atencionoic, atenciontja, dependencias, depcount, statcount, datamodal } = useSelector(state => state.tableros)
+    const { onLoading } = useUiStore()
     const dispatch = useDispatch();
 
     const onGetDenunciasTotal = async () => {
@@ -113,16 +113,36 @@ export const useTableroStore = () => {
         }
     }
 
-    const onGetDataDepenCount = async () => {
+    const onGetDataDepenCount = async (id) => {
         onLoading(true)
 
         try {
-            const { data } = await api.get(`/dendepcount`);
+            const { data } = await api.get(`/dendepcount/${id}`);
             const { tableros, success } = data
             //console.log('data:', data);
 
             if (success) {
-                dispatch(getDepcUIF(tableros))
+                dispatch(getDepcount(tableros))
+                //dispatch(getDependencias(tableros))
+                onLoading(false)
+            }
+
+        } catch (error) {
+            console.log(error);
+            onLoading(false)
+        }
+    }
+
+    const onGetDataStatCount = async (id) => {
+        onLoading(true)
+
+        try {
+            const { data } = await api.get(`/denestatcount/${id}`);
+            const { tableros, success } = data
+            console.log('data:', data);
+
+            if (success) {
+                dispatch(getStatcount(tableros))
                 //dispatch(getDependencias(tableros))
                 onLoading(false)
             }
@@ -138,6 +158,7 @@ export const useTableroStore = () => {
         dispatch(setDataModal(datamodal))
     }
 
+
     //const onGetDataChart = () => {}
 
     return {
@@ -147,7 +168,8 @@ export const useTableroStore = () => {
         atencionoic,
         atenciontja,
         dependencias,
-        depcountuif,
+        depcount,
+        statcount,
         datamodal,
         onGetDataChart,
         onGetDenunciasTotal,
@@ -156,6 +178,7 @@ export const useTableroStore = () => {
         onGetDataAtencionTJA,
         onGetDataDependencias,
         onGetDataDepenCount,
+        onGetDataStatCount,
         onSetDataModal
     }
 }

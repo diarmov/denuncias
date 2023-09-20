@@ -9,14 +9,19 @@ export const tableroSlice = createSlice({
         atencionoic: [],
         atenciontja: [],
         dependencias: [],
-        depcountuif: [],
+        depcount: [],
         datamodal: {
             titulo: '',
-            UIF: '',
-            totalUIF: '',
-            OIC: '',
-            totalOIC: '',
-            depens: '',
+            tipo: '',
+            idUbicacion: '',
+            idEtapa: '',
+
+        },
+        datamodalstat: {
+            titulo: '',
+            tipo: '',
+            idUbicacion: '',
+            idEtapa: '',
 
         }
 
@@ -40,8 +45,11 @@ export const tableroSlice = createSlice({
         getDependencias: (state, { payload }) => {
             state.dependencias = payload;
         },
-        getDepcUIF: (state, { payload }) => {
-            state.depcountuif = payload;
+        getDepcount: (state, { payload }) => {
+            state.depcount = payload;
+        },
+        getStatcount: (state, { payload }) => {
+            state.statcount = payload;
         },
         setDataModal: (state, { payload }) => {
             state.datamodal = payload;
@@ -49,6 +57,6 @@ export const tableroSlice = createSlice({
     }
 });
 
-export const { getChart, getTotal, getAtenSFP, getAtenOIC, getAtenTJA, getDependencias, setDataModal, getDepcUIF } = tableroSlice.actions;
+export const { getChart, getTotal, getAtenSFP, getAtenOIC, getAtenTJA, getDependencias, setDataModal, getDepcount, getEstadocount, getStatcount } = tableroSlice.actions;
 
 

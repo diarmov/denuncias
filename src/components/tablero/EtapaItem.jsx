@@ -2,10 +2,10 @@ import { HiOutlineOfficeBuilding, HiOutlineClipboardList } from 'react-icons/hi'
 import { useTableroStore } from '../../hooks/useTableroStore';
 import { useUiStore } from '../../hooks/useUiStore';
 
-export const EtapaItem = ({ title, etapa, denuncias, color, id }) => {
-const { onSetDataModal, onGetDataDepenCount, onGetDataStatCount } = useTableroStore()
+export const EtapaItem = ({ title, etapa, denuncias, color, id }) => { 
+  const { onSetDataModal, onGetDataDepenCount, onGetDataStatCount } = useTableroStore()
   const { onModal } = useUiStore()
-  
+
   const handleModal = async( datamodal ) => {
         datamodal.tipo === 1
         ? await onGetDataDepenCount(id)
@@ -26,7 +26,7 @@ const { onSetDataModal, onGetDataDepenCount, onGetDataStatCount } = useTableroSt
             </div>
             {Math.round((etapa * 100) / denuncias) + '%'}
             <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mb-3">
-                <div className={`bg-[${color}] h-2.5 rounded-full`} style={{ width: ((etapa * 100) /  denuncias) + '%' }}></div>
+                <div className={`h-2.5 rounded-full`}  style={{ width: ((etapa * 100) /  denuncias) + '%', background: color }}></div>
             </div>
             <div className="grid w-full grid-cols-1 md:grid-cols-2">
                 <div 

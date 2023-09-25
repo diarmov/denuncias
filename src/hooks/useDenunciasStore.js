@@ -83,12 +83,13 @@ export const useDenunciasStore = () => {
                 onResetDenuncia()
                 onLoading(false)
                 onNotification({ icon: 'success', message: 'Denuncia modificada correctamente' })
+                onSetSearch(false)
             }
 
         } catch (error) {
             console.log(error);
             onLoading(false)
-            onAlert({ open: true, severity: 'error', message: error.response.data.message })
+            onNotification({ open: true, severity: 'error', message: error.response.data.message })
         }
     }
 
@@ -98,6 +99,7 @@ export const useDenunciasStore = () => {
             numExpUif: denuncia.numExpUif ? denuncia.numExpUif : '',
             numExpOic: denuncia.numExpOic ? denuncia.numExpOic : '',
             fechaIniRadi: denuncia.fechaIniRadi,
+            fechaUltiMov: denuncia.fechaUltiMov,
             numExpSubs: denuncia.numExpSubs ? denuncia.numExpSubs : '',
             asunto: denuncia.asunto,
             idOrigen: denuncia.idOrigen,

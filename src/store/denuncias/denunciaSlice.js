@@ -10,6 +10,7 @@ export const denunciaSlice = createSlice({
             numExpOic: '',
             numExpSubs: '',
             fechaIniRadi: '',
+            fechaUltiMov:'',
             asunto: '',
             idCaptacion: '',
             idOrigen: '',
@@ -39,6 +40,7 @@ export const denunciaSlice = createSlice({
                 numExpOic: '',
                 numExpSubs: '',
                 fechaIniRadi: '',
+                fechaUltiMov:'',
                 asunto: '',
                 idCaptacion: '',
                 idOrigen: '',
@@ -49,7 +51,7 @@ export const denunciaSlice = createSlice({
                 idDependencia: '',
                 idUbicacion: '',
                 observacion: '',
-            }
+                }
         },
         getClasificacion: (state, { payload }) => {
             state.clasificacion = payload;
@@ -65,6 +67,7 @@ export const denunciaSlice = createSlice({
                 numExpOic: '',
                 numExpSubs: '',
                 fechaIniRadi: '',
+                fechaUltiMov:'',
                 asunto: '',
                 idCaptacion: '',
                 idOrigen: '',

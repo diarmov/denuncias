@@ -9,7 +9,7 @@ import { useBusquedaStore } from '../hooks/useBusquedaStore'
 
 
 export default function Busqueda({ onSetSelectedLink, link }) {
-  const { captacion, tipo, dependencia, clasificacion, onGetCatalogos, onGetEstatus  } = useCatalogoStore()
+  const { captacion, tipo, dependencia, clasificacion, estatus, onGetCatalogos, onGetEstatus  } = useCatalogoStore()
   const { paginate, search, onGetDenuncias, onResetSearch   } = useBusquedaStore()
 
   const { handleSubmit, values, setValues, handleChange, setFieldValue  } = useFormik({
@@ -26,8 +26,8 @@ export default function Busqueda({ onSetSelectedLink, link }) {
   },[])
 
   useEffect(() => {
-     if( values.idEtapa) onGetEstatus( values.idEtapa )
-  }, [values.idEtapa])
+    if( estatus.length === 0) onGetEstatus( 13 )
+  }, [])
 
 
   const filtersOff = async () => {
@@ -36,16 +36,14 @@ export default function Busqueda({ onSetSelectedLink, link }) {
       idTipoFalta:'',
       idDependencia:'',
       idClasificacion:'',
-      fecha_inicio:'',
-      fecha_fin:''
+      idEstatus:'',
     })
     setValues({
       idCaptacion: '',
       idTipoFalta:'',
       idDependencia:'',
       idClasificacion:'',
-      fecha_inicio:'',
-      fecha_fin:''
+      idEstatus:'',
     })
     onResetSearch()
   }
@@ -97,25 +95,14 @@ export default function Busqueda({ onSetSelectedLink, link }) {
                         />                  
                       </div>
 
-                      <div>
-                        <Label htmlFor="fecha_inicio" value="Desde"/>
-                        <TextInput      
-                            type="date"
-                            name='fecha_inicio'
-                            onChange={handleChange}
-                            value={values.fecha_inicio}
-                        />
-                      </div>          
-
-                      <div >
-                        <Label htmlFor="fecha_fin" value="Hasta"/>
-                        <TextInput      
-                            type="date"
-                            name='fecha_fin'
-                            onChange={handleChange}
-                            value={values.fecha_fin}
-                        />
-                      </div>           
+                      <div className='mt-2'>
+                        <Label htmlFor="idEstatus" value="Estatus actual de la denuncia"/>
+                        <SelectControl 
+                          options={estatus}
+                          value={values.idEstatus}
+                          onChange={value=>setFieldValue('idEstatus', value.value)}
+                        />                       
+                      </div>
 
                       <div className='mt-2 w-64'>
                         <div className="flex">

@@ -29,6 +29,7 @@ const FormDenuncia = () => {
 
     const validations = object({
       fechaIniRadi: string().required('Ingrese la fecha de radicación e inicio'),
+      fechaUltiMov: string().required('Ingrese la fecha de última modificación'),
       asunto: string().required('Ingrese el asunto de la denuncia'),
       idOrigen: string().required('Indicar el origen de la denuncia'),
       idEtapa: string().required('Indicar la etapa de la denuncia'),
@@ -41,15 +42,17 @@ const FormDenuncia = () => {
     const { handleSubmit,  handleChange, values, setFieldValue, touched, errors, resetForm, setValues } = useFormik({
       initialValues: denuncia,      
       onSubmit: async values => {
+        denuncia.id > 0
+        ? await onUpdate( values )
+        : await onStore( values )
+        resetForm()
+        
         if( isTja( active ) || isJfc( active ) )
             navigate('/resoluciones') 
         else
             navigate('/denuncias')
 
-        denuncia.id > 0
-        ? await onUpdate( values )
-        : await onStore( values )
-        resetForm()
+        
       },
       validationSchema: validations
     });
@@ -265,7 +268,19 @@ const FormDenuncia = () => {
                 onChange={value=>setFieldValue('idUbicacion', value.value)}               
               />
                { touched.idUbicacion && errors.idUbicacion ? (<div className='text-sm text-red-600'>{errors.idUbicacion}</div>) : null }
-            </div>  
+            </div> 
+
+            <div>
+              <Label htmlFor="fechaUltiMov" value="Fecha de última modificación"/>
+              <TextInput               
+                  placeholder="Fecha de última modificación"
+                  type="date"
+                  name='fechaUltiMov'
+                  onChange={handleChange}
+                  value={values.fechaUltiMov}
+              />
+              { touched.fechaUltiMov && errors.fechaUltiMov ? (<div className='text-sm text-red-600'>{errors.fechaUltiMov}</div>) : null }
+            </div> 
 
             <div className="col-span-1 md:col-span-3">
               <Label htmlFor="observacion" value="Observaciones"/>
@@ -277,6 +292,7 @@ const FormDenuncia = () => {
                 value={values.observacion}
               />
             </div>
+            
          </div>
 
         {

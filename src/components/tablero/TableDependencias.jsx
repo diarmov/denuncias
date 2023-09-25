@@ -30,7 +30,7 @@ export const TableDependencias = () => {
                             Dependencia
                         </Table.HeadCell>
                         <Table.HeadCell>
-                            Investigadas
+                            Expedientes
                         </Table.HeadCell>
                         <Table.HeadCell>
                             Concluidas
@@ -54,7 +54,7 @@ export const TableDependencias = () => {
                                     </Table.Cell>
                                     <Table.Cell className="text-gray-900 whitespace-nowrap ">
                                         <Tooltip content={denuncia.Investigacion}>
-                                            {denuncia.Investigacion}
+                                            {denuncia.expedientes}
                                         </Tooltip>
                                     </Table.Cell>
                                     <Table.Cell className='whitespace-nowrap'>

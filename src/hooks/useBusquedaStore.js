@@ -13,6 +13,7 @@ export const useBusquedaStore = () => {
     const dispatch = useDispatch();
 
     const onGetDenuncias = async( values ) => {
+        console.log(values);
         onLoading( true )
         try {
             const { data } = await api.post(`/custom-denuncias`, values);

@@ -7,6 +7,11 @@ import { SelectControl } from '../components/forms'
 import { Details, TableBusqueda } from '../components/busqueda'
 import { useBusquedaStore } from '../hooks/useBusquedaStore'
 
+const informes = [
+  {value: 1, label: 'Informe 2021'},
+  {value: 2, label: 'Informe 2022'}
+]
+
 
 export default function Busqueda({ onSetSelectedLink, link }) {
   const { captacion, tipo, dependencia, clasificacion, estatus, onGetCatalogos, onGetEstatus  } = useCatalogoStore()
@@ -36,14 +41,14 @@ export default function Busqueda({ onSetSelectedLink, link }) {
       idTipoFalta:'',
       idDependencia:'',
       idClasificacion:'',
-      idEstatus:'',
+      informe:'',
     })
     setValues({
       idCaptacion: '',
       idTipoFalta:'',
       idDependencia:'',
       idClasificacion:'',
-      idEstatus:'',
+      informe:'',
     })
     onResetSearch()
   }
@@ -96,11 +101,11 @@ export default function Busqueda({ onSetSelectedLink, link }) {
                       </div>
 
                       <div className='mt-2'>
-                        <Label htmlFor="idEstatus" value="Estatus actual de la denuncia"/>
+                        <Label htmlFor="informe" value="# Informe"/>
                         <SelectControl 
-                          options={estatus}
-                          value={values.idEstatus}
-                          onChange={value=>setFieldValue('idEstatus', value.value)}
+                          options={informes}
+                          value={values.informe}
+                          onChange={value=>setFieldValue('informe', value.value)}
                         />                       
                       </div>
 

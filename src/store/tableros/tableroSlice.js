@@ -43,10 +43,26 @@ export const tableroSlice = createSlice({
             state.atencionsfp = sfp;
             state.atencionoic = oic;
         },
+        resetTablero: ( state ) => {
+            state.dependencias = []
+            state.datamodal = {
+                titulo: '',
+                tipo: '',
+                idUbicacion: '',
+                idEtapa: '',
+    
+            }
+            state.tablero = {}
+            state.denunciasEtapa = []
+            state.denunciasEstatus = []
+            state.statusTotales = {}
+            state.atencionsfp = []
+            state.atencionoic = []
+        }
 
     }
 });
 
-export const { getDependencias, setDataModal, getDataTablero, getDenunciasEtapa, getDenunciasEstatus, getAtenciones } = tableroSlice.actions;
+export const { getDependencias, setDataModal, getDataTablero, getDenunciasEtapa, getDenunciasEstatus, getAtenciones, resetTablero } = tableroSlice.actions;
 
 

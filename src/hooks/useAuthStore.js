@@ -13,7 +13,8 @@ import {
          resetAllResoluciones,
          resetAllCatalogos,
          resetAllBusqueda,
-         resetEstadisticas
+         resetEstadisticas,
+         resetTablero
        } from '../store';
 import { useUiStore } from './useUiStore';
 
@@ -46,6 +47,7 @@ export const useAuthStore = () => {
         localStorage.clear();
         dispatch( logout() );
         dispatch( resetAuth() );
+        dispatch( resetTablero() );
         dispatch( resetAllDenuncia() );
         dispatch( resetAllResoluciones() );
         dispatch( resetAllCatalogos() );

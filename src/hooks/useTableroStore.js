@@ -67,7 +67,6 @@ export const useTableroStore = () => {
     }
 
 
-    //funcional
     const onGetDataDepenCount = async (id) => {
         onLoading(true)
         try {
@@ -85,8 +84,6 @@ export const useTableroStore = () => {
         }
     }
 
-
-    //funcional
     const onGetDataStatCount = async (id) => {
         onLoading(true)
 

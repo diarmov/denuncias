@@ -19,6 +19,9 @@ export const fncTablero = () => {
            improcedentes: (denuncias.filter(d => d.idEtapa == 9)).length,
            sobreseimiento: (denuncias.filter(d => d.idEtapa == 10)).length,
            proceso: (denuncias.filter(d => d.idEtapa == 11)).length,
+           //remitidas
+           remitidasuif:(denuncias.filter(d => d.numExpUif !== null && d.numExpOic !== null && d.idOrigen === 1 && d.idEstatus !== 21 )).length,
+           remitidasoic:(denuncias.filter(d => d.numExpUif !== null && d.numExpOic !== null && d.idOrigen === 2 )).length,
         }
    
     }

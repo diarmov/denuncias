@@ -41,6 +41,9 @@ export const TableDependencias = () => {
                         <Table.HeadCell>
                             Activas
                         </Table.HeadCell>
+                        <Table.HeadCell>
+                            Remitidas
+                        </Table.HeadCell>
                     </Table.Head>
                     <Table.Body className="divide-y">
                         {
@@ -67,6 +70,11 @@ export const TableDependencias = () => {
                                     <Table.Cell className='whitespace-nowrap'>
                                         <Tooltip content={denuncia.Tramite}>
                                             {denuncia.Tramite}
+                                        </Tooltip>
+                                    </Table.Cell>
+                                    <Table.Cell className='whitespace-nowrap'>
+                                        <Tooltip content={denuncia.Remitidas}>
+                                            {denuncia.Remitidas}
                                         </Tooltip>
                                     </Table.Cell>
                                 </Table.Row>

@@ -29,36 +29,50 @@ const Tablero = ({ onSetSelectedLink, link }) => {
             <TableroItem 
                 title = 'Total de Denuncias Recibidas'
                 total = { tablero.denuncias }
+                icon = { <HiAnnotation /> }
+                colorIcon = 'text-blue-500 bg-blue-300'
             >
-                <span className='text-2xl text-blue-500 bg-blue-300 rounded-md shadow-sm mr-2 p-2'><HiAnnotation /></span>
+               
             </TableroItem>
 
             <TableroItem 
                 title = 'Denuncias en Iniciadas por UIF'
                 total = {tablero.uif}
-            >
-                <span className='text-2xl text-yellow-400 bg-yellow-100 rounded-md shadow-sm mr-2 p-2'><HiOutlineClipboardList /></span>
+                icon = { <HiOutlineClipboardList /> }
+                colorIcon = 'text-yellow-400 bg-yellow-100 '
+            >    
+            <div className="mt-2 text-base border-t-2 p-1 flex justify-around font-semibold">
+                <span>Remitidas:</span> 
+                <span>{ tablero.remitidasuif}</span>
+            </div>           
             </TableroItem>
 
             <TableroItem 
                 title = 'Denuncias Iniciadas OIC'
                 total = { tablero.oic }
+                icon = { <HiOutlineClipboardList /> }
+                colorIcon = 'text-red-800 bg-red-300 '
             >
-                <span className='text-2xl text-red-800 bg-red-300 rounded-md shadow-sm mr-2 p-2'><HiOutlineClipboardList /></span>
+                <div className="mt-2 text-base border-t-2 p-1 flex justify-around font-semibold">
+                <span>Remitidas:</span> 
+                <span>{ tablero.remitidasoic}</span>
+            </div>
             </TableroItem>
 
             <TableroItem 
                 title = 'Inconformidades'
                 total = { tablero.inconformidades }
+                icon = { <HiOutlineClipboardList /> }
+                colorIcon = 'text-green-500 bg-green-200'
             >
-                <span className='text-2xl text-green-500 bg-green-200 rounded-md shadow-sm mr-2 p-2'><HiOutlineClipboardList /></span>
             </TableroItem>
             
             <TableroItem 
                 title = 'Procesos Administrativos Sancionatorios'
                 total = { tablero.sancionatorios }
+                icon = { <HiOutlineClipboardList /> }
+                colorIcon = 'text-purple-500 bg-purple-200'
             >
-                <span className='text-2xl text-purple-500 bg-purple-200  rounded-md shadow-sm mr-2 p-2'><HiOutlineClipboardList /></span>
             </TableroItem>
         </div>
 

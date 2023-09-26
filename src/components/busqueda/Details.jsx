@@ -17,12 +17,12 @@ export const Details = () => {
           <p>Numero de denuncias a la fecha: <span className='font-semibold'>{details.denuncias}</span></p> <br />
           <span className='font-bold'>En atención por: </span><br />
           <hr />
-          <p>OIC: <span className='font-semibold'>{details.oics}  </span>
-            UIF: <span className='font-semibold'>{details.sfp}  </span>
-            DR: <span className='font-semibold'>{details.dr}  </span>
+          <p>OIC: <span className='font-semibold'>{details.oics}   -   </span>
+            UIF: <span className='font-semibold'>{details.sfp}   -   </span>
+            DR: <span className='font-semibold'>{details.dr}   -   </span>
             DRSP: <span className='font-semibold'>{details.drsp}</span></p>
-          <p>TJA: <span className='font-semibold'>{details.tja}  </span>
-            JFC: <span className='font-semibold'>{details.jfc}  </span>
+          <p>TJA: <span className='font-semibold'>{details.tja}   -   </span>
+            JFC: <span className='font-semibold'>{details.jfc}   -   </span>
             DC: <span className='font-semibold'>{details.dc}</span></p><br />
           <hr />
           <p>Por falta grave: <span className='font-semibold'>{details.grave}</span></p>

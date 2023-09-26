@@ -39,7 +39,7 @@ export const EtapaItem = ({ title, etapa, denuncias, color, id }) => {
                 <div 
                     className="flex justify-center transition duration-300 ease-in-out delay-150 rounded-full cursor-pointer hover:-translate-y-1 hover:scale-110 hover:bg-gray-200" 
                     title="Estatus" 
-                    onClick={() => handleModal({ titulo: `Denuncias en ${ title } por Estatus`, tipo: 2 })} >
+                    onClick={() => handleModal({ titulo: `Denuncias en ${ title } por Estatus`, tipo: 2, idEtapa: id })} >
                     <HiOutlineClipboardList />
                 </div>
             </div>

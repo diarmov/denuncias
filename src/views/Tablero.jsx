@@ -34,7 +34,7 @@ const Tablero = ({ onSetSelectedLink, link }) => {
                 >
                     <div className="flex justify-around p-1 mt-2 text-base font-semibold border-t-2">
                         <span>Remitidas:</span>
-                        <span>{ tablero.remitidasuif + tablero.remitidasoic + "" }</span>
+                        <span>{`${tablero?.remitidasuif + tablero?.remitidasoic}`}</span>
                     </div>
                 </TableroItem>
 

@@ -17,6 +17,7 @@ export const tableroSlice = createSlice({
         statusTotales: {},
         atencionsfp: [],
         atencionoic: [],
+        impugnaciones: 0
     },
     reducers: {
         getDependencias: (state, { payload }) => {
@@ -34,9 +35,10 @@ export const tableroSlice = createSlice({
             state.etapaTotales = totales;
         },
         getDenunciasEstatus: (state, { payload }) => {
-            const { denuncias, totales } = payload
+            const { denuncias, totales, impugnaciones } = payload
             state.denunciasEstatus = denuncias;
             state.statusTotales = totales;
+            state.impugnaciones = impugnaciones;
         },
         getAtenciones: (state, { payload }) => {
             const { sfp, oic } = payload;

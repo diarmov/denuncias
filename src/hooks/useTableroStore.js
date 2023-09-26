@@ -6,7 +6,7 @@ import { fncTablero } from "../helpers/fncTablero";
 import { fncBusqueda } from "../helpers/fncBusqueda";
 
 export const useTableroStore = () => {
-    const { chart, denunciastotal, atencionsfp, atencionoic, atenciontja, dependencias, depcount, statcount, datamodal, tablero, denunciasEtapa, etapaTotales, denunciasEstatus, statusTotales } = useSelector(state => state.tableros)
+    const { atencionsfp, atencionoic, dependencias, datamodal, tablero, denunciasEtapa, etapaTotales, denunciasEstatus, statusTotales, impugnaciones } = useSelector(state => state.tableros)
     const { onLoading } = useUiStore()
     const { onDataTablero } = fncTablero()
     const { onGetData } = fncBusqueda()
@@ -89,10 +89,10 @@ export const useTableroStore = () => {
 
         try {
             const { data } = await api.get(`/denestatcount/${id}`);
-            const { denuncias, totales, success } = data
-
+            const { denuncias, totales, impugnaciones, success } = data
+        
             if (success) {
-                dispatch(getDenunciasEstatus({ denuncias, totales }))
+                dispatch(getDenunciasEstatus({ denuncias, totales, impugnaciones: impugnaciones.total }))
                 onLoading(false)
             }
 
@@ -110,16 +110,12 @@ export const useTableroStore = () => {
 
     //const onGetDataChart = () => {}
 
-    return {
-        chart,
-        denunciastotal,
+    return {  
         atencionsfp,
         atencionoic,
-        atenciontja,
         dependencias,
-        depcount,
-        statcount,
         datamodal,
+        impugnaciones,
         //
         tablero,
         denunciasEtapa,

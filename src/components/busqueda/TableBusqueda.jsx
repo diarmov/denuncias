@@ -53,7 +53,7 @@ export const TableBusqueda = () => {
             Dependencia
           </Table.HeadCell>
           <Table.HeadCell>
-            Origen
+            Ubicación
           </Table.HeadCell>
           <Table.HeadCell>
             Etapa
@@ -77,8 +77,8 @@ export const TableBusqueda = () => {
                     </Table.Cell>
 
                     <Table.Cell className="whitespace-nowrap text-gray-900 ">
-                        <Tooltip content={ denuncia.origen }>
-                            { sizeText( denuncia.origen) }
+                        <Tooltip content={ denuncia.ubicacion }>
+                            { sizeText( denuncia.ubicacion) }
                         </Tooltip>
                     </Table.Cell>
                     <Table.Cell className='whitespace-nowrap'>

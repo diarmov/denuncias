@@ -9,7 +9,8 @@ export const estadisticaSlice = createSlice({
        byOrigen: { data:[], labels:[], color:[] } ,
        estadistica: {
         fecha_inicio: '',
-        fecha_fin: ''
+        fecha_fin: '',
+        informe:'',
        }
     },
     reducers: {
@@ -26,7 +27,8 @@ export const estadisticaSlice = createSlice({
         resetEstadistica: ( state ) => {           
             state.estadistica= {
                 fecha_inicio: '',
-                fecha_fin: ''
+                fecha_fin: '',
+                informe:'',
             }
         },
         resetEstadisticas: ( state ) => {
@@ -36,7 +38,8 @@ export const estadisticaSlice = createSlice({
             state.byOrigen = { data:[], labels:[], color:[] } 
             state.estadistica= {
                 fecha_inicio: '',
-                fecha_fin: ''
+                fecha_fin: '',
+                informe:'',
             }
         },
         

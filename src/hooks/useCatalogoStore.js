@@ -6,7 +6,7 @@ import { setCaptacion, setClasificacion, setDependencia, setEstatus, setEtapa, s
 
 
 export const useCatalogoStore = () => {
-    const { origen, captacion, etapa,  estatus, tipo, clasificacion, dependencia, ubicacion } = useSelector(state => state.catalogos)
+    const { origen, captacion, etapa, estatus, tipo, clasificacion, dependencia, ubicacion, informes } = useSelector(state => state.catalogos)
     const dispatch = useDispatch();
 
     const onGetCatalogos = async() => {
@@ -50,6 +50,7 @@ export const useCatalogoStore = () => {
         clasificacion, 
         dependencia, 
         ubicacion,
+        informes,
 
         onGetCatalogos,
         onGetEstatus

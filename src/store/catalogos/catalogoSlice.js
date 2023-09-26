@@ -10,7 +10,11 @@ export const catalogoSlice = createSlice({
         tipo: [],
         clasificacion: [],
         dependencia: [],
-        ubicacion: []        
+        ubicacion: [],
+        informes: [
+            {value: 1, label: 'Primer Informe'},
+            {value: 2, label: 'Segundo Informe'}
+        ]        
     },
     reducers: {
         setOrigen:  (state, { payload } ) => {

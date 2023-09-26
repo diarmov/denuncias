@@ -7,17 +7,11 @@ import { SelectControl } from '../components/forms'
 import { Details, TableBusqueda } from '../components/busqueda'
 import { useBusquedaStore } from '../hooks/useBusquedaStore'
 
-const informes = [
-  {value: 1, label: 'Informe 2021'},
-  {value: 2, label: 'Informe 2022'}
-]
-
-
 export default function Busqueda({ onSetSelectedLink, link }) {
-  const { captacion, tipo, dependencia, clasificacion, estatus, onGetCatalogos, onGetEstatus  } = useCatalogoStore()
-  const { paginate, search, onGetDenuncias, onResetSearch   } = useBusquedaStore()
+  const { captacion, tipo, dependencia, clasificacion, informes, onGetCatalogos  } = useCatalogoStore()
+  const { paginate, search, onGetDenuncias, onResetSearch } = useBusquedaStore()
 
-  const { handleSubmit, values, setValues, handleChange, setFieldValue  } = useFormik({
+  const { handleSubmit, values, setValues, setFieldValue } = useFormik({
     initialValues: search,      
     onSubmit: async values => {
       await onGetDenuncias( values )
@@ -29,10 +23,6 @@ export default function Busqueda({ onSetSelectedLink, link }) {
     if(paginate.length === 0) onGetDenuncias( values )
     if(captacion.length === 0) onGetCatalogos()
   },[])
-
-  useEffect(() => {
-    if( estatus.length === 0) onGetEstatus( 13 )
-  }, [])
 
 
   const filtersOff = async () => {

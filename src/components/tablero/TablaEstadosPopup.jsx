@@ -5,7 +5,7 @@ import { useTableroStore } from '../../hooks/useTableroStore';
 
 export default function TablaEstadosPopup() {
   const { denunciasEstatus, statusTotales } = useTableroStore()
-  console.log(denunciasEstatus);
+
   return (
     <>
       <div className='flex justify-around'>

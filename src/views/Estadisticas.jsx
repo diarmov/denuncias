@@ -2,18 +2,21 @@ import { useEffect } from 'react';
 import { useFormik} from 'formik'
 import { Button, Label, TextInput } from 'flowbite-react';
 
+import { SelectControl } from '../components/forms'
 import PieChartEstadistica from '../components/PieChartEstadistica';
 import DenunciasxMesChart from '../components/DenunciasxMesChart';
 import OrigenDenunciasChart from '../components/OrigenDenunciasChart';
 import DependenciasMasChart from '../components/DependenciasMasChart';
 import { useEstadisticaStore } from '../hooks/useEstadisticaStore';
+import { useCatalogoStore } from '../hooks/useCatalogoStore';
 
 
 
 export default function Estadisticas({ onSetSelectedLink, link }) {
+  const { informes } = useCatalogoStore()
   const { tipo, estadistica, onGetEstadisticas, onResetEstadistica } = useEstadisticaStore()
 
-  const { handleSubmit, values, handleChange, setValues } = useFormik({
+  const { handleSubmit, values, handleChange, setValues, setFieldValue } = useFormik({
     initialValues: estadistica,      
     onSubmit: async values => {
       await onGetEstadisticas( values )
@@ -28,11 +31,13 @@ export default function Estadisticas({ onSetSelectedLink, link }) {
   const filtersOff = async () => {
     setValues({
       fecha_inicio: '',
-      fecha_fin: ''
+      fecha_fin: '',
+      informe:'',
     })
     await onGetEstadisticas({
       fecha_inicio: '',
-      fecha_fin: ''
+      fecha_fin: '',
+      informe:'',
     })
     onResetEstadistica()
   }
@@ -66,6 +71,15 @@ export default function Estadisticas({ onSetSelectedLink, link }) {
                         value={values.fecha_fin}
                     />
                   </div>
+
+                  <div className='w-72'>
+                      <Label htmlFor="informe" value="# Informe"/>
+                      <SelectControl 
+                        options={informes}
+                        value={values.informe}
+                        onChange={value=>setFieldValue('informe', value.value)}
+                      />                       
+                    </div>
 
                   <div className="flex items-center gap-2">
                         <Button 

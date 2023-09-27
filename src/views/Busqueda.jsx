@@ -8,7 +8,7 @@ import { Details, TableBusqueda } from '../components/busqueda'
 import { useBusquedaStore } from '../hooks/useBusquedaStore'
 
 export default function Busqueda({ onSetSelectedLink, link }) {
-  const { captacion, tipo, dependencia, clasificacion, informes, onGetCatalogos  } = useCatalogoStore()
+  const { captacion, tipo, dependencia, clasificacion, informes, etapa, onGetCatalogos  } = useCatalogoStore()
   const { paginate, search, onGetDenuncias, onResetSearch } = useBusquedaStore()
 
   const { handleSubmit, values, setValues, setFieldValue } = useFormik({
@@ -32,6 +32,7 @@ export default function Busqueda({ onSetSelectedLink, link }) {
       idDependencia:'',
       idClasificacion:'',
       informe:'',
+      idEtapa:''
     })
     setValues({
       idCaptacion: '',
@@ -39,6 +40,7 @@ export default function Busqueda({ onSetSelectedLink, link }) {
       idDependencia:'',
       idClasificacion:'',
       informe:'',
+      idEtapa:''
     })
     onResetSearch()
   }
@@ -96,6 +98,15 @@ export default function Busqueda({ onSetSelectedLink, link }) {
                           options={informes}
                           value={values.informe}
                           onChange={value=>setFieldValue('informe', value.value)}
+                        />                       
+                      </div>
+
+                      <div>
+                        <Label htmlFor="idEtapa" value="Etapa actual de la denuncia"/>
+                        <SelectControl
+                          options={etapa}
+                          value={values.idEtapa}
+                          onChange={value=>setFieldValue('idEtapa', value.value)}
                         />                       
                       </div>
 

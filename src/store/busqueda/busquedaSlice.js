@@ -10,7 +10,8 @@ export const busquedaSlice = createSlice({
         idTipoFalta:'',
         idDependencia:'',
         idClasificacion:'',
-        informe:''
+        informe:'',
+        idEtapa:''
       }
     },
     reducers: {
@@ -29,7 +30,8 @@ export const busquedaSlice = createSlice({
                 idTipoFalta:'',
                 idDependencia:'',
                 idClasificacion:'',
-                informe:''
+                informe:'',
+                idEtapa:''
               }
         },
         resetAllBusqueda: ( state ) => {
@@ -40,7 +42,8 @@ export const busquedaSlice = createSlice({
                 idTipoFalta:'',
                 idDependencia:'',
                 idClasificacion:'',
-                informe:''
+                informe:'',
+                idEtapa:''
             }
         }
     }

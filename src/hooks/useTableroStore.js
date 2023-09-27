@@ -90,7 +90,8 @@ export const useTableroStore = () => {
         try {
             const { data } = await api.get(`/denestatcount/${id}`);
             const { denuncias, totales, impugnaciones, success } = data
-        
+            console.log(data);
+
             if (success) {
                 dispatch(getDenunciasEstatus({ denuncias, totales, impugnaciones: impugnaciones.total }))
                 onLoading(false)
@@ -110,7 +111,7 @@ export const useTableroStore = () => {
 
     //const onGetDataChart = () => {}
 
-    return {  
+    return {
         atencionsfp,
         atencionoic,
         dependencias,

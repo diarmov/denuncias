@@ -8,23 +8,72 @@ export default function TablaDependenciasPopup() {
     return (
         <>
             <div className='flex justify-around'>
-                <div className='text-center'>
-                    <div className='flex justify-center'>
-                        <div className='p-3 bg-red-900 block w-12 h-12 rounded-lg text-center text-white text-1xl shadow-lg font-bold'>
-                            OIC
+                {etapaTotales[0]?.oic != 0 &&
+                    <div className='text-center'>
+                        <div className='flex justify-center'>
+                            <div className='block w-12 h-12 p-3 font-bold text-center text-white bg-red-900 rounded-lg shadow-lg text-1xl'>
+                                OIC
+                            </div>
                         </div>
+                        <p className='mt-3 font-semibold text-center text-gray-700'>{etapaTotales[0]?.oic}</p>
                     </div>
-                    <p className='mt-3 font-semibold text-gray-700 text-center'>{etapaTotales[0]?.oic}</p>
-                </div>
-
-                <div className='text-center'>
-                    <div className='flex justify-center'>
-                        <div className='p-3 bg-red-900 block w-12 h-12 rounded-lg text-center text-white text-1xl shadow-lg font-bold'>
-                            UIF
+                }
+                {etapaTotales[0]?.uif != 0 &&
+                    <div className='text-center'>
+                        <div className='flex justify-center'>
+                            <div className='block w-12 h-12 p-3 font-bold text-center text-white bg-red-900 rounded-lg shadow-lg text-1xl'>
+                                UIF
+                            </div>
                         </div>
+                        <p className='mt-3 font-semibold text-center text-gray-700'>{etapaTotales[0]?.uif}</p>
                     </div>
-                    <p className='mt-3 font-semibold text-gray-700 text-center'>{etapaTotales[0]?.uif}</p>
-                </div>
+                }
+                {etapaTotales[0]?.dr != 0 &&
+                    <div className='text-center'>
+                        <div className='flex justify-center'>
+                            <div className='block w-12 h-12 p-3 font-bold text-center text-white bg-red-900 rounded-lg shadow-lg text-1xl'>
+                                DR
+                            </div>
+                        </div>
+                        <p className='mt-3 font-semibold text-center text-gray-700'>{etapaTotales[0]?.dr}</p>
+                    </div>
+                }
+                {etapaTotales[0]?.drsp != 0 &&
+                    <div className='text-center'>
+                        <div className='flex justify-center'>
+                            <div className='block w-12 h-12 p-1 font-bold text-center text-white bg-red-900 rounded-lg shadow-lg text-1xl'>
+                                DRSP
+                            </div>
+                        </div>
+                        <p className='mt-3 font-semibold text-center text-gray-700'>{etapaTotales[0]?.drsp}</p>
+                    </div>}
+                {etapaTotales[0]?.tja != 0 &&
+                    <div className='text-center'>
+                        <div className='flex justify-center'>
+                            <div className='block w-12 h-12 p-3 font-bold text-center text-white bg-red-900 rounded-lg shadow-lg text-1xl'>
+                                TJA
+                            </div>
+                        </div>
+                        <p className='mt-3 font-semibold text-center text-gray-700'>{etapaTotales[0]?.tja}</p>
+                    </div>}
+                {etapaTotales[0]?.jfc != 0 &&
+                    <div className='text-center'>
+                        <div className='flex justify-center'>
+                            <div className='block w-12 h-12 p-3 font-bold text-center text-white bg-red-900 rounded-lg shadow-lg text-1xl'>
+                                JFC
+                            </div>
+                        </div>
+                        <p className='mt-3 font-semibold text-center text-gray-700'>{etapaTotales[0]?.jfc}</p>
+                    </div>}
+                {etapaTotales[0]?.dc != 0 &&
+                    <div className='text-center'>
+                        <div className='flex justify-center'>
+                            <div className='block w-12 h-12 p-3 font-bold text-center text-white bg-red-900 rounded-lg shadow-lg text-1xl'>
+                                DC
+                            </div>
+                        </div>
+                        <p className='mt-3 font-semibold text-center text-gray-700'>{etapaTotales[0]?.dc}</p>
+                    </div>}
             </div>
             <Table hoverable>
                 <Table.Head>
@@ -32,10 +81,25 @@ export default function TablaDependenciasPopup() {
                         Dependencia
                     </Table.HeadCell>
                     <Table.HeadCell>
-                        Total de OIC
+                        OIC
                     </Table.HeadCell>
                     <Table.HeadCell>
-                        Total de UIF
+                        UIF
+                    </Table.HeadCell>
+                    <Table.HeadCell>
+                        DR
+                    </Table.HeadCell>
+                    <Table.HeadCell>
+                        DRSP
+                    </Table.HeadCell>
+                    <Table.HeadCell>
+                        TJA
+                    </Table.HeadCell>
+                    <Table.HeadCell>
+                        JFC
+                    </Table.HeadCell>
+                    <Table.HeadCell>
+                        DC
                     </Table.HeadCell>
                 </Table.Head>
                 <Table.Body className="divide-y">
@@ -47,12 +111,32 @@ export default function TablaDependenciasPopup() {
                                     {denuncia.dependencia}
                                 </Table.Cell>
 
-                                <Table.Cell className='whitespace-nowrap text-center'>
+                                <Table.Cell className='text-center whitespace-nowrap'>
                                     {denuncia.oic}
                                 </Table.Cell>
 
-                                <Table.Cell className='whitespace-nowrap text-center'>
+                                <Table.Cell className='text-center whitespace-nowrap'>
                                     {denuncia.uif}
+                                </Table.Cell>
+
+                                <Table.Cell className='text-center whitespace-nowrap'>
+                                    {denuncia.dr}
+                                </Table.Cell>
+
+                                <Table.Cell className='text-center whitespace-nowrap'>
+                                    {denuncia.drsp}
+                                </Table.Cell>
+
+                                <Table.Cell className='text-center whitespace-nowrap'>
+                                    {denuncia.tja}
+                                </Table.Cell>
+
+                                <Table.Cell className='text-center whitespace-nowrap'>
+                                    {denuncia.jfc}
+                                </Table.Cell>
+
+                                <Table.Cell className='text-center whitespace-nowrap'>
+                                    {denuncia.dc}
                                 </Table.Cell>
                             </Table.Row>
                         ))

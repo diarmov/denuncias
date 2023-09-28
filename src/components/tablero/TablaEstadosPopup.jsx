@@ -100,27 +100,34 @@ export default function TablaEstadosPopup() {
           <Table.HeadCell>
             Estatus
           </Table.HeadCell>
-          <Table.HeadCell className='text-center whitespace-nowrap'>
-            OIC
-          </Table.HeadCell>
-          <Table.HeadCell className='text-center whitespace-nowrap'>
-            UIF
-          </Table.HeadCell>
-          <Table.HeadCell className='text-center whitespace-nowrap'>
-            DR
-          </Table.HeadCell>
-          <Table.HeadCell className='text-center whitespace-nowrap'>
-            DRSP
-          </Table.HeadCell>
-          <Table.HeadCell className='text-center whitespace-nowrap'>
-            TJA
-          </Table.HeadCell>
-          <Table.HeadCell className='text-center whitespace-nowrap'>
-            JFC
-          </Table.HeadCell>
-          <Table.HeadCell className='text-center whitespace-nowrap'>
-            DC
-          </Table.HeadCell>
+          {statusTotales[0]?.oic != 0 &&
+            <Table.HeadCell className='text-center whitespace-nowrap'>
+              OIC
+            </Table.HeadCell>}
+          {statusTotales[0]?.uif != 0 &&
+            <Table.HeadCell className='text-center whitespace-nowrap'>
+              UIF
+            </Table.HeadCell>}
+          {statusTotales[0]?.dr != 0 &&
+            <Table.HeadCell className='text-center whitespace-nowrap'>
+              DR
+            </Table.HeadCell>}
+          {statusTotales[0]?.drsp != 0 &&
+            <Table.HeadCell className='text-center whitespace-nowrap'>
+              DRSP
+            </Table.HeadCell>}
+          {statusTotales[0]?.tja != 0 &&
+            <Table.HeadCell className='text-center whitespace-nowrap'>
+              TJA
+            </Table.HeadCell>}
+          {statusTotales[0]?.jfc != 0 &&
+            <Table.HeadCell className='text-center whitespace-nowrap'>
+              JFC
+            </Table.HeadCell>}
+          {statusTotales[0]?.dc != 0 &&
+            <Table.HeadCell className='text-center whitespace-nowrap'>
+              DC
+            </Table.HeadCell>}
         </Table.Head>
         <Table.Body className="divide-y">
           {
@@ -131,27 +138,34 @@ export default function TablaEstadosPopup() {
                   {denuncia.estatus}
                 </Table.Cell>
 
-                <Table.Cell className='text-center whitespace-nowrap'>
-                  {denuncia.oic}
-                </Table.Cell>
-                <Table.Cell className='text-center whitespace-nowrap'>
-                  {denuncia.uif}
-                </Table.Cell>
-                <Table.Cell className='text-center whitespace-nowrap'>
-                  {denuncia.dr}
-                </Table.Cell>
-                <Table.Cell className='text-center whitespace-nowrap'>
-                  {denuncia.drsp}
-                </Table.Cell>
-                <Table.Cell className='text-center whitespace-nowrap'>
-                  {denuncia.tja}
-                </Table.Cell>
-                <Table.Cell className='text-center whitespace-nowrap'>
-                  {denuncia.jfc}
-                </Table.Cell>
-                <Table.Cell className='text-center whitespace-nowrap'>
-                  {denuncia.dc}
-                </Table.Cell>
+                {statusTotales[0]?.oic != 0 &&
+                  <Table.Cell className='text-center whitespace-nowrap'>
+                    {denuncia.oic}
+                  </Table.Cell>}
+                {statusTotales[0]?.uif != 0 &&
+                  <Table.Cell className='text-center whitespace-nowrap'>
+                    {denuncia.uif}
+                  </Table.Cell>}
+                {statusTotales[0]?.dr != 0 &&
+                  <Table.Cell className='text-center whitespace-nowrap'>
+                    {denuncia.dr}
+                  </Table.Cell>}
+                {statusTotales[0]?.drsp != 0 &&
+                  <Table.Cell className='text-center whitespace-nowrap'>
+                    {denuncia.drsp}
+                  </Table.Cell>}
+                {statusTotales[0]?.tja != 0 &&
+                  <Table.Cell className='text-center whitespace-nowrap'>
+                    {denuncia.tja}
+                  </Table.Cell>}
+                {statusTotales[0]?.jfc != 0 &&
+                  <Table.Cell className='text-center whitespace-nowrap'>
+                    {denuncia.jfc}
+                  </Table.Cell>}
+                {statusTotales[0]?.dc != 0 &&
+                  <Table.Cell className='text-center whitespace-nowrap'>
+                    {denuncia.dc}
+                  </Table.Cell>}
               </Table.Row>
             ))
           }

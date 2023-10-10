@@ -1,5 +1,6 @@
 import { HiFolderOpen, HiOutlineServer } from 'react-icons/hi';
 import { useBusquedaStore } from '../../hooks/useBusquedaStore';
+import { Tooltip } from 'flowbite-react';
 
 export const Details = () => {
   const { details } = useBusquedaStore()
@@ -22,7 +23,7 @@ export const Details = () => {
             DR: <span className='font-semibold'>{details.dr}      </span></p>
           <p> DRSP: <span className='font-semibold'>{details.drsp}</span>
             TJA: <span className='font-semibold'>{details.tja}      </span>
-            JFC: <span className='font-semibold'>{details.jfc}     </span>
+            JEC: <span className='font-semibold'>{details.jfc}     </span>
             DC: <span className='font-semibold'>{details.dc}</span></p><br />
           <hr />
           <p>Por falta grave: <span className='font-semibold'>{details.grave}</span></p>
@@ -42,14 +43,21 @@ export const Details = () => {
         <p className='mt-3 font-semibold text-center text-gray-700'>Por Etapa</p>
         <div className='grid grid-cols-2 mt-3 text-sm text-left'>
           <div>Investigación: <span className='ml-2 font-semibold'>{details.investigacion}</span></div>
+          <div>Acumuladas: <span className='ml-2 font-semibold'>{details.acumuladas}</span></div>
+          <div>En proceso de alta: <span className='ml-2 font-semibold'>{details.alta}</span></div>
           <div>Substanciación: <span className='ml-2 font-semibold'>{details.substanciacion}</span> </div>
           <div>En Resolución: <span className='ml-2 font-semibold'>{details.resolucion}</span></div>
           <div>Resolución o Sentencia: <span className='ml-2 font-semibold'>{details.resSent}</span></div>
-          <div>Impugnación: <span className='ml-2 font-semibold'>{details.impugnacion}</span></div>
+          <div>
+          <Tooltip content={`De los ${details.impugnacion} expedientes se Generaron ${details.impugnaciones} impugnaciones`}>
+              Impugnación: <span className='ml-2 font-semibold'>{details.impugnacion}</span>
+          </Tooltip>
+          
+          </div>
           <div>Amparo: <span className='ml-2 font-semibold'>{details.amparo}</span></div>
           <div>Firme: <span className='ml-2 font-semibold'>{details.firme}</span></div>
           <div>Conclusión y Archivo: <span className='ml-2 font-semibold'>{details.conArch}</span></div>
-          <div>Inprocedentes: <span className='ml-2 font-semibold'>{details.inprocedentes}</span></div>
+          <div>Improcedentes: <span className='ml-2 font-semibold'>{details.inprocedentes}</span></div>
           <div>Sobreseimiento: <span className='ml-2 font-semibold'>{details.Sobreseimiento}</span></div>
           <div>En Proceso: <span className='ml-2 font-semibold'>{details.proceso}</span></div>
         </div>

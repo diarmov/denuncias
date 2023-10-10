@@ -6,12 +6,14 @@ import { useCatalogoStore } from '../hooks/useCatalogoStore'
 import { SelectControl } from '../components/forms'
 import { Details, TableBusqueda } from '../components/busqueda'
 import { useBusquedaStore } from '../hooks/useBusquedaStore'
+import { useAuthStore } from '../hooks/useAuthStore'
 
 export default function Busqueda({ onSetSelectedLink, link }) {
   const { captacion, tipo, dependencia, clasificacion, informes, etapa, onGetCatalogos  } = useCatalogoStore()
   const { paginate, search, onGetDenuncias, onResetSearch } = useBusquedaStore()
+  const { active } = useAuthStore()
 
-  const { handleSubmit, values, setValues, setFieldValue } = useFormik({
+  const { handleSubmit, values, setValues, handleChange, setFieldValue } = useFormik({
     initialValues: search,      
     onSubmit: async values => {
       await onGetDenuncias( values )
@@ -32,7 +34,8 @@ export default function Busqueda({ onSetSelectedLink, link }) {
       idDependencia:'',
       idClasificacion:'',
       informe:'',
-      idEtapa:''
+      idEtapa:'',
+      asunto:''
     })
     setValues({
       idCaptacion: '',
@@ -40,7 +43,8 @@ export default function Busqueda({ onSetSelectedLink, link }) {
       idDependencia:'',
       idClasificacion:'',
       informe:'',
-      idEtapa:''
+      idEtapa:'',
+      asunto:''
     })
     onResetSearch()
   }
@@ -109,6 +113,21 @@ export default function Busqueda({ onSetSelectedLink, link }) {
                           onChange={value=>setFieldValue('idEtapa', value.value)}
                         />                       
                       </div>
+
+                      {
+                        (active?.role === 'subsecretario') && ( 
+                          <div>
+                            <Label htmlFor="asunto" value="Asunto/Motivo/Denominacion"/>
+                            <TextInput               
+                                placeholder="Indique el Asunto/Motivo/Denominacion"
+                                type="text"
+                                name='asunto'
+                                onChange={handleChange}
+                                value={values.asunto}
+                            />                      
+                          </div>
+                        )
+                    }
 
                       <div className='mt-2 w-64'>
                         <div className="flex">

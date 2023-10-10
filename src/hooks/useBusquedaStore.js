@@ -13,15 +13,16 @@ export const useBusquedaStore = () => {
     const dispatch = useDispatch();
 
     const onGetDenuncias = async( values ) => {
+        console.log(values);
         onLoading( true )
         try {
             const { data } = await api.post(`/custom-denuncias`, values);
-            const { denuncias, paginate, success } = data
+            const { denuncias, impugnaciones, paginate, success } = data
           
             if( success ){
                 dispatch( setCustomSearch( values ) )
                 dispatch( setCustomPaginate( paginate ) )
-                dispatch( setDetails(  onDetails(denuncias) ) )
+                dispatch( setDetails(  onDetails(denuncias, impugnaciones.total) ) )
                 onLoading( false )
             }
           

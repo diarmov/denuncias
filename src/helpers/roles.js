@@ -10,6 +10,11 @@ export const roles = () => {
            return true
     }
 
+    const isSubsecretario = ( user ) => {
+        if(user?.role === 'subsecretario')
+           return true
+    }
+
     const isDenuncia= ( user ) => {
         if(user?.role === 'OIC' || user?.role === 'UIF' || user?.role === 'DR' || user?.role === 'DRSP' || user?.role === 'DC')
            return true
@@ -58,6 +63,7 @@ export const roles = () => {
   return {
     isRoot,
     isTitular,
+    isSubsecretario,
     isDenuncia,
     isResolucion,
     isOic,   

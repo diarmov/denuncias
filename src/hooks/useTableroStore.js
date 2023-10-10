@@ -90,7 +90,6 @@ export const useTableroStore = () => {
         try {
             const { data } = await api.get(`/denestatcount/${id}`);
             const { denuncias, totales, impugnaciones, success } = data
-            console.log(data);
 
             if (success) {
                 dispatch(getDenunciasEstatus({ denuncias, totales, impugnaciones: impugnaciones.total }))

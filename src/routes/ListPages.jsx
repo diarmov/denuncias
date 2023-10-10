@@ -18,7 +18,7 @@ const FormDenuncia = lazy(() => import("../components/denuncias/FormDenuncia"));
 
 
 const ListPages = () => {
-    const {  isRoot, isTitular, isDenuncia, isResolucion} = roles() 
+    const {  isRoot, isTitular, isSubsecretario, isDenuncia, isResolucion} = roles() 
     const { active } = useAuthStore()
     const { onSetSelectedLink } = useUiStore()
 
@@ -30,7 +30,14 @@ const ListPages = () => {
           {title: 'Busqueda', icon: <HiSearch />, link:'busqueda', component: <Busqueda {...{onSetSelectedLink, link:'busqueda'}}/> },
           {title: 'Tipo de Denuncia', icon: <HiAnnotation />, link:'tipo', component: <Tipo {...{onSetSelectedLink, link:'tipo'}}/> },
           {title: 'Estadisticas', icon: <HiChartSquareBar />, link:'estadisticas', component: <Estadisticas {...{onSetSelectedLink, link:'estadisticas'}}/> },
-        ] : [],        
+        ] : [],  
+        
+        ...isSubsecretario(active)  ? [
+          {title: 'Tablero', icon: <HiInbox />, link:'tablero', component: <Tablero {...{onSetSelectedLink, link:'tablero'}}/> },
+          {title: 'Busqueda', icon: <HiSearch />, link:'busqueda', component: <Busqueda {...{onSetSelectedLink, link:'busqueda'}}/> },
+          {title: 'Tipo de Denuncia', icon: <HiAnnotation />, link:'tipo', component: <Tipo {...{onSetSelectedLink, link:'tipo'}}/> },
+          {title: 'Estadisticas', icon: <HiChartSquareBar />, link:'estadisticas', component: <Estadisticas {...{onSetSelectedLink, link:'estadisticas'}}/> },
+        ] : [],  
       
         ...isDenuncia(active)  ? [
           {title: 'Denuncias', icon: <HiFolderOpen />, link:'denuncias', component: <Denuncias {...{onSetSelectedLink, link:'denuncias'}}/> },

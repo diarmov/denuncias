@@ -1,6 +1,6 @@
 export const fncBusqueda = () => {
 
-   const onDetails = (denuncias) => {
+   const onDetails = (denuncias, impugnaciones) => {
       return {
          denuncias: denuncias.length,
          oics: (denuncias.filter(d => d.idUbicacion === 1)).length,
@@ -13,11 +13,14 @@ export const fncBusqueda = () => {
          grave: (denuncias.filter(d => d.idTipoFalta === 1)).length,
          noGrave: (denuncias.filter(d => d.idTipoFalta === 2)).length,
          ambos: (denuncias.filter(d => d.idTipoFalta === 3)).length,
-         investigacion: (denuncias.filter(d => d.idEtapa === 1)).length,
+         investigacion: (denuncias.filter(d => d.idEtapa === 1  && d.idEstatus !== 21 && d.idEstatus !== 18)).length,
+         acumuladas: (denuncias.filter(d => d.idEtapa === 1  && d.idEstatus === 21)).length,
+         alta: (denuncias.filter(d => d.idEtapa === 1  && d.idEstatus === 18)).length,
          substanciacion: (denuncias.filter(d => d.idEtapa === 2)).length,
          resolucion: (denuncias.filter(d => d.idEtapa === 3)).length,
          resSent: (denuncias.filter(d => d.idEtapa === 4)).length,
          impugnacion: (denuncias.filter(d => d.idEtapa === 5)).length,
+         impugnaciones,
          amparo: (denuncias.filter(d => d.idEtapa === 6)).length,
          firme: (denuncias.filter(d => d.idEtapa === 7)).length,
          conArch: (denuncias.filter(d => d.idEtapa === 8)).length,

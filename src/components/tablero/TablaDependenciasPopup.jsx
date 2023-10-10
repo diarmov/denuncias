@@ -80,64 +80,70 @@ export default function TablaDependenciasPopup() {
                     <Table.HeadCell>
                         Dependencia
                     </Table.HeadCell>
-                    <Table.HeadCell>
-                        OIC
-                    </Table.HeadCell>
-                    <Table.HeadCell>
-                        UIF
-                    </Table.HeadCell>
-                    <Table.HeadCell>
-                        DR
-                    </Table.HeadCell>
-                    <Table.HeadCell>
-                        DRSP
-                    </Table.HeadCell>
-                    <Table.HeadCell>
-                        TJA
-                    </Table.HeadCell>
-                    <Table.HeadCell>
-                        JFC
-                    </Table.HeadCell>
-                    <Table.HeadCell>
-                        DC
-                    </Table.HeadCell>
+                    {etapaTotales[0]?.oic != 0 &&
+                        <Table.HeadCell>
+                            OIC
+                        </Table.HeadCell>}
+                    {etapaTotales[0]?.uif != 0 &&
+                        <Table.HeadCell>
+                            UIF
+                        </Table.HeadCell>}
+                    {etapaTotales[0]?.dr != 0 &&
+                        <Table.HeadCell>
+                            DR
+                        </Table.HeadCell>}
+                    {etapaTotales[0]?.drsp != 0 &&
+                        <Table.HeadCell>
+                            DRSP
+                        </Table.HeadCell>}
+                    {etapaTotales[0]?.tja != 0 &&
+                        <Table.HeadCell>
+                            TJA
+                        </Table.HeadCell>}
+                    {etapaTotales[0]?.jfc != 0 &&
+                        <Table.HeadCell>
+                            JFC
+                        </Table.HeadCell>}
+                    {etapaTotales[0]?.dc != 0 &&
+                        <Table.HeadCell>
+                            DC
+                        </Table.HeadCell>}
                 </Table.Head>
                 <Table.Body className="divide-y">
                     {
                         denunciasEtapa.map((denuncia, index) => (
                             <Table.Row className="bg-white" key={index}>
-
                                 <Table.Cell className="whitespace-nowrap">
                                     {denuncia.dependencia}
                                 </Table.Cell>
-
-                                <Table.Cell className='text-center whitespace-nowrap'>
-                                    {denuncia.oic}
-                                </Table.Cell>
-
-                                <Table.Cell className='text-center whitespace-nowrap'>
-                                    {denuncia.uif}
-                                </Table.Cell>
-
-                                <Table.Cell className='text-center whitespace-nowrap'>
-                                    {denuncia.dr}
-                                </Table.Cell>
-
-                                <Table.Cell className='text-center whitespace-nowrap'>
-                                    {denuncia.drsp}
-                                </Table.Cell>
-
-                                <Table.Cell className='text-center whitespace-nowrap'>
-                                    {denuncia.tja}
-                                </Table.Cell>
-
-                                <Table.Cell className='text-center whitespace-nowrap'>
-                                    {denuncia.jfc}
-                                </Table.Cell>
-
-                                <Table.Cell className='text-center whitespace-nowrap'>
-                                    {denuncia.dc}
-                                </Table.Cell>
+                                {etapaTotales[0]?.oic != 0 &&
+                                    <Table.Cell className='text-center whitespace-nowrap'>
+                                        {denuncia.oic}
+                                    </Table.Cell>}
+                                {etapaTotales[0]?.uif != 0 &&
+                                    <Table.Cell className='text-center whitespace-nowrap'>
+                                        {denuncia.uif}
+                                    </Table.Cell>}
+                                {etapaTotales[0]?.dr != 0 &&
+                                    <Table.Cell className='text-center whitespace-nowrap'>
+                                        {denuncia.dr}
+                                    </Table.Cell>}
+                                {etapaTotales[0]?.drsp != 0 &&
+                                    <Table.Cell className='text-center whitespace-nowrap'>
+                                        {denuncia.drsp}
+                                    </Table.Cell>}
+                                {etapaTotales[0]?.tja != 0 &&
+                                    <Table.Cell className='text-center whitespace-nowrap'>
+                                        {denuncia.tja}
+                                    </Table.Cell>}
+                                {etapaTotales[0]?.jfc != 0 &&
+                                    <Table.Cell className='text-center whitespace-nowrap'>
+                                        {denuncia.jfc}
+                                    </Table.Cell>}
+                                {etapaTotales[0]?.dc != 0 &&
+                                    <Table.Cell className='text-center whitespace-nowrap'>
+                                        {denuncia.dc}
+                                    </Table.Cell>}
                             </Table.Row>
                         ))
                     }

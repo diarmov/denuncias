@@ -89,17 +89,17 @@ const Denuncias = ({ onSetSelectedLink, link }) => {
                   <Table.Row className="bg-white" key={ index }>
                     <Table.Cell className="whitespace-nowrap text-gray-900 ">
                         {
-                          denuncia.numExpOic !== '' && (
-                            <Tooltip content={ denuncia.numExpOic }>
-                                { sizeText( denuncia.numExpOic) }
+                          denuncia.folio !== '' && (
+                            <Tooltip content={ denuncia.folio }>
+                                { sizeText( denuncia.folio) }
                             </Tooltip>
                           )
                         }
 
                         {
-                          denuncia.numExpUif !== '' && (
-                            <Tooltip content={ denuncia.numExpUif }>
-                                { sizeText( denuncia.numExpUif) }
+                          denuncia.folio_origen !== '' && (
+                            <Tooltip content={ denuncia.folio_origen }>
+                                { sizeText( denuncia.folio_origen) }
                             </Tooltip>
                           )
                         }

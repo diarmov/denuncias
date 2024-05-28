@@ -6,7 +6,8 @@ import { useUiStore } from "../hooks/useUiStore";
 import { TableTipo } from "../components/tipos";
 
 const images = ['cohecho','desacato','nepotismo','abuso_funciones','desvio_recursos','obstruccion_justicia','obstruccion_justicia','encubrimiento',
-                'simulacion_acto','contratacion_indebida','enriquecimiento_oculto','trafico_influencias','utilizacion_indebida_informaci','violaciones','omision','peculado'
+                'simulacion_acto','contratacion_indebida','enriquecimiento_oculto','trafico_influencias','utilizacion_indebida_informaci','violaciones','omision','peculado',
+                'obstruccion','violaciones','omision','faltas_graves','soborno','participacion_ilicita','trafico_influencias','informacion_falsa','colusion','cohecho','nepotismo'
                ]
 
 export default function Tipo({ onSetSelectedLink, link }) {

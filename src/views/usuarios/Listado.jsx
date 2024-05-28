@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import { Table, Pagination, Button, Tooltip } from 'flowbite-react';
+import { Table, Button, Tooltip } from 'flowbite-react';
 import { HiPlusCircle, HiPencil, HiOutlineCheck, HiOutlineBan } from 'react-icons/hi';
 
-import { PopUp, Search } from '../../components/ui';
+import { PopUp } from '../../components/ui';
 import { useUsersStore } from '../../hooks/useUsersStore';
 import { useUiStore } from '../../hooks/useUiStore';
 import { FormUsers } from '../../components/Users/FormUsers';

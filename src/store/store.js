@@ -13,7 +13,7 @@ export const store = configureStore({
         estadisticas: estadisticaSlice.reducer,
         tableros: tableroSlice.reducer,
     },
-    devTools: false,
+    devTools: true,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false
     })

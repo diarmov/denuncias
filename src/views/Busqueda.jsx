@@ -105,7 +105,7 @@ export default function Busqueda({ onSetSelectedLink, link }) {
                         />                       
                       </div>
 
-                      <div>
+                      <div className='mt-2'>
                         <Label htmlFor="idEtapa" value="Etapa actual de la denuncia"/>
                         <SelectControl
                           options={etapa}
@@ -115,8 +115,8 @@ export default function Busqueda({ onSetSelectedLink, link }) {
                       </div>
 
                       {
-                        (active?.role === 'subsecretario') && ( 
-                          <div>
+                        (active?.role === 'subsecretario' || active?.role === 'root') && ( 
+                          <div className='mt-2'>
                             <Label htmlFor="asunto" value="Asunto/Motivo/Denominacion"/>
                             <TextInput               
                                 placeholder="Indique el Asunto/Motivo/Denominacion"

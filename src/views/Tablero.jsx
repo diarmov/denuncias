@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react'
 import { useTableroStore } from '../hooks/useTableroStore'
 import { TableroItem, EtapaItem, TableDependencias } from '../components/tablero'
-import { HiAnnotation, HiOutlineClipboardList } from 'react-icons/hi';
+import { HiAnnotation, HiOutlineClipboardList, HiOutlineCloudDownload } from 'react-icons/hi';
 import LinesChartDenuncias from '../components/LinesChartDenuncias';
 import TablaDependenciasPopup from '../components/tablero/TablaDependenciasPopup';
 import TablaEstadosPopup from '../components/tablero/TablaEstadosPopup';
 import { PopUp } from '../components/ui';
+import { Button, Tooltip } from 'flowbite-react';
 
 
 const Tablero = ({ onSetSelectedLink, link }) => {
-    const { datamodal, tablero, onGetDenunciasTotal } = useTableroStore()
+    const { datamodal, tablero, onGetDenunciasTotal, onSyncDenuncias } = useTableroStore()
+
 
     useEffect(() => {
         onSetSelectedLink(link)
@@ -182,6 +184,14 @@ const Tablero = ({ onSetSelectedLink, link }) => {
             <div className="text-lg md:text-2xl lg:text-3xl font-bold bg-[#BF5854] mt-10 justify-center flex text-white p-3 w-full">Denuncias por Dependencia</div>
             <div className="flex justify-center w-full p-5">
                 <TableDependencias />
+            </div>
+
+            <div className='fixed bottom-32 right-12'>
+                <Tooltip content="Actualizar Denuncias">
+                    <Button onClick={onSyncDenuncias}>
+                        <HiOutlineCloudDownload className="h-6 w-6" />
+                    </Button>
+                </Tooltip>
             </div>
         </>
     )

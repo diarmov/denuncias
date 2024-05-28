@@ -9,7 +9,7 @@ export const useUsersStore = () => {
     const { onLoading, onNotification, onModal } = useUiStore()
     const dispatch = useDispatch();
 
-    const onGetUser = async( page = 1 ) => {
+    const onGetUser = async() => {
         onLoading( true )
         try {
             const { data } = await api.get(`/users`);

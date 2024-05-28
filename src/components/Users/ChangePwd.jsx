@@ -25,7 +25,7 @@ const ChangePwd = () => {
         
     }
 
-    const { handleSubmit,  handleChange, values, setFieldValue, touched, errors, resetForm, setValues } = useFormik({
+    const { handleSubmit,  handleChange, values, touched, errors, resetForm } = useFormik({
         initialValues: {
             action: 'change-pass',
             password:'',

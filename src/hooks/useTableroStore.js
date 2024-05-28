@@ -16,7 +16,7 @@ export const useTableroStore = () => {
         try {
             const { data } = await api.get('/denunciastotal');
             const { tableros, success } = data
-
+      
             if (success) {
                 dispatch(getDataTablero(onDataTablero(tableros)))
                 onLoading(false)
@@ -27,7 +27,6 @@ export const useTableroStore = () => {
             onLoading(false)
         }
     }
-
 
     const onGetDataAtenciones = async () => {
         try {
@@ -97,7 +96,6 @@ export const useTableroStore = () => {
             }
 
         } catch (error) {
-            console.log(error);
             onLoading(false)
         }
     }
@@ -105,6 +103,23 @@ export const useTableroStore = () => {
 
     const onSetDataModal = (datamodal) => {
         dispatch(setDataModal(datamodal))
+    }
+
+    const onSyncDenuncias  = async () => {
+        onLoading(true)
+        try {
+            const { data } = await api.get(`/expedientes`);
+            const { denuncias, success, tableros } = data
+             
+            if (success) {
+                dispatch(getDataTablero(onDataTablero(denuncias)))
+                dispatch(getDependencias({ current_page: tableros.current_page, data: tableros.data, last_page: tableros.last_page }))
+                onLoading(false)            
+            }
+
+        } catch (error) {
+            onLoading(false)
+        }
     }
 
 
@@ -130,7 +145,8 @@ export const useTableroStore = () => {
         onGetDataDependencias,
         onGetDataDepenCount,
         onGetDataStatCount,
-        onSetDataModal
+        onSetDataModal,     
+        onSyncDenuncias   
     }
 }
 

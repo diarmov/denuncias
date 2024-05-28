@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useTableroStore } from '../hooks/useTableroStore'
 import { TableroItem, EtapaItem, TableDependencias } from '../components/tablero'
 import { HiAnnotation, HiOutlineClipboardList, HiOutlineCloudDownload } from 'react-icons/hi';
@@ -36,7 +36,12 @@ const Tablero = ({ onSetSelectedLink, link }) => {
                 >
                     <div className="flex justify-around p-1 mt-2 text-base font-semibold border-t-2">
                         <span>Remitidas:</span>
-                        <span>{`${tablero?.remitidasuif + tablero?.remitidasoic}`}</span>
+                        {
+                          !!tablero?.remitidasuif || !!tablero?.remitidasoic && (
+                            <span>{`${tablero?.remitidasuif + tablero?.remitidasoic}`}</span>
+                          )
+
+                        }
                     </div>
                 </TableroItem>
 

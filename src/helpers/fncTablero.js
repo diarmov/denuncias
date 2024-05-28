@@ -20,8 +20,8 @@ export const fncTablero = () => {
            sobreseimiento: (denuncias.filter(d => d.idEtapa == 10)).length,
            proceso: (denuncias.filter(d => d.idEtapa == 11)).length,
            //remitidas
-           remitidasuif:(denuncias.filter(d => d.numExpUif !== null && d.numExpOic !== null && d.idOrigen === 1 && d.idEstatus !== 21 )).length,
-           remitidasoic:(denuncias.filter(d => d.numExpUif !== null && d.numExpOic !== null && d.idOrigen === 2 )).length,
+           remitidasuif:(denuncias.filter(d => d.folio_origen?.includes('UI') && d.idEstatus !== 21 )).length,
+           remitidasoic:(denuncias.filter(d => d.folio_origen?.includes('OIC')  )).length,
         }
    
     }

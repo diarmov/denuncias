@@ -1,5 +1,5 @@
 
-import { Pagination, Table, Tooltip } from 'flowbite-react';
+import { Table } from 'flowbite-react';
 import { useTableroStore } from '../../hooks/useTableroStore';
 
 export default function TablaDependenciasPopup() {

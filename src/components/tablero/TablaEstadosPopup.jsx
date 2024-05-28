@@ -1,5 +1,4 @@
 import { Alert, Table } from 'flowbite-react';
-import { HiFolderOpen, HiOutlineServer } from 'react-icons/hi';
 
 import { useTableroStore } from '../../hooks/useTableroStore';
 
